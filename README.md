@@ -4,4 +4,10 @@ GameHub is een webproject waar gebruikers videogames kunnen ontdekken en vergeki
 
 DIT IS TEST 1
 
+<<<<<<< HEAD
 test-Jason
+=======
+dit is test 3
+
+zekmf,zemk,f
+>>>>>>> origin/main
