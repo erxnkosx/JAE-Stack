@@ -6,31 +6,44 @@
     <title>login page</title>
     <link rel="stylesheet" href="./src/output.css">
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
     
 </head>
-<body class="bg-indigo-900 text-white min-h-screen flex items-center justify-center ">
+<body class="bg-black text-white min-h-screen flex items-center justify-center relative overflow-hidden">
 
-    <main class="w-full max-w-md p-4 ">
+    <section class="absolute inset-0 -z-1">
+    <div class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl "></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl "></div>
+    <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl "></div>
+</section>
+
+    <main class="w-full max-w-md p-4 relative z-10">
         <header class=" text-center mb-10 ">
-            <div class=" w-16 h-16 bg-blue-700 rounded-2xl mx-auto mb-4 flex items-center justify-center shadow-lg ">
-                <span class=" text-2xl ">🎮</span>
+            <div class=" w-18 h-18 bg-gradient-to-br from-cyan-500 via-purple-500 to-pink-500 rounded-2xl mx-auto mb-4 p-2 flex items-center justify-center shadow-lg/50 shadow-white/50 ">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M21.2206 8C20.5311 5.81603 19.4281 4.63486 18.0908 4.16059C17.7099 4.02549 17.3016 4 16.8974 4H16.2849C15.4074 4 14.5514 4.27225 13.8351 4.77922L13.3332 5.13441C12.9434 5.41029 12.4776 5.55844 12 5.55844C11.5225 5.55844 11.0567 5.41029 10.6669 5.13443L10.165 4.77922C9.44862 4.27225 8.59264 4 7.71504 4H7.10257C6.69838 4 6.29009 4.02549 5.90915 4.16059C3.52645 5.00566 1.88749 8.09504 2.00604 15.1026C2.02992 16.5145 2.3603 18.075 3.63423 18.6842C4.03121 18.8741 4.49667 19 5.02671 19C5.66273 19 6.1678 18.8187 6.55763 18.5632C7.47153 17.9642 8.14122 16.9639 9.11125 16.4609C9.69519 16.1581 10.3434 16 11.0011 16H12.9989C13.6566 16 14.3048 16.1581 14.8888 16.4609C15.8588 16.9639 16.5285 17.9642 17.4424 18.5632C17.8322 18.8187 18.3373 19 18.9733 19C19.5033 19 19.9688 18.8741 20.3658 18.6842C21.6397 18.075 21.9701 16.5145 21.994 15.1026C22.0132 13.9681 21.9863 12.9362 21.9176 12" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M7.5 9V12M6 10.5L9 10.5" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"></path> <path d="M19 10.25C19 10.6642 18.6642 11 18.25 11C17.8358 11 17.5 10.6642 17.5 10.25C17.5 9.83579 17.8358 9.5 18.25 9.5C18.6642 9.5 19 9.83579 19 10.25Z" fill="#ffffff"></path> <path d="M16 10.25C16 10.6642 15.6642 11 15.25 11C14.8358 11 14.5 10.6642 14.5 10.25C14.5 9.83579 14.8358 9.5 15.25 9.5C15.6642 9.5 16 9.83579 16 10.25Z" fill="#ffffff"></path> <path d="M16.75 8C17.1642 8 17.5 8.33579 17.5 8.75C17.5 9.16421 17.1642 9.5 16.75 9.5C16.3358 9.5 16 9.16421 16 8.75C16 8.33579 16.3358 8 16.75 8Z" fill="#ffffff"></path> <path d="M16.75 11C17.1642 11 17.5 11.3358 17.5 11.75C17.5 12.1642 17.1642 12.5 16.75 12.5C16.3358 12.5 16 12.1642 16 11.75C16 11.3358 16.3358 11 16.75 11Z" fill="#ffffff"></path> </g></svg>
             </div>
-            <h1 class="text-4xl font-bold">GameHub</h1>
-            <p class="mt-2">welcome back gamer</p>
+            <h1 class="text-4xl font-bold bg-linear-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent ">GameHub</h1>
+            <p class="mt-2 text-slate-500 ">welcome back gamer</p>
         </header>
-        <section class="bg-gray-800 p-8 rounded-[2rem]">
+        <section class=" bg-white/5 backdrop-blur-md p-8 rounded-[2rem] border border-white/10 ">
             <form action="#" method="post" class="flex flex-col gap-2 p-2">
-                <label for="email" class=" text-xs font-bold uppercase ">email</label>
-                <input type="email" name="email" id="email" placeholder="your@email.com" required
-                class=" w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 mb-5 ">
-                <label for="password" class=" text-xs font-bold uppercase ">password</label>
-                <input type="password" name="password" id="password" placeholder="password" required
-                class=" w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 mb-7 ">
+                <label for="email" class=" text-xs font-bold uppercase text-cyan-500 ">email</label>
+                <section class=" relative ">
+                    <input type="email" name="email" id="email" placeholder="your@email.com" required
+                    class=" w-full pl-10 bg-white/10 border border-white/10 rounded-xl pr-4 py-3 mb-5 placeholder-slate-500 ">
+                    <svg class=" w-4 h-4 absolute top-4.5 left-3 text-cyan-500 " height="200px" width="200px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="currentColor"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path class="st0" d="M510.678,112.275c-2.308-11.626-7.463-22.265-14.662-31.054c-1.518-1.915-3.104-3.63-4.823-5.345 c-12.755-12.818-30.657-20.814-50.214-20.814H71.021c-19.557,0-37.395,7.996-50.21,20.814c-1.715,1.715-3.301,3.43-4.823,5.345 C8.785,90.009,3.63,100.649,1.386,112.275C0.464,116.762,0,121.399,0,126.087V385.92c0,9.968,2.114,19.55,5.884,28.203 c3.497,8.26,8.653,15.734,14.926,22.001c1.59,1.586,3.169,3.044,4.892,4.494c12.286,10.175,28.145,16.32,45.319,16.32h369.958 c17.18,0,33.108-6.145,45.323-16.384c1.718-1.386,3.305-2.844,4.891-4.43c6.27-6.267,11.425-13.741,14.994-22.001v-0.064 c3.769-8.653,5.812-18.171,5.812-28.138V126.087C512,121.399,511.543,116.762,510.678,112.275z M46.509,101.571 c6.345-6.338,14.866-10.175,24.512-10.175h369.958c9.646,0,18.242,3.837,24.512,10.175c1.122,1.129,2.179,2.387,3.112,3.637 L274.696,274.203c-5.348,4.687-11.954,7.002-18.696,7.002c-6.674,0-13.276-2.315-18.695-7.002L43.472,105.136 C44.33,103.886,45.387,102.7,46.509,101.571z M36.334,385.92V142.735L176.658,265.15L36.405,387.435 C36.334,386.971,36.334,386.449,36.334,385.92z M440.979,420.597H71.021c-6.281,0-12.158-1.651-17.174-4.552l147.978-128.959 l13.815,12.018c11.561,10.046,26.028,15.134,40.36,15.134c14.406,0,28.872-5.088,40.432-15.134l13.808-12.018l147.92,128.959 C453.137,418.946,447.26,420.597,440.979,420.597z M475.666,385.92c0,0.529,0,1.051-0.068,1.515L335.346,265.221L475.666,142.8 V385.92z" stroke="currentColor" stroke-width="15"></path> </g> </g></svg>
+                </section>
+                <label for="password" class=" text-xs font-bold uppercase text-cyan-500 ">password</label>
+                <section class="relative">
+                    <input type="password" name="password" id="password" placeholder="password" required
+                    class=" w-full pl-10 bg-white/10 border border-white/10 rounded-xl pr-4 py-3 mb-5 placeholder-slate-500 ">
+                    <svg class="w-4 h-4 absolute top-4.5 left-3 text-cyan-500 " viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </section>
+                <button type="submit" class=" bg-linear-to-r from-purple-500 to-pink-500 hover:brightness-110 rounded-xl  px-4 py-3 mt-5 mb-6 shadow-lg ">login</button>
 
-                <button type="submit" class=" bg-blue-700 hover:bg-blue-900 border border-blue-500 rounded-xl  px-4 py-3 mb-6 shadow-lg ">login</button>
-
-                <p class=" flex items-center justify-center gap-1 ">Don't have a account yet?<a href="#" class=" hover:underline ">Sign up </a></p>
+                <p class=" text-slate-500 flex items-center justify-center gap-1 ">Don't have an account yet?<a href="#" class=" hover:underline ">Sign up </a></p>
                 
             </form>
         </section>
