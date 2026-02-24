@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./src/output.css">
+
+    <title>GameHub</title>
+  </head>
+  <body class="relative">
+    <section class="fixed inset-0 -z-10 will-change-transform">
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-black via-purple-950/20 to-black"
+      ></div>
+      <div
+        class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-float"
+      ></div>
+      <div
+        class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-float"
+      ></div>
+      <div
+        class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-float"
+      ></div>
+    </section>
+
+    <main
+      class="animate-fadeIn relative overflow-hidden max-h-screen py-16 px-30 flex flex-col items-center"
+    >
+      <section class="flex flex-col items-center">
+        <h1 class="text-5xl font-black gradient-text mb-6 animate-gradient">
+          Welcome to GameHub
+        </h1>
+        <p class="text-slate-400 text-xl font-light">
+          Select your gaming universe
+        </p>
+      </section>
+      <!--    group relative glass-strong rounded-3xl overflow-hidden aspect-[4/5] -->
+      <section
+        class="w-full h-screen mt-16 sm:mt-24 lg:mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <article
+          class="group h-full neon-cyan-hover relative ring-2 ring-white/10 hover:ring-cyan-500/50 transition-all duration-700 hover:scale-105 hover:-translate-y-4 overflow-hidden rounded-3xl flex flex-col p-4 bg-[url('https://images.unsplash.com/photo-1633499737221-5e3406d4d952?w=800')] bg-cover bg-center bg-no-repeat before:absolute before:content-[''] before:inset-0 before:bg-linear-to-t before:from-black before:via-black/80 before:to-black/40"
+        >
+          <span
+            class="absolute top-3 right-3 px-3 py-1.5 bg-linear-to-r from-cyan-500 to-purple-500 text-white text-[15px] rounded-full font-bold shadow-xl animate-pulse"
+            >Active</span
+          >
+          <section class="mt-auto z-10">
+            <h3
+              class="text-xl sm:text-2xl lg:text-3xl font-black text-white mb-2 group-hover:text-transparent bg-clip-text bg-linear-to-r from-cyan-300 to-purple-300 transition-colors duration-700"
+            >
+              GameHub
+            </h3>
+            <p class="text-slate-300 text-xs lg:mb-4 font-light">
+              Discover and collect your favorite games
+            </p>
+            <a
+              href="/login"
+              class="relative overflow-hidden flex w-full justify-center gap-2 text-white text-xs font-semibold rounded-xl bg-linear-to-r from-cyan-500 via-purple-500 to-pink-500 animate-gradient py-2 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:translate-x-[-200%] hover:before:translate-x-[200%] before:transition-transform before:duration-700"
+              >Enter Universe
+              <svg
+                class="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                stroke="#000000"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M5 12H19M19 12L13 6M19 12L13 18"
+                    stroke="#ffffff"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </g></svg
+            ></a>
+          </section>
+        </article>
+        <article
+          class="not-available relative ring-2 z-10 overflow-hidden ring-white/10 rounded-3xl bg-[url('https://images.unsplash.com/photo-1639234912114-71f8c6d58ba8?q=80&w=1268&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center bg-no-repeat before:absolute before:content-[''] before:inset-0 before:bg-linear-to-t before:from-black/80 before:via-black/50 before:to-black/20 before:-z-1"
+        >
+          <section
+            class="h-full z-10 flex flex-col items-center justify-center gap-6"
+          >
+            <span
+              class="absolute top-3 right-3 px-3 py-1.5 glass text-slate-500 text-[15px] rounded-full font-semibold"
+              >Coming Soon</span
+            >
+            <svg
+              class="w-15 h-15"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </g>
+            </svg>
+            <section>
+              <h3 class="text-2xl font-bold text-slate-500 mb-3 text-center">
+                LegoMasters
+              </h3>
+              <p class="text-slate-500 text-center">Build your World</p>
+            </section>
+          </section>
+        </article>
+        <article
+          class="not-available relative z-5 overflow-hidden ring-2 ring-white/10 rounded-3xl bg-[url('https://images.unsplash.com/photo-1525362081669-2b476bb628c3?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center bg-no-repeat before:absolute before:content-[''] before:inset-0 before:bg-linear-to-t before:from-black before:via-black/60 before:to-black/20 before:-z-1"
+        >
+          <section
+            class="h-full z-5 flex flex-col items-center justify-center gap-6"
+          >
+            <span
+              class="absolute top-3 right-3 px-3 py-1.5 glass text-slate-500 text-[15px] rounded-full font-semibold"
+              >Coming Soon</span
+            >
+            <svg
+              class="w-15 h-15"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M7 10.0288C7.47142 10 8.05259 10 8.8 10H15.2C15.9474 10 16.5286 10 17 10.0288M7 10.0288C6.41168 10.0647 5.99429 10.1455 5.63803 10.327C5.07354 10.6146 4.6146 11.0735 4.32698 11.638C4 12.2798 4 13.1198 4 14.8V16.2C4 17.8802 4 18.7202 4.32698 19.362C4.6146 19.9265 5.07354 20.3854 5.63803 20.673C6.27976 21 7.11984 21 8.8 21H15.2C16.8802 21 17.7202 21 18.362 20.673C18.9265 20.3854 19.3854 19.9265 19.673 19.362C20 18.7202 20 17.8802 20 16.2V14.8C20 13.1198 20 12.2798 19.673 11.638C19.3854 11.0735 18.9265 10.6146 18.362 10.327C18.0057 10.1455 17.5883 10.0647 17 10.0288M7 10.0288V8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8V10.0288"
+                  stroke="#ffffff"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </g>
+            </svg>
+            <section>
+              <h3 class="text-2xl font-bold text-slate-500 mb-3 text-center">
+                MusicMatch
+              </h3>
+              <p class="text-slate-500 text-center">
+                Organize your music library
+              </p>
+            </section>
+          </section>
+        </article>
+      </section>
+      <section
+        class="pop-up-container pointer-events-none transition-all opacity-0 duration-500 fixed z-1000 inset-0 bg-black/40 backdrop-blur-lg flex items-center justify-center"
+      >
+        <section
+          class="pop-up-card w-80 h-40 rounded-2xl transition-all opacity-0 glass-strong neon-cyan flex flex-col items-center justify-center text-2xl text-slate-500 font-black gradient-text animate-gradient"
+        >
+          <button
+            class="pop-up-close absolute right-3 top-3 p-2 rounded-2xl backdrop-blur-xl transition-all duration-500 glass text-slate-400 hover:text-white hover:scale-105"
+          >
+            <svg
+              class="w-2.5 h-2.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
+                  fill="currentColor"
+                ></path>
+              </g>
+            </svg>
+          </button>
+          Coming soon...
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
