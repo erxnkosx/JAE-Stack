@@ -1,0 +1,84 @@
+[
+  {
+    "id": 1,
+    "title": "The Witcher 3",
+    "releaseDate": "2015-05-19",
+    "description": "An open-world RPG set in a dark fantasy universe.",
+    "platforms": ["PC", "PlayStation 4", "Xbox One", "Nintendo Switch"],
+    "cover": "https://gaming-cdn.com/images/products/943/orig/the-witcher-3-wild-hunt-xbox-one-xbox-series-x-s-spel-microsoft-store-europe-cover.jpg?v=1730907873"
+  },
+  {
+    "id": 2,
+    "title": "God of War",
+    "releaseDate": "2018-04-20",
+    "description": "An action-adventure game based on Norse mythology.",
+    "platforms": ["PlayStation 4", "PlayStation 5", "PC"],
+    "cover": "https://gaming-cdn.com/images/products/7325/616x353/god-of-war-pc-spel-steam-europe-cover.jpg?v=1744715989"
+  },
+  {
+    "id": 3,
+    "title": "Red Dead Redemption 2",
+    "releaseDate": "2018-10-26",
+    "description": "An epic western adventure in an open world.",
+    "platforms": ["PC", "PlayStation 4", "Xbox One"],
+    "cover": "https://gaming-cdn.com/images/products/5679/616x353/red-dead-redemption-2-pc-spel-rockstar-cover.jpg?v=1713793245"
+  },
+  {
+    "id": 4,
+    "title": "Elden Ring",
+    "releaseDate": "2022-02-25",
+    "description": "A challenging action RPG set in a vast fantasy world.",
+    "platforms": ["PC", "PlayStation 4", "PlayStation 5", "Xbox One", "Xbox Series X"],
+    "cover": "https://gaming-cdn.com/images/products/4824/616x353/elden-ring-pc-steam-cover.jpg?v=1750231653"
+  },
+  {
+    "id": 5,
+    "title": "Horizon Zero Dawn",
+    "releaseDate": "2017-02-28",
+    "description": "A post-apocalyptic world ruled by machines.",
+    "platforms": ["PlayStation 4", "PC"],
+    "cover": "https://gaming-cdn.com/images/products/17853/616x353/horizon-zero-dawn-remastered-pc-spel-steam-europe-cover.jpg?v=1730739100"
+  },
+  {
+    "id": 6,
+    "title": "Cyberpunk 2077",
+    "releaseDate": "2020-12-10",
+    "description": "An open-world RPG set in a futuristic city.",
+    "platforms": ["PC", "PlayStation 4", "PlayStation 5", "Xbox One", "Xbox Series X"],
+    "cover": "https://gaming-cdn.com/images/products/840/616x353/cyberpunk-2077-pc-spel-gog-com-cover.jpg?v=1748447631"
+  },
+  {
+    "id": 7,
+    "title": "Spider-Man",
+    "releaseDate": "2018-09-07",
+    "description": "An action game featuring Marvel's Spider-Man.",
+    "platforms": ["PlayStation 4", "PlayStation 5", "PC"],
+    "cover": "https://gaming-cdn.com/images/products/11907/616x353/marvel-s-spider-man-remastered-pc-spel-steam-cover.jpg?v=1697644479"
+  },
+  {
+    "id": 8,
+    "title": "The Last of Us Part II",
+    "releaseDate": "2020-06-19",
+    "description": "A story-driven action-adventure game.",
+    "platforms": ["PlayStation 4", "PlayStation 5"],
+    "cover": "https://gaming-cdn.com/images/products/6215/616x353/the-last-of-us-part-ii-remastered-pc-steam-cover.jpg?v=1750336184"
+  },
+  {
+    "id": 9,
+    "title": "Assassin's Creed Valhalla",
+    "releaseDate": "2020-11-10",
+    "description": "A Viking-themed open-world adventure.",
+    "platforms": ["PC", "PlayStation 4", "PlayStation 5", "Xbox One", "Xbox Series X"],
+    "cover": "https://gaming-cdn.com/images/products/6147/616x353/assassin-s-creed-valhalla-pc-spel-ubisoft-connect-europe-cover.jpg?v=1709130520"
+    
+  },
+  {
+    "id": 10,
+    "title": "Baldur's Gate 3",
+    "releaseDate": "2023-08-03",
+    "description": "A next-generation RPG set in the Dungeons & Dragons universe.",
+    "platforms": ["PC", "PlayStation 5", "Xbox Series X"],
+    "cover": "https://gaming-cdn.com/images/products/4804/616x353/baldur-s-gate-3-pc-spel-gog-com-cover.jpg?v=1710239606"
+    
+  }
+]
