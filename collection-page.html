@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>collection page</title>
+    <link rel="stylesheet" href="./src/output.css">
+    <link rel="stylesheet" href="./src/input.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+</head>
+<body class="bg-black text-white min-h-screen relative overflow-hidden">
+    <section class="absolute inset-0 -z-1">
+        <div class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl "></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl "></div>
+        <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl "></div>
+    </section>
+    <nav class="relative flex items-center justify-between px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10">
+        <div class="flex items-center  gap-12">
+            <h1 class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+                GameHub
+            </h1>
+            <div class="hidden md:flex gap-6 text-slate-500 font-medium">
+                <a href="#" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white">Discover</a>
+                <a href="#" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white ">Collection</a>
+                <a href="#" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white">Compare</a>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-4">
+            <button class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition">
+                <span class="text-cyan-400 text-sm">✦</span>
+                <span class="text-sm font-semibold">Guess Game</span>
+            </button>
+            <button class="text-gray-400 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+    <main class="relative px-24 mt-12">
+        <header class="flex justify-between mb-8">
+            <div>
+                <h2 class="text-5xl font-extrabold mb-2">My Collection</h2>
+                <p class="text-cyan-400 font-medium"><span class="font-bold">0</span> games in your library</p>
+            </div>
+            
+            <div class="flex bg-[#0f172a] p-1 rounded-xl border border-gray-800 h-12 my-auto">
+                <button class="p-2 bg-blue-500/20 text-blue-400 rounded-lg">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                </button>
+                <button class="p-2 text-slate-500 hover:text-gray-300">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+        </header>
+
+        <div class="flex items-center text-slate-500 gap-4 mb-12">
+            <button class="p-2 text-cyan-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg></button>
+            <button class="px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold hover:border-gray-600 transition">All (0)</button>
+            <button class="px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold hover:border-gray-600 transition">Backlog (0)</button>
+            <button class="px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold hover:border-gray-600 transition">Playing (0)</button>
+        </div>
+
+        <div class="flex flex-col items-center justify-center py-32">
+            <p class="text-slate-500 text-lg mb-6">No games in this category</p>
+            <button class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-2xl transition shadow-lg shadow-purple-500/20">
+                Discover Games
+            </button>
+        </div>
+
+    </main>
+</body>
+</html>
