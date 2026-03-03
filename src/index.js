@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.querySelector(".pop-up-container");
+  const container = document.querySelector(".pop-up-container");
   const card = document.querySelector(".pop-up-card");
   const closeButton = document.querySelector(".pop-up-close");
   const lockedProjects = document.querySelectorAll(".not-available");
 
-  if (!modal || !card || !closeButton || lockedProjects.length === 0) return;
+  if (!container  || !card || !closeButton || lockedProjects.length === 0) return;
 
-  function toggleModal(isOpen) {
-    modal.classList.toggle("opacity-100", isOpen);
-    modal.classList.toggle("pointer-events-auto", isOpen);
-    modal.classList.toggle("opacity-0", !isOpen);
-    modal.classList.toggle("pointer-events-none", !isOpen);
+  function toggleContainer(isOpen) {
+    container.classList.toggle("opacity-100", isOpen);
+    container.classList.toggle("pointer-events-auto", isOpen);
+    container.classList.toggle("opacity-0", !isOpen);
+    container.classList.toggle("pointer-events-none", !isOpen);
 
     card.classList.toggle("opacity-100", isOpen);
     card.classList.toggle("opacity-0", !isOpen);
@@ -19,20 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
   lockedProjects.forEach((project) => {
     project.style.cursor = "pointer";
     project.addEventListener("click", (e) => {
-      e.preventDefault(); 
-      toggleModal(true);
+      toggleContainer(true);
     });
   });
 
   closeButton.addEventListener("click", (e) => {
     e.stopPropagation(); 
-    toggleModal(false);
+    toggleContainer(false);
   });
 
-  modal.addEventListener("click", () => toggleModal(false));
+  container.addEventListener("click", () => toggleContainer(false));
   card.addEventListener("click", (e) => e.stopPropagation());
 
   window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") toggleModal(false);
+    if (e.key === "Escape") toggleContainer(false);
   });
 });
