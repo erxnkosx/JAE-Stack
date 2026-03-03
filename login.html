@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./src/output.css">
     <link rel="stylesheet" href="./src/input.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    
+    <script src="./src/index.js"></script>
     
 </head>
 <body class="bg-black text-white min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -28,7 +28,7 @@
             <p class="mt-2 text-slate-500 ">Welcome back gamer!</p>
         </header>
         <section class=" bg-white/5 backdrop-blur-md p-8 rounded-[2rem] border border-white/10 ">
-            <form action="#" method="post" class="flex flex-col gap-2 p-2">
+            <form id="loginForm" action="#" method="post" class="flex flex-col gap-2 p-2">
                 <label for="email" class=" text-xs font-bold uppercase text-cyan-500 ">email</label>
                 <section class=" relative ">
                     <input type="email" name="email" id="email" placeholder="your@email.com" required
