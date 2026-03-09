@@ -28,12 +28,14 @@
     <main
       class="animate-fadeIn relative overflow-hidden max-h-screen py-16 px-30 flex flex-col items-center"
     >
-      <section class="flex flex-col items-center">
-        <h1 class="text-5xl font-black gradient-text mb-6 animate-gradient">
-          Welcome to GameHub
+      <section class="flex flex-col items-center text-center">
+        <h1
+          class="text-3xl sm:text-5xl font-black gradient-text mb-4 sm:mb-6 animate-gradient"
+        >
+          Welkom bij GameHub
         </h1>
-        <p class="text-slate-400 text-xl font-light">
-          Select your gaming universe
+        <p class="text-slate-400 text-base sm:text-xl font-light">
+          Selecteer jouw gaming universum
         </p>
       </section>
       <!--    group relative glass-strong rounded-3xl overflow-hidden aspect-[4/5] -->
@@ -47,19 +49,29 @@
             class="absolute top-3 right-3 px-3 py-1.5 bg-linear-to-r from-cyan-500 to-purple-500 text-white text-[15px] rounded-full font-bold shadow-xl animate-pulse"
             >Active</span
           >
-          <section class="mt-auto z-10">
-            <h3
-              class="text-xl sm:text-2xl lg:text-3xl font-black text-white mb-2 group-hover:text-transparent bg-clip-text bg-linear-to-r from-cyan-300 to-purple-300 transition-colors duration-700"
-            >
-              GameHub
-            </h3>
-            <p class="text-slate-300 text-xs lg:mb-4 font-light">
-              Discover and collect your favorite games
-            </p>
+            Active
+          </span>
+
+          <section class="relative z-10 mt-auto flex flex-col gap-3 sm:gap-4">
+            <div class="space-y-1 sm:space-y-2">
+              <h3
+                class="font-black text-white text-[clamp(1rem,3.8vw,2.4rem)] group-hover:text-transparent bg-clip-text bg-linear-to-r from-cyan-300 to-purple-300 transition-colors duration-700"
+              >
+                GameHub
+              </h3>
+
+              <p
+                class="text-slate-300 font-light text-[clamp(0.6rem,1.9vw,1rem)] max-w-[38ch]"
+              >
+                Ontdek en verzamel jouw favorite games
+              </p>
+            </div>
+
             <a
-              href="collection-page.html"
-              class="relative overflow-hidden flex w-full justify-center gap-2 text-white text-xs font-semibold rounded-xl bg-linear-to-r from-cyan-500 via-purple-500 to-pink-500 animate-gradient py-2 before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:translate-x-[-200%] hover:before:translate-x-[200%] before:transition-transform before:duration-700"
-              >Enter Universe
+              href="./login.html"
+              class="relative overflow-hidden inline-flex items-center justify-center gap-2 w-full px-4 py-3 text-white text-sm font-semibold rounded-xl bg-linear-to-r from-cyan-500 via-purple-500 to-pink-500 animate-gradient before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/50 before:to-transparent before:translate-x-[-200%] hover:before:translate-x-[200%] before:transition-transform before:duration-700"
+            >
+              <span class="whitespace-nowrap">Betreed Universum</span>
               <svg
                 class="w-4 h-4"
                 viewBox="0 0 24 24"
@@ -129,7 +141,7 @@
             <span
               class="absolute top-3 right-3 px-3 py-1.5 glass text-slate-500 text-[13px] sm:text-[15px] rounded-full font-semibold"
             >
-              Coming Soon
+              Binnenkort Beschikbaar
             </span>
 
             <svg
@@ -150,7 +162,7 @@
               <h3 class="text-2xl font-bold text-slate-500 mb-3 text-center">
                 LegoMasters
               </h3>
-              <p class="text-slate-500 text-center">Build your World</p>
+              <p class="text-slate-500">Bouw jouw Wereld</p>
             </section>
           </section>
         </article>
@@ -164,6 +176,9 @@
               class="absolute top-3 right-3 px-3 py-1.5 glass text-slate-500 text-[15px] rounded-full font-semibold"
               >Coming Soon</span
             >
+              Binnenkort Beschikbaar
+            </span>
+
             <svg
               class="w-15 h-15"
               viewBox="0 0 24 24"
@@ -190,9 +205,7 @@
               <h3 class="text-2xl font-bold text-slate-500 mb-3 text-center">
                 MusicMatch
               </h3>
-              <p class="text-slate-500 text-center">
-                Organize your music library
-              </p>
+              <p class="text-slate-500">Organiseer jouw muziek bibliotheek</p>
             </section>
           </section>
         </article>
@@ -228,7 +241,7 @@
               </g>
             </svg>
           </button>
-          Coming soon...
+          Binnenkort beschikbaar...
         </section>
       </section>
     </main>

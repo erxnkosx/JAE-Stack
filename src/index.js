@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   closeButton.addEventListener("click", (e) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     toggleContainer(false);
   });
 
