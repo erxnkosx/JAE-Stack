@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ontdek page</title>
+    <link rel="stylesheet" href="./src/output.css">
+    <link rel="stylesheet" href="./src/input.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+</head>
+<body class="bg-black text-white min-h-screen relative">
+    <section class="absolute inset-0 -z-1">
+        <div class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl "></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl "></div>
+        <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl "></div>
+    </section>
+    <nav class="relative flex items-center justify-between px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10">
+        <div class="flex items-center  gap-12">
+            <h1 class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+                GameHub
+            </h1>
+            <div class="hidden md:flex gap-6 text-slate-500 font-medium">
+                <a href="#" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white">Ontdek</a>
+                <a href="#" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white ">Collecties</a>
+                <a href="#" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white">Vergelijk</a>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-4">
+            <button class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition">
+                <span class="text-cyan-400 text-sm">✦</span>
+                <span class="text-sm font-semibold">Raad Game</span>
+            </button>
+            <button class="text-gray-400 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+    <main class="relative z-10 px-8 pt-16 pb-20">
+        <section class="max-w-6xl mx-auto text-center">
+            <h1 class="text-6xl md:text-6xl font-black leading-[1.05] text-white">
+                Ontdek <span class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">geweldige games</span>
+            </h1>
+
+            <p class="mt-6 text-slate-400 text-xl md:text-3xl font-light">
+                Zoek in duizenden games en stel je perfecte collectie samen.
+            </p>
+        </section>
+
+        <section class="max-w-5xl mx-auto mt-14">
+            <input
+                type="text"
+                placeholder="Search games..."
+                class="w-full rounded-3xl border border-white/10 bg-white/5 px-10 py-7 text-2xl text-white placeholder-slate-500 outline-none backdrop-blur-md"
+            >
+        </section>
+
+        <section class="mt-20 flex items-center justify-between">
+            <h2 class="text-3xl font-black text-white">Populaire games</h2>
+
+            <button class="flex items-center gap-3 text-slate-400 text-2xl font-bold hover:text-white transition">
+                <span>shuffle</span>
+            </button>
+        </section>
+
+        <section id="gamesContainer" class="mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8">
+        <article class="group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300">
+            <section class="relative">
+            <img
+                src="https://gaming-cdn.com/images/products/943/orig/the-witcher-3-wild-hunt-xbox-one-xbox-series-x-s-spel-microsoft-store-europe-cover.jpg?v=1730907873"
+                alt="The Witcher 3"
+                class="w-full h-[420px] object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-zinc-900/80 text-emerald-400 px-4 py-2 rounded-2xl text-2xl font-bold">1</span>
+            <button class="absolute top-4 right-4 w-14 h-14 rounded-full bg-white/20 text-white text-3xl">+</button>
+            </section>
+            <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">The Witcher 3</h3>
+            <p class="text-slate-400">2015-05-19</p>
+            </section>
+        </article>
+
+        <article class="group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300">
+            <section class="relative">
+            <img
+                src="https://gaming-cdn.com/images/products/7325/616x353/god-of-war-pc-spel-steam-europe-cover.jpg?v=1744715989"
+                alt="God of War"
+                class="w-full h-[420px] object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-zinc-900/80 text-emerald-400 px-4 py-2 rounded-2xl text-2xl font-bold">2</span>
+            <button class="absolute top-4 right-4 w-14 h-14 rounded-full bg-white/20 text-white text-3xl">+</button>
+            </section>
+            <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">God of War</h3>
+            <p class="text-slate-400">2018-04-20</p>
+            </section>
+        </article>
+
+        <article class="group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300">
+            <section class="relative">
+            <img
+                src="https://gaming-cdn.com/images/products/5679/616x353/red-dead-redemption-2-pc-spel-rockstar-cover.jpg?v=1713793245"
+                alt="Red Dead Redemption 2"
+                class="w-full h-[420px] object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-zinc-900/80 text-emerald-400 px-4 py-2 rounded-2xl text-2xl font-bold">3</span>
+            <button class="absolute top-4 right-4 w-14 h-14 rounded-full bg-white/20 text-white text-3xl">+</button>
+            </section>
+            <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Red Dead Redemption 2</h3>
+            <p class="text-slate-400">2018-10-26</p>
+            </section>
+        </article>
+
+        <article class="group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300">
+            <section class="relative">
+            <img
+                src="https://gaming-cdn.com/images/products/4824/616x353/elden-ring-pc-steam-cover.jpg?v=1750231653"
+                alt="Elden Ring"
+                class="w-full h-[420px] object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-zinc-900/80 text-emerald-400 px-4 py-2 rounded-2xl text-2xl font-bold">4</span>
+            <button class="absolute top-4 right-4 w-14 h-14 rounded-full bg-white/20 text-white text-3xl">+</button>
+            </section>
+            <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Elden Ring</h3>
+            <p class="text-slate-400">2022-02-25</p>
+            </section>
+        </article>
+
+        <article class="group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300">
+            <section class="relative">
+            <img
+                src="https://gaming-cdn.com/images/products/17853/616x353/horizon-zero-dawn-remastered-pc-spel-steam-europe-cover.jpg?v=1730739100"
+                alt="Horizon Zero Dawn"
+                class="w-full h-[420px] object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-zinc-900/80 text-emerald-400 px-4 py-2 rounded-2xl text-2xl font-bold">5</span>
+            <button class="absolute top-4 right-4 w-14 h-14 rounded-full bg-white/20 text-white text-3xl">+</button>
+            </section>
+            <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Horizon Zero Dawn</h3>
+            <p class="text-slate-400">2017-02-28</p>
+            </section>
+        </article>
+
+        <article class="group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300">
+            <section class="relative">
+            <img
+                src="https://gaming-cdn.com/images/products/840/616x353/cyberpunk-2077-pc-spel-gog-com-cover.jpg?v=1748447631"
+                alt="Cyberpunk 2077"
+                class="w-full h-[420px] object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-zinc-900/80 text-emerald-400 px-4 py-2 rounded-2xl text-2xl font-bold">6</span>
+            <button class="absolute top-4 right-4 w-14 h-14 rounded-full bg-white/20 text-white text-3xl">+</button>
+            </section>
+            <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Cyberpunk 2077</h3>
+            <p class="text-slate-400">2020-12-10</p>
+            </section>
+        </article>
+
+        <article class="group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300">
+            <section class="relative">
+            <img
+                src="https://gaming-cdn.com/images/products/11907/616x353/marvel-s-spider-man-remastered-pc-spel-steam-cover.jpg?v=1697644479"
+                alt="Spider-Man"
+                class="w-full h-[420px] object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-zinc-900/80 text-emerald-400 px-4 py-2 rounded-2xl text-2xl font-bold">7</span>
+            <button class="absolute top-4 right-4 w-14 h-14 rounded-full bg-white/20 text-white text-3xl">+</button>
+            </section>
+            <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Spider-Man</h3>
+            <p class="text-slate-400">2018-09-07</p>
+            </section>
+        </article>
+
+        <article class="group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300">
+            <section class="relative">
+            <img
+                src="https://gaming-cdn.com/images/products/6215/616x353/the-last-of-us-part-ii-remastered-pc-steam-cover.jpg?v=1750336184"
+                alt="The Last of Us Part II"
+                class="w-full h-[420px] object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-zinc-900/80 text-emerald-400 px-4 py-2 rounded-2xl text-2xl font-bold">8</span>
+            <button class="absolute top-4 right-4 w-14 h-14 rounded-full bg-white/20 text-white text-3xl">+</button>
+            </section>
+            <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">The Last of Us Part II</h3>
+            <p class="text-slate-400">2020-06-19</p>
+            </section>
+        </article>
+
+        <article class="group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300">
+            <section class="relative">
+            <img
+                src="https://gaming-cdn.com/images/products/6147/616x353/assassin-s-creed-valhalla-pc-spel-ubisoft-connect-europe-cover.jpg?v=1709130520"
+                alt="Assassin's Creed Valhalla"
+                class="w-full h-[420px] object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-zinc-900/80 text-emerald-400 px-4 py-2 rounded-2xl text-2xl font-bold">9</span>
+            <button class="absolute top-4 right-4 w-14 h-14 rounded-full bg-white/20 text-white text-3xl">+</button>
+            </section>
+            <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Assassin's Creed Valhalla</h3>
+            <p class="text-slate-400">2020-11-10</p>
+            </section>
+        </article>
+
+        <article class="group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300">
+            <section class="relative">
+            <img
+                src="https://gaming-cdn.com/images/products/4804/616x353/baldur-s-gate-3-pc-spel-gog-com-cover.jpg?v=1710239606"
+                alt="Baldur's Gate 3"
+                class="w-full h-[420px] object-cover"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 bg-zinc-900/80 text-emerald-400 px-4 py-2 rounded-2xl text-2xl font-bold">10</span>
+            <button class="absolute top-4 right-4 w-14 h-14 rounded-full bg-white/20 text-white text-3xl">+</button>
+            </section>
+            <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Baldur's Gate 3</h3>
+            <p class="text-slate-400">2023-08-03</p>
+            </section>
+        </article>
+        </section>
+    </main>
+
+</body>
+</html>
