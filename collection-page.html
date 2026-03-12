@@ -3,48 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>collection page</title>
+    <title>Collectiepagina</title>
     <link rel="stylesheet" href="./src/output.css">
     <link rel="stylesheet" href="./src/input.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
 </head>
-<body class="bg-black text-white min-h-screen relative overflow-hidden">
-    <section class="absolute inset-0 -z-1">
-        <div class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl "></div>
-        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl "></div>
-        <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl "></div>
-    </section>
-    <nav class="relative flex items-center justify-between px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10">
+
+<body class="bg-black text-white min-h-screen relative">
+  <section class="absolute inset-0 -z-10">
+    <div class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"></div>
+  </section>
+
+  <nav class="relative flex items-center justify-between px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10">
         <div class="flex items-center  gap-12">
             <h1 class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
                 GameHub
             </h1>
-            <div class="hidden md:flex gap-6 text-slate-500 font-medium">
+            <div class="hidden md:flex gap-6 text-slate-500 font-medium mt-2">
                 <a href="/ontdek.html" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white">Ontdek</a>
-                <a href="#" class="border-b-2 border-cyan-400 text-cyan-400 hover:text-white ">Collecties</a>
+                <a href="/collection-page.html" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white ">Collectie</a>
                 <a href="/compare-page.html" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white">Vergelijk</a>
             </div>
         </div>
         
-        <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4 mt-2">
             <button class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition">
                 <span class="text-cyan-400 text-sm">✦</span>
-                <span class="text-sm font-semibold">Raad Game</span>
+                <span class="text-sm font-semibold">Raad de game</span>
             </button>
-            <button class="text-gray-400 hover:text-white">
+            <a href="/login.html" class="text-gray-400 hover:text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
-            </button>
+            </a>
         </div>
     </nav>
+
     <main class="relative px-24 mt-12">
         <header class="flex justify-between mb-8">
             <div>
-                <h2 class="text-5xl font-extrabold mb-2">Mijn Collectie</h2>
-                <p class="text-cyan-400 font-medium"><span class="font-bold">0</span> games in jouw bibliotheek</p>
+                <h2 class="text-5xl font-extrabold mb-2">Mijn collectie</h2>
+                <p class="text-cyan-400 font-medium"><span class="font-bold">0</span> games in jouw collectie</p>
             </div>
             
             <div class="flex bg-[#0f172a] p-1 rounded-xl border border-gray-800 h-12 my-auto">
@@ -59,16 +62,16 @@
 
         <div class="flex items-center text-slate-500 gap-4 mb-12">
             <button class="p-2 text-cyan-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg></button>
-            <button class="px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold hover:border-gray-600 transition">Allemaal (0)</button>
-            <button class="px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold hover:border-gray-600 transition">Achterstand (0)</button>
-            <button class="px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold hover:border-gray-600 transition">Spelend (0)</button>
+            <button class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition active-category">Allemaal (0)</button>
+            <button class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition">Verlanglijst (0)</button>
+            <button class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition">Actief (0)</button>
         </div>
 
         <div class="flex flex-col items-center justify-center py-32">
             <p class="text-slate-500 text-lg mb-6">Geen games in dit categorie</p>
-            <button class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-2xl transition shadow-lg shadow-purple-500/20">
-                Ontdek Games
-            </button>
+            <a href="/ontdek.html" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-2xl transition shadow-lg shadow-purple-500/20">
+                Ontdek games
+            </a>
         </div>
 
     </main>

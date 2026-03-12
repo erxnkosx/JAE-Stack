@@ -1106,6 +1106,7 @@
       }
     }
   }
+  
   .hover\:text-white {
     &:hover {
       @media (hover: hover) {
@@ -1365,6 +1366,7 @@ body {
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
+  display: none;
 }
 ::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.3);
