@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./src/collection-page.js" defer></script>
+    <script src="./src/collectie.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <title>Collectiepagina</title>
@@ -82,10 +83,10 @@
             </div>
             
             <div class="flex bg-[#0f172a] p-1 rounded-xl border border-gray-800 h-12 my-auto">
-                <button id="listView" class="p-2 bg-cyan-500/20 text-cyan-400 rounded-lg">
+                <button id="gridView" class="p-2 bg-cyan-500/20 text-cyan-400 rounded-lg">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
                 </button>
-                <button id="gridView" class="p-2 text-slate-500 hover:text-gray-300">
+                <button id="listView" class="p-2 text-slate-500 hover:text-gray-300">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                 </button>
             </div>
@@ -97,6 +98,27 @@
             <button class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition">Verlanglijst (0)</button>
             <button class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition">Actief (0)</button>
         </div>
+
+        <section class="flex flex-wrap items-center justify-between gap-4 mb-8">
+            <div class="flex items-center gap-4">
+                <label for="sortGames" class="text-sm text-slate-400 font-medium">Sorteer op</label>
+                <select
+                        id="sortGames"
+                        class="bg-[#0f172a] border border-gray-800 text-slate-300 rounded-xl px-4 py-2 outline-none focus:border-cyan-400"
+                >
+                    <option value="released">Release date</option>
+                    <option value="rating">Rating</option>
+                    <option value="name">Naam</option>
+                </select>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <input id="toggleAllGames" type="checkbox" class="w-4 h-4 accent-cyan-400" />
+                <label for="toggleAllGames" class="text-sm text-slate-400 font-medium">
+                    Toon alle bekende games
+                </label>
+            </div>
+        </section>
 
         <div id="gameCollection" class="flex flex-col items-center justify-center py-32">
             <p class="text-slate-500 text-lg mb-6">Geen games in dit categorie</p>

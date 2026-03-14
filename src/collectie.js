@@ -1,7 +1,30 @@
-const addToCollectionButtons = document.querySelectorAll(".add-collection-button");
 const addToCollectionDetailButton = document.getElementById("collectionBtn");
 const gameTitle = document.getElementById("gameTitle");
 let collectionTitles = getCollectionTitlesFromLocalStorage();
+
+let games = [];
+
+const loadGames = async () => {
+    const response = await fetch("../data/details.json");
+    const responseJson = await response.json();
+    let results = responseJson.results;
+    const ids = results.map(res => res.id);
+
+    const descriptions = await Promise.all(ids.map(async id => {
+        const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=09f7894c43764394b1691501eba8bb44`);
+        const response2Json = await response2.json();
+        const description = `${response2Json.description_raw.split(".")[0]}.`;
+        return description;
+    }));
+
+    results = results.map((res, idx) => ({
+        ...res,
+        description: descriptions[idx]
+    }));
+    return results;
+};
+
+(async () => games = await loadGames())();
 
 function isTitleInCollection(title) {
     return collectionTitles.includes(title);
@@ -24,7 +47,7 @@ function getCollectionTitlesFromLocalStorage() {
 }
 
 function addToCollectionHandler(title) {
-    getCollectionTitlesFromLocalStorage();
+    collectionTitles =  getCollectionTitlesFromLocalStorage();
     if (isTitleInCollection(title)) {
         removeTitleFromCollection(title);
     }
@@ -34,12 +57,23 @@ function addToCollectionHandler(title) {
     setCollectionTitlesToLocalStorage();
 }
 
-addToCollectionButtons.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        addToCollectionHandler(e.currentTarget.closest(".game-card").dataset.id);
-        console.log(collectionIds);
-    });
-});
+
+
+function sortGames(games, sortBy) {
+    const sortedGames = [...games];
+
+    if (sortBy === "released") {
+        sortedGames.sort((a, b) => new Date(b.released) - new Date(a.released));
+    } else if (sortBy === "rating") {
+        sortedGames.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    } else if (sortBy === "name") {
+        sortedGames.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    return sortedGames;
+}
+
+
 
 addToCollectionDetailButton.addEventListener("click", (e) => {
     addToCollectionHandler(gameTitle.textContent);
@@ -47,4 +81,5 @@ addToCollectionDetailButton.addEventListener("click", (e) => {
 
 });
 
+console.log(games);
 

@@ -66,7 +66,7 @@ async function showGames() {
     const games = await loadGames();
     let result = '';
 
-    gameCollection.classList = "mt-6 flex flex-col gap-12 items-center justify-center px-32";
+    gameCollection.classList = "mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8";
     games.filter(game => collectionTitles.includes(game.name)).forEach(g => {
         result += `<article
           class="w-full max-w-2xl game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
