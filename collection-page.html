@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./src/output.css">
     <link rel="stylesheet" href="./src/input.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    
+    <script src="./src/collection-page.js" defer></script>
 </head>
 
 <body class="bg-black text-white min-h-screen relative">
@@ -23,10 +23,10 @@
             <h1 class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
                 GameHub
             </h1>
-            <div class="hidden md:flex gap-6 text-slate-500 font-medium mt-2">
-                <a href="/ontdek.html" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white">Ontdek</a>
-                <a href="/collection-page.html" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white ">Collectie</a>
-                <a href="/compare-page.html" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white">Vergelijk</a>
+            <div class="hidden md:flex gap-6 text-slate-500 font-medium">
+                <a href="./ontdek.html" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white">Ontdek</a>
+                <a href="./collection-page.html" class="border-b-2 border-cyan-400 text-cyan-400 hover:text-white ">Collecties</a>
+                <a href="./compare-page.html" class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white">Vergelijk</a>
             </div>
         </div>
         
@@ -67,12 +67,52 @@
             <button class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition">Actief (0)</button>
         </div>
 
-        <div class="flex flex-col items-center justify-center py-32">
+        <div id="#gameCollection" class="flex flex-col items-center justify-center py-32">
             <p class="text-slate-500 text-lg mb-6">Geen games in dit categorie</p>
-            <a href="/ontdek.html" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-2xl transition shadow-lg shadow-purple-500/20">
+            <a href="./ontdek.html" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-2xl transition shadow-lg shadow-purple-500/20">
                 Ontdek games
             </a>
         </div>
+
+        <section id="gameModal" data-id="" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-6">
+            <section class="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2">
+                <button
+                        id="closeModal"
+                        class="absolute right-5 top-5 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-3xl text-slate-300 hover:text-white"
+                >
+                    ×
+                </button>
+
+                <section class="relative h-[420px] lg:h-full">
+                    <img id="modalCover" src="" alt="" class="h-full w-full object-cover" />
+                </section>
+
+                <section class="flex flex-col gap-6 p-8 lg:p-10">
+                    <h2 id="modalTitle" class="text-4xl lg:text-5xl font-semibold tracking-tight text-white"></h2>
+
+                    <section class="flex flex-wrap items-center gap-4 text-slate-400 text-lg font-medium">
+                        <p>Released: <span id="modalDate"></span></p>
+                    </section>
+
+                    <p id="modalDescription" class="text-slate-400 text-lg leading-relaxed max-w-xl"></p>
+
+                    <section>
+                        <h3 class="mb-4 text-cyan-400 text-sm font-semibold tracking-widest uppercase">Platforms</h3>
+                        <div id="modalPlatforms" class="flex flex-wrap gap-3"></div>
+                    </section>
+
+                    <section class="mt-auto flex flex-col gap-4 sm:flex-row">
+                        <button class="rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 text-lg font-medium text-white hover:scale-105 transition">
+                            Set as Current Game
+                        </button>
+
+                        <button class="add-collection-modal-button rounded-xl border border-cyan-500/40 bg-white/5 px-8 py-3 text-lg font-medium text-cyan-300 hover:bg-cyan-500/10 transition">
+                            Add to Collection
+                        </button>
+                    </section>
+                </section>
+            </section>
+        </section>
 
     </main>
 </body>

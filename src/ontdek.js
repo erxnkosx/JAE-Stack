@@ -28,3 +28,20 @@ detail.onclick = e => {
     detail.classList.remove("flex");
   }
 };
+
+const gameSearch = document.getElementById("gameSearch");
+const suggestions = document.getElementById("suggestions");
+
+async function gameSearchHandler(input) {
+    if (input.length > 1) {
+        let results = games.filter(g => g.title.toLowerCase().startsWith(input.slice(0, 3).toLowerCase()));
+        suggestions.classList.remove("hidden");
+        suggestions.innerHTML = results.map(r => `<div class="hover:bg-white/10 text-white px-4 py-3 cursor-pointer ">${r.title}</div>`).join("");
+
+    }
+    else {
+        suggestions.classList.add("hidden");
+
+        suggestions.innerHTML = "";
+    }
+}
