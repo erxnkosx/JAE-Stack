@@ -69,7 +69,7 @@ async function showGames() {
     gameCollection.classList = "mt-10 flex flex-col gap-12 items-center justify-center py-32";
     games.filter(game => collectionTitles.includes(game.name)).forEach(g => {
         result += `<article
-          class="w-full game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          class="w-full max-w-2xl game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
           data-title="${g.name}"
           data-description="${g.description}"
           data-rating="${g.rating}"
