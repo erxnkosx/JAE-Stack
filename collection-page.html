@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collectiepagina</title>
-    <link rel="stylesheet" href="./src/output.css">
-    <link rel="stylesheet" href="./src/input.css">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="./src/collection-page.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Collectiepagina</title>
 </head>
 
 <body class="bg-black text-white min-h-screen relative">
@@ -31,11 +30,11 @@
         </div>
         
         <div class="flex items-center gap-4 mt-2">
-            <button class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition">
+            <a href="raad-page.html" class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition">
                 <span class="text-cyan-400 text-sm">✦</span>
                 <a href="/raad-page.html" class="text-sm font-semibold">Raad de game</a>
-            </button>
-            <a href="/login.html" class="text-gray-400 hover:text-white">
+            </a>
+            <a href="./login.html" class="text-gray-400 hover:text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
@@ -113,7 +112,83 @@
                 </section>
             </section>
         </section>
-
     </main>
+  <section
+          id="gameDetails"
+          class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-6"
+  >
+      <section
+              class="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
+      >
+          <button
+                  id="closeGameDetails"
+                  class="absolute right-5 top-5 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-3xl text-slate-300 hover:text-white"
+          >
+              <span class="-translate-y-0.5 inline-block">×</span>
+          </button>
+
+          <section class="relative h-[420px] lg:h-full">
+              <img
+                      id="gameCover"
+                      src=""
+                      alt=""
+                      class="h-full w-full object-cover"
+              />
+          </section>
+
+          <section class="flex flex-col gap-6 p-8 lg:p-10">
+              <h2
+                      id="gameTitle"
+                      class="text-4xl lg:text-5xl font-semibold tracking-tight text-white"
+              ></h2>
+              <p
+                      id="gameDescription"
+                      class="text-slate-400 text-lg leading-relaxed max-w-xl"
+              ></p>
+              <p
+                      class="flex items-center gap-2 text-lg text-yellow-400 font-semibold"
+              >
+                  <span>⭐</span><span id="gameRating"></span>
+              </p>
+              <p class="text-slate-400 text-lg">
+                  Releasedatum: <span id="gameDate"></span>
+              </p>
+              <section>
+                  <h3
+                          class="mb-4 text-cyan-400 text-sm font-semibold tracking-widest uppercase"
+                  >
+                      Platformen
+                  </h3>
+                  <div id="gamePlatforms" class="flex flex-wrap gap-3">
+              <span
+                      class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+              >PC</span
+              >
+                      <span
+                              class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+                      >PlayStation 4 / 5</span
+                      >
+                      <span
+                              class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+                      >Xbox One</span
+                      >
+                  </div>
+              </section>
+              <section class="mt-auto flex flex-col gap-4 sm:flex-row">
+                  <button
+                          class="rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 text-lg font-medium text-white hover:scale-105 transition"
+                  >
+                      Zet actief
+                  </button>
+                  <button
+                          id="verlanglijstGameDetails"
+                          class="rounded-xl border border-cyan-500/40 bg-white/5 px-8 py-3 text-lg font-medium text-cyan-300 hover:bg-cyan-500/10 transition"
+                  >
+                      Voeg toe aan verlanglijst
+                  </button>
+              </section>
+          </section>
+      </section>
+  </section>
 </body>
 </html>
