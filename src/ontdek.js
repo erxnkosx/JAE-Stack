@@ -149,19 +149,7 @@ function addToCollectionHandler(title) {
 
 
 
-function sortGames(games, sortBy) {
-  const sortedGames = [...games];
 
-  if (sortBy === "released") {
-    sortedGames.sort((a, b) => new Date(b.released) - new Date(a.released));
-  } else if (sortBy === "rating") {
-    sortedGames.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-  } else if (sortBy === "name") {
-    sortedGames.sort((a, b) => a.name.localeCompare(b.name));
-  }
-
-  return sortedGames;
-}
 
 addToCollectionDetailButton.addEventListener("click", (e) => {
   addToCollectionHandler(gameTitle.textContent);
@@ -169,6 +157,5 @@ addToCollectionDetailButton.addEventListener("click", (e) => {
 
 });
 
-console.log(games);
 
 
