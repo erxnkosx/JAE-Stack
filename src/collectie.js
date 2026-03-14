@@ -1,5 +1,5 @@
 const addToCollectionButtons = document.querySelectorAll(".add-collection-button");
-const addToCollectionDetailButton = document.getElementById("verlanglijstGameDetails");
+const addToCollectionDetailButton = document.getElementById("collectionBtn");
 const gameTitle = document.getElementById("gameTitle");
 let collectionTitles = getCollectionTitlesFromLocalStorage();
 

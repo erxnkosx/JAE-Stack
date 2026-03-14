@@ -38,6 +38,7 @@ function updateCards() {
 
 let games;
 let collectionTitles = getCollectionTitlesFromLocalStorage();
+console.log(collectionTitles);
 const gameCollection = document.getElementById("#gameCollection");
 const loadGames = async () => {
     const response = await fetch("../data/details.json");
@@ -61,17 +62,14 @@ const loadGames = async () => {
 
 (async () => await loadGames())();
 
-function getCollectionTitlesFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("collectionTitles") || "[]");
-}
-
 async function showGames() {
     const games = await loadGames();
     let result = '';
-    gameCollection.classList = "mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8";
+
+    gameCollection.classList = "mt-10 flex flex-col gap-12 items-center justify-center py-32";
     games.filter(game => collectionTitles.includes(game.name)).forEach(g => {
         result += `<article
-          class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          class="w-full game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
           data-title="${g.name}"
           data-description="${g.description}"
           data-rating="${g.rating}"
@@ -179,6 +177,25 @@ addToCollectionDetailButton.addEventListener("click", async (e) => {
 
 });
 
+
+const listViewButton = document.getElementById("listView");
+const gridViewButton = document.getElementById("gridView");
+
+
+function gridViewHandler() {
+    gameCollection.classList = "mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8"
+    gridViewButton.classList = "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
+    listViewButton.classList = "p-2 text-slate-500 hover:text-gray-300";
+}
+
+function listViewHandler() {
+    gameCollection.classList = "mt-10flex flex-col items-center justify-center py-32"
+    gridViewButton.classList = "p-2 text-slate-500 hover:text-gray-300";
+    listViewButton.classList = "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
+}
+
+gridViewButton.addEventListener("click", gridViewHandler);
+listViewButton.addEventListener("click", listViewHandler);
 
 
 
