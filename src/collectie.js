@@ -1,48 +1,50 @@
 const addToCollectionButtons = document.querySelectorAll(".add-collection-button");
-const addToCollectionModalButton = document.querySelector(".add-collection-modal-button");
-let collectionIds = getCollectionIdsFromLocalStorage();
+const addToCollectionDetailButton = document.getElementById("verlanglijstGameDetails");
+const gameTitle = document.getElementById("gameTitle");
+let collectionTitles = getCollectionTitlesFromLocalStorage();
 
-function isIdInCollection(id) {
-    return collectionIds.includes(id);
+function isTitleInCollection(title) {
+    return collectionTitles.includes(title);
 }
 
-function removeIdFromCollection(id) {
-    collectionIds = collectionIds.filter(colId => colId !== id);
+function removeTitleFromCollection(title) {
+    collectionTitles = collectionTitles.filter(colTitle => colTitle !== title);
 }
 
-function addIdToCollection(id) {
-    collectionIds.push(id);
+function addTitleToCollection(title) {
+    collectionTitles.push(title);
 }
 
-function setCollectionIdsToLocalStorage() {
-    localStorage.setItem("collectionIds", JSON.stringify(collectionIds));
+function setCollectionTitlesToLocalStorage() {
+    localStorage.setItem("collectionTitles", JSON.stringify(collectionTitles));
 }
 
-function getCollectionIdsFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("collectionIds") || "[]");
+function getCollectionTitlesFromLocalStorage() {
+    return JSON.parse(localStorage.getItem("collectionTitles") || "[]");
 }
 
-function addToCollectionHandler(id) {
-    getCollectionIdsFromLocalStorage();
-    if (isIdInCollection(id)) {
-        removeIdFromCollection(id);
+function addToCollectionHandler(title) {
+    getCollectionTitlesFromLocalStorage();
+    if (isTitleInCollection(title)) {
+        removeTitleFromCollection(title);
     }
     else {
-        addIdToCollection(id);
+        addTitleToCollection(title);
     }
-    setCollectionIdsToLocalStorage();
+    setCollectionTitlesToLocalStorage();
 }
 
 addToCollectionButtons.forEach(btn => {
     btn.addEventListener("click", (e) => {
         addToCollectionHandler(e.currentTarget.closest(".game-card").dataset.id);
         console.log(collectionIds);
-    })
+    });
 });
 
-addToCollectionModalButton.addEventListener("click", (e) => {
-    addToCollectionHandler(e.currentTarget.closest("#gameModal").dataset.id);
-    console.log(collectionIds);
+addToCollectionDetailButton.addEventListener("click", (e) => {
+    addToCollectionHandler(gameTitle.textContent);
+    console.log(collectionTitles);
+
 });
 
 

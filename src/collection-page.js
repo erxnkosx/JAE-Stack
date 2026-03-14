@@ -1,44 +1,111 @@
+
+
+function updateCards() {
+    const detail = document.querySelector("#gameDetails");
+    const closeBtn = document.querySelector("#closeGameDetails");
+    const cards = document.querySelectorAll(".game-card");
+    cards.forEach(card => {
+        card.onclick = () => {
+
+            document.querySelector("#gameTitle").textContent = card.dataset.title;
+            document.querySelector("#gameDescription").textContent = card.dataset.description;
+            document.querySelector("#gameRating").textContent = card.dataset.rating;
+            document.querySelector("#gameDate").textContent = card.dataset.date;
+
+            document.querySelector("#gameCover").src = card.dataset.image;
+
+            detail.classList.remove("hidden");
+            detail.classList.add("flex");
+        };
+    });
+
+    closeBtn.onclick = () => {
+        detail.classList.add("hidden");
+        detail.classList.remove("flex");
+    };
+
+    detail.onclick = e => {
+        if (e.target === detail) {
+            detail.classList.add("hidden");
+            detail.classList.remove("flex");
+        }
+    };
+
+}
+
+
+
+
 let games;
-let collectionIds = getCollectionIdsFromLocalStorage();
+let collectionTitles = getCollectionTitlesFromLocalStorage();
 const gameCollection = document.getElementById("#gameCollection");
-console.log(collectionIds);
 const loadGames = async () => {
     const response = await fetch("../data/details.json");
-    return await response.json();
+    const responseJson = await response.json();
+    let results = responseJson.results;
+    const ids = results.map(res => res.id);
+
+    const descriptions = await Promise.all(ids.map(async id => {
+        const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=09f7894c43764394b1691501eba8bb44`);
+        const response2Json = await response2.json();
+        const description = `${response2Json.description_raw.split(".")[0]}.`;
+        return description;
+    }));
+
+    results = results.map((res, idx) => ({
+        ...res,
+        description: descriptions[idx]
+    }));
+    return results;
 };
 
-function getCollectionIdsFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("collectionIds") || "[]");
+(async () => await loadGames())();
+
+function getCollectionTitlesFromLocalStorage() {
+    return JSON.parse(localStorage.getItem("collectionTitles") || "[]");
 }
 
 async function showGames() {
     const games = await loadGames();
     let result = '';
     gameCollection.classList = "mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8";
-    games.filter(game => collectionIds.includes(String(game.id))).forEach(g => {
+    games.filter(game => collectionTitles.includes(game.name)).forEach(g => {
         result += `<article
-        class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
-        data-id="${g.id}"
-        data-title="${g.title}"
-      >
-        <section class="relative">
-          <img
-            src="${g.cover}"
-            alt="The Witcher 3"
-            class="w-full h-[420px] object-cover"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-          <span class="absolute top-4 left-4 bg-zinc-900/80 text-emerald-400 px-4 py-2 rounded-2xl text-2xl font-bold">${g.id}</span>
-          <button class="add-collection-button absolute top-4 right-4 w-14 h-14 rounded-full bg-white/20 text-white text-3xl">+</button>
-        </section>
-        <section class="p-6">
-          <h3 class="text-2xl font-bold text-white mb-2">${g.title}</h3>
-          <p class="text-slate-400">${g.releaseDate}</p>
-        </section>
-      </article>`
+          class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-title="${g.name}"
+          data-description="${g.description}"
+          data-rating="${g.rating}"
+          data-date="${g.released}"
+          data-image="${g.background_image}"
+          data-platforms="PC, PlayStation 4, Xbox One"
+        >
+          <section class="relative">
+            <img
+              src="${g.background_image}"
+              alt="game card"
+              class="w-full h-[420px] object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
+            ></div>
+            <span
+              class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
+            >
+              <span>⭐</span><span>${g.rating}</span>
+            </span>
+          </section>
+          <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">
+              ${g.name}
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-3">
+              ${g.description}
+            </p>
+            <p class="text-slate-400">${g.released}</p>
+          </section>
+        </article>`
     });
     gameCollection.innerHTML = '';
-
     gameCollection.innerHTML += result;
 
 }
@@ -52,9 +119,9 @@ function noGames() {
 }
 
 async function updateCollectionPage() {
-    if (collectionIds.length > 0) {
+    if (collectionTitles.length > 0) {
         await showGames();
-        updateGameCards();
+        updateCards();
     }
     else {
         noGames();
@@ -62,56 +129,56 @@ async function updateCollectionPage() {
 }
 
 
-const modal = document.querySelector("#gameModal");
-const closeBtn = document.querySelector("#closeModal");
+(async () => await updateCollectionPage())();
 
-function updateGameCards() {
-    const cards = document.querySelectorAll(".game-card");
+const addToCollectionButtons = document.querySelectorAll(".add-collection-button");
+const addToCollectionDetailButton = document.getElementById("verlanglijstGameDetails");
+const gameTitle = document.getElementById("gameTitle");
 
-    fetch("./data/details.json")
-        .then(res => res.json())
-        .then(games => {
-            cards.forEach(card => {
-                card.onclick = () => {
-                    const game = games.find(g => g.id === Number(card.dataset.id));
-                    if (!game) return;
-                    // modal.dataset.id = game.id;
-                    document.querySelector("#modalTitle").textContent = game.title;
-                    document.querySelector("#modalDate").textContent = game.releaseDate;
-                    document.querySelector("#modalDescription").textContent = game.description;
-                    document.querySelector("#modalCover").src = game.cover;
-                    document.querySelector("#gameModal").dataset.id= game.id;
-
-                    document.querySelector("#modalCover").alt = game.title;
-                    document.querySelector("#modalPlatforms").innerHTML = game.platforms
-                        .map(p => `<span class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200">${p}</span>`)
-                        .join("");
-
-                    modal.classList.remove("hidden");
-                    modal.classList.add("flex");
-                };
-            });
-        });
+function isTitleInCollection(title) {
+    return collectionTitles.includes(title);
 }
 
-closeBtn.onclick = () => {
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-};
+function removeTitleFromCollection(title) {
+    collectionTitles = collectionTitles.filter(colTitle => colTitle !== title);
+}
 
-modal.onclick = e => {
-    if (e.target === modal) {
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
-    }
-};
+function addTitleToCollection(title) {
+    collectionTitles.push(title);
+}
 
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-        modal.classList.add("hidden");
-        modal.classList.remove("flex");
+function setCollectionTitlesToLocalStorage() {
+    localStorage.setItem("collectionTitles", JSON.stringify(collectionTitles));
+}
+
+function getCollectionTitlesFromLocalStorage() {
+    return JSON.parse(localStorage.getItem("collectionTitles") || "[]");
+}
+
+function addToCollectionHandler(title) {
+    getCollectionTitlesFromLocalStorage();
+    if (isTitleInCollection(title)) {
+        removeTitleFromCollection(title);
     }
+    else {
+        addTitleToCollection(title);
+    }
+    setCollectionTitlesToLocalStorage();
+}
+
+addToCollectionButtons.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        addToCollectionHandler(e.currentTarget.closest(".game-card").dataset.id);
+        console.log(collectionIds);
+    });
 });
 
-updateCollectionPage();
+addToCollectionDetailButton.addEventListener("click", async (e) => {
+    addToCollectionHandler(gameTitle.textContent);
+    await updateCollectionPage();
+
+});
+
+
+
 
