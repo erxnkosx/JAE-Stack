@@ -66,7 +66,7 @@ async function showGames() {
     const games = await loadGames();
     let result = '';
 
-    gameCollection.classList = "mt-10 flex flex-col gap-12 items-center justify-center py-32";
+    gameCollection.classList = "mt-6 flex flex-col gap-12 items-center justify-center px-32";
     games.filter(game => collectionTitles.includes(game.name)).forEach(g => {
         result += `<article
           class="w-full max-w-2xl game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
@@ -189,7 +189,7 @@ function gridViewHandler() {
 }
 
 function listViewHandler() {
-    gameCollection.classList = "mt-10flex flex-col items-center justify-center py-32"
+    gameCollection.classList = "mt-6 flex flex-col gap-12 items-center justify-center px-32"
     gridViewButton.classList = "p-2 text-slate-500 hover:text-gray-300";
     listViewButton.classList = "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
 }
