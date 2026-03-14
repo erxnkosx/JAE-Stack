@@ -11,22 +11,26 @@ let level = 40;
 
 const loadGames = async () => {
     const response = await fetch("../data/details.json");
-    return await response.json();
+    const responseJson = await response.json();
+    return responseJson.results;
 };
 // const inputGuess = document.getElementById("inputGuess");
 const guessSubmit = document.getElementById("guessSubmit");
 
 async function blurrGame() {
-    if (games.length === 0)
+    if (games.length === 0) {
         games = await loadGames();
-    level = 40;
-    blurLevel.innerHTML = `${level}%`;
+    }
 
+    level = 40;
     randomGame = games[Math.floor(Math.random() * games.length)];
     blurImage = document.getElementById("blurImage");
-    currentLevelEl.innerHTML = currentLevel;
-    currentProgressEl.innerHTML = currentProgress;
-    blurImage.src = randomGame.cover;
+
+    blurImage.style.filter = `blur(${level}px)`;
+    blurLevel.textContent = `${level}%`;
+    currentLevelEl.textContent = currentLevel;
+    currentProgressEl.textContent = currentProgress;
+    blurImage.src = randomGame.background_image;
 }
 
 (async function gameStart() {
@@ -44,9 +48,9 @@ function hide() {
 
 async function gameSearchHandler(input) {
     if (input.length > 1) {
-        let results = games.filter(g => g.title.toLowerCase().startsWith(input.slice(0, 3).toLowerCase()));
+        let results = games.filter(g => g.name.toLowerCase().startsWith(input.slice(0, 3).toLowerCase()));
         suggestions.classList.remove("hidden");
-        suggestions.innerHTML = results.map(r => `<div class="suggestion hover:bg-white/10 text-white px-4 py-3 cursor-pointer ">${r.title}</div>`).join("");
+        suggestions.innerHTML = results.map(r => `<div class="suggestion hover:bg-white/10 text-white px-4 py-3 cursor-pointer ">${r.name}</div>`).join("");
         document.querySelectorAll(".suggestion").forEach(suggestion => {
             suggestion.addEventListener("click", (e) => {
                 gameSearch.value = suggestion.innerHTML;
@@ -72,7 +76,7 @@ async function guessSubmitHandler() {
     if (!blurImage.classList.contains("duration-1000")) {
         blurImage.classList.add("duration-1000");
     }
-    if (randomGame.title === gameSearch.value) {
+    if (randomGame.name === gameSearch.value) {
         gameWon();
         await blurrGame();
     }
@@ -81,7 +85,6 @@ async function guessSubmitHandler() {
             level -= 10;
             blurLevel.innerHTML = `${level}%`;
             blurImage.style.filter = `blur(${level}px)`;
-            console.log(blurImage.style.filter);
         }
     }
     gameSearch.value = '';
