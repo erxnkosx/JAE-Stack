@@ -59,7 +59,9 @@
           class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition"
         >
           <span class="text-cyan-400 text-sm">✦</span>
-          <a href="/raad-page.html" class="text-sm font-semibold">Raad de game</a>
+          <a href="/raad-page.html" class="text-sm font-semibold"
+            >Raad de game</a
+          >
         </button>
         <a href="/login.html" class="text-gray-400 hover:text-white">
           <svg
@@ -132,6 +134,7 @@
       >
         <article
           class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-id="little-nightmares"
           data-title="Little Nightmares"
           data-description="Een donkere horror-platformgame waarin je als Six ontsnapt uit een griezelige wereld vol gevaar."
           data-rating="4.03"
@@ -168,6 +171,7 @@
 
         <article
           class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-id="bioshock-2"
           data-title="BioShock 2"
           data-description="Een sfeervolle shooter in de onderwaterstad Rapture waarin je speelt als een machtige Big Daddy."
           data-rating="4.07"
@@ -202,6 +206,7 @@
 
         <article
           class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-id="half-life"
           data-title="Half-Life"
           data-description="Een legendarische first-person shooter waarin Gordon Freeman moet overleven na een experiment dat fout loopt."
           data-rating="4.38"
@@ -236,6 +241,7 @@
 
         <article
           class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-id="mirrors-edge"
           data-title="Mirror's Edge"
           data-description="Een snelle parkour-actiongame waarin je door een futuristische stad rent en vijanden ontwijkt."
           data-rating="4.07"
@@ -270,6 +276,7 @@
 
         <article
           class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-id="hotline-miami"
           data-title="Hotline Miami"
           data-description="Een gewelddadige top-down actiongame met snelle gameplay, neonstijl en een intense soundtrack."
           data-rating="4.38"
@@ -304,6 +311,7 @@
 
         <article
           class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-id="hitman"
           data-title="Hitman"
           data-description="Een stealthgame waarin Agent 47 doelwitten uitschakelt met planning, vermommingen en precisie."
           data-rating="3.93"
@@ -361,23 +369,34 @@
           />
         </section>
 
-        <section class="flex flex-col gap-6 p-8 lg:p-10">
-          <h2
-            id="gameTitle"
-            class="text-4xl lg:text-5xl font-semibold tracking-tight text-white"
-          ></h2>
+        <section class="flex flex-col gap-7 p-10 lg:p-12">
+          <div class="flex flex-col items-start gap-8">
+            <h2
+              id="gameTitle"
+              class="text-5xl font-bold tracking-tight text-white leading-none"
+            ></h2>
+
+            <span
+              id="collectionStatus"
+              class="rounded-full px-4 py-2 text-sm font-semibold bg-red-600 text-white"
+            >
+              Niet in collectie
+            </span>
+          </div>
+
           <p
             id="gameDescription"
             class="text-slate-400 text-lg leading-relaxed max-w-xl"
           ></p>
-          <p
-            class="flex items-center gap-2 text-lg text-yellow-400 font-semibold"
-          >
+
+          <p class="flex items-center gap-2 text-lg text-yellow-400 font-semibold">
             <span>⭐</span><span id="gameRating"></span>
           </p>
+
           <p class="text-slate-400 text-lg">
             Releasedatum: <span id="gameDate"></span>
           </p>
+
           <section>
             <h3
               class="mb-4 text-cyan-400 text-sm font-semibold tracking-widest uppercase"
@@ -391,7 +410,7 @@
               >
               <span
                 class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
-                >PlayStation 4 / 5</span
+                >PlayStation 5</span
               >
               <span
                 class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
@@ -399,16 +418,13 @@
               >
             </div>
           </section>
-          <section class="mt-auto flex flex-col gap-4 sm:flex-row">
+
+          <section class="mt-auto pt-4">
             <button
-              class="rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 text-lg font-medium text-white hover:scale-105 transition"
+              id="collectionBtn"
+              class="w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700"
             >
-              Zet actief
-            </button>
-            <button
-              class="rounded-xl border border-cyan-500/40 bg-white/5 px-8 py-3 text-lg font-medium text-cyan-300 hover:bg-cyan-500/10 transition"
-            >
-              Voeg toe aan verlanglijst
+              Voeg toe aan collectie
             </button>
           </section>
         </section>
