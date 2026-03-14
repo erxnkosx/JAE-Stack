@@ -39,7 +39,7 @@ function updateCards() {
 let games;
 let collectionTitles = getCollectionTitlesFromLocalStorage();
 console.log(collectionTitles);
-const gameCollection = document.getElementById("#gameCollection");
+const gameCollection = document.getElementById("gameCollection");
 const loadGames = async () => {
     const response = await fetch("../data/details.json");
     const responseJson = await response.json();
