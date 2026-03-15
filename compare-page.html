@@ -7,28 +7,17 @@
     <link rel="stylesheet" href="./src/input.css" />
     <script src="./src/nav.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script type="module" src="./src/compare.js"></script>
 
     <title>Vergelijk games</title>
   </head>
   <body
-    class="bg-black text-white min-h-screen flex flex-col items-center relative overflow-x-hidden w-screen"
+    class="bg-black text-white min-h-screen flex flex-col items-center relative "
   >
-    <section class="fixed inset-0 w-screen -z-10">
-      <div
-        class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"
-      ></div>
-
-      <div
-        class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
-      ></div>
-
-      <div
-        class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
-      ></div>
-
-      <div
-        class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"
-      ></div>
+    <section class="absolute inset-0 -z-1">
+        <div class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl "></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl "></div>
     </section>
 
     <nav
@@ -170,159 +159,96 @@
       </a>
     </section>
 
-    <header class="text-center mt-20 mb-12">
-      <h1 class="text-5xl font-extrabold tracking-tight">
-        Vergelijk
-        <span
-          class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500"
-          >Games</span
-        >
-      </h1>
-      <p class="text-lg text-slate-500 mt-6">
-        Selecteer twee games om te vergelijken
-      </p>
+   <header class="text-center mt-12 md:mt-20 mb-12 px-4">
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+            Vergelijk <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Games</span>
+        </h1>
+        <p class="text-lg text-slate-500 mt-6">Selecteer twee games om te vergelijken</p>
     </header>
-    <main class="relative z-10 max-w-7xl mx-auto px-6 pb-20">
-      <section
-        class="flex flex-col md:flex-row items-center justify-between gap-8 mb-16"
-      >
-        <article class="relative group flex-1 w-full max-w-lg">
-          <div class="relative">
-            <div
-              class="absolute inset-0 bg-cyan-500/40 rounded-[2rem] blur-lg group-hover:bg-cyan-500/60 transition duration-500"
-            ></div>
 
-            <div
-              class="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden"
-            >
-              <figure class="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800"
-                  alt="GTA"
-                  class="w-full h-72 object-cover opacity-70 group-hover:opacity-100 transition duration-500"
-                />
+    <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pb-20">
+        
+        <section class="flex flex-col lg:flex-row items-center justify-center gap-26 mb-16">
 
-                <figcaption class="absolute bottom-0 left-0 w-full p-6">
-                  <h2 class="text-3xl font-bold mb-1">Grand Theft Auto</h2>
-                  <p class="text-cyan-400 font-bold">
-                    beoordeling: 3.85 • Metacritic: -
-                  </p>
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-          <div class="mt-4">
-            <button
-              class="w-full py-4 text-lg text-cyan-500 bg-white/5 hover:bg-cyan-500/20 border border-white/10 hover:border-cyan-500/50 rounded-2xl font-bold transition-all duration-300"
-            >
-              Verander game
-            </button>
-          </div>
-        </article>
+            <article class="relative group w-full lg:flex-1 max-w-lg">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-cyan-500/40 rounded-[2rem] blur-lg group-hover:bg-cyan-500/60 transition duration-500"></div>
+                    <div class="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden">
+                        <figure class="relative">
+                            <img id="game-img-1" src="" alt="Game 1" class="w-full h-64 md:h-72 object-cover opacity-70 group-hover:opacity-100 transition duration-500">
+                            <figcaption class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
+                                <h2 id="game-name-1" class="text-2xl md:text-3xl font-bold mb-1">Laden...</h2>
+                                <p id="game-meta-1" class="text-cyan-400 font-bold text-sm md:text-base">-</p>
+                            </figcaption>
+                        </figure>  
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button id="button-change-1" class="w-full py-4 text-lg text-cyan-500 bg-white/5 hover:bg-cyan-500/20 border border-white/10 rounded-2xl font-bold transition-all">
+                        Verander Game
+                    </button>
+                </div>
+            </article>
 
-        <div
-          class="flex-none p-4 bg-gray-900/80 border border-white/10 rounded-2xl text-purple-400 shadow-2xl hover:scale-110 transition-transform cursor-pointer"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-8 w-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-            />
-          </svg>
-        </div>
+            <article class="relative group w-full lg:flex-1 max-w-lg">
+                <div class="relative">
+                    <div class="absolute inset-0 bg-purple-500/40 rounded-[2rem] blur-lg group-hover:bg-purple-500/60 transition duration-500"></div>
+                    <div class="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden">
+                        <figure class="relative">
+                            <img id="game-img-2" src="" alt="Game 2" class="w-full h-64 md:h-72 object-cover opacity-70 group-hover:opacity-100 transition duration-500">
+                            <figcaption class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
+                                <h2 id="game-name-2" class="text-2xl md:text-3xl font-bold mb-1">Laden...</h2>
+                                <p id="game-meta-2" class="text-purple-400 font-bold text-sm md:text-base">-</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button id="button-change-2" class="w-full py-4 text-lg text-purple-500 bg-white/5 hover:bg-purple-500/20 border border-white/10 rounded-2xl font-bold transition-all">
+                        Verander Game
+                    </button>
+                </div>
+            </article>
 
-        <article class="relative group flex-1 w-full max-w-lg">
-          <div class="relative">
-            <div
-              class="absolute inset-0 bg-purple-500/40 rounded-[2rem] blur-lg group-hover:bg-purple-500/60 transition duration-500"
-            ></div>
+        </section>
 
-            <div
-              class="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden"
-            >
-              <figure class="relative">
-                <img
-                  src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&q=80&w=800"
-                  alt="Sonic"
-                  class="w-full h-72 object-cover opacity-70 group-hover:opacity-100 transition duration-500"
-                />
+        <section class="max-w-4xl mx-auto bg-black/40 backdrop-blur-2xl border border-white/20 rounded-[2.5rem] p-6 md:p-10 shadow-2xl">
+            <h3 class="text-3xl md:text-4xl pb-6 font-extrabold bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 text-transparent text-center">
+                Statistieken
+            </h3>
 
-                <figcaption class="absolute bottom-0 left-0 w-full p-6">
-                  <h2 class="text-3xl font-bold mb-1">Sonic Generations</h2>
-                  <p class="text-purple-400 font-bold">
-                    beoordeling: 3.9 • Metacritic: -
-                  </p>
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-          <div class="mt-4">
-            <button
-              class="w-full py-4 text-lg text-purple-500 bg-white/5 hover:bg-purple-500/20 border border-white/10 hover:border-purple-500/50 rounded-2xl font-bold transition-all duration-300"
-            >
-              Verander game
-            </button>
-          </div>
-        </article>
-      </section>
+            <ul class="flex flex-col divide-y divide-white/10">
+                
+                <li class="flex items-center justify-between py-6 md:py-8">
+                    <span id="rating-1" class="text-lg md:text-xl font-mono text-gray-400">0.0</span>
+                    <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
+                        <span class="arrow-left text-gray-500">—</span>
+                        <span class="text-gray-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">Beoordeling</span>
+                        <span class="arrow-right text-gray-500">—</span>
+                    </div>
+                    <span id="rating-2" class="text-lg md:text-xl font-mono text-gray-400">0.0</span>
+                </li>
 
-      <section
-        class="max-w-4xl mx-auto bg-black/40 backdrop-blur-2xl border border-white/20 rounded-[2.5rem] p-10 shadow-2xl"
-      >
-        <h3
-          class="text-4xl pb-2 font-extrabold bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 text-transparent text-center"
-        >
-          Statistieken vergelijken
-        </h3>
+                <li class="flex items-center justify-between py-6 md:py-8">
+                    <span id="releasedate-1" class="text-sm md:text-xl font-mono text-gray-400">0000-00-00</span>
+                    <div class="flex items-center gap-2 md:gap-3 px-2 text-center text-gray-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">
+                        <span>Releasedatum</span>
+                    </div>
+                    <span id="releasedate-2" class="text-sm md:text-xl font-mono text-gray-400">0000-00-00</span>
+                </li>
 
-        <ul class="flex flex-col divide-y divide-white/10">
-          <li class="flex items-center justify-between py-8">
-            <span class="text-xl font-mono text-gray-400">3.85</span>
-            <div class="flex items-center gap-3">
-              <span class="text-red-500">↘</span>
-              <span
-                class="text-gray-400 uppercase tracking-tighter font-bold text-sm"
-                >Gebruikers beoordeling</span
-              >
-              <span class="text-green-500">↗</span>
-            </div>
-            <span class="text-xl font-mono text-green-400">3.9</span>
-          </li>
-
-          <li class="flex items-center justify-between py-8 text-center">
-            <span class="text-xl font-mono text-gray-400">1997-10-21</span>
-            <div
-              class="flex items-center gap-3 text-gray-400 uppercase tracking-tighter font-bold text-sm"
-            >
-              <span>—</span>
-              <span>Releasedatum</span>
-              <span>—</span>
-            </div>
-            <span class="text-xl font-mono text-gray-400">2011-11-01</span>
-          </li>
-
-          <li class="flex items-center justify-between py-8">
-            <span class="text-xl font-mono text-gray-400">4</span>
-            <div class="flex items-center gap-3">
-              <span class="text-red-500">↘</span>
-              <span
-                class="text-gray-400 uppercase tracking-tighter font-bold text-sm"
-                >Platformen</span
-              >
-              <span class="text-green-500">↗</span>
-            </div>
-            <span class="text-xl font-mono text-green-400">6</span>
-          </li>
-        </ul>
-      </section>
+                <li class="flex items-center justify-between py-6 md:py-8">
+                    <span id="platform-1" class="text-lg md:text-xl font-mono text-gray-400">0</span>
+                    <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
+                        <span class="arrow-left text-gray-500">—</span>
+                        <span class="text-gray-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">Platformen</span>
+                        <span class="arrow-right text-gray-500">—</span>
+                    </div>
+                    <span id="platform-2" class="text-lg md:text-xl font-mono text-gray-400">0</span>
+                </li>
+                
+            </ul>
+        </section>
     </main>
   </body>
 </html>
