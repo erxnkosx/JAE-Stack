@@ -1,64 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="overflow-x-hidden min-h-min">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./src/collection-page.js" defer></script>
+    <script src="./src/nav.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <title>Collectiepagina</title>
-</head>
+  </head>
 
-<body class="bg-black text-white min-h-screen flex flex-col items-center justify-center relative overflow-x-hidden w-screen">
-<section class="fixed inset-0 w-screen -z-10">
-    <div class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
+  <body
+    class="bg-black text-white min-h-screen flex flex-col items-center relative overflow-x-hidden w-screen"
+  >
+    <section class="fixed inset-0 w-screen -z-10">
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"
+      ></div>
 
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
+      <div
+        class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
+      ></div>
 
-    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+      <div
+        class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+      ></div>
 
-    <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"></div>
-</section>
+      <div
+        class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"
+      ></div>
+    </section>
 
-<nav
-      class="relative w-full flex items-center justify-between px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10"
+    <nav
+      class="relative w-full flex items-center justify-between px-6 md:px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10"
     >
-      <div class="flex items-center gap-12">
-        <a
+      <a
         href="./index.html"
-          class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
-        >
-          GameHub
+        class="text-3xl md:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+      >
+        GameHub
       </a>
-        <div class="hidden md:flex gap-6 text-slate-500 font-medium mt-2">
-          <a
-            href="./ontdek.html"
-            class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white"
-            >Ontdek</a
-          >
-          <a
-            href="./collection-page.html"
-            class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white"
-            >Collectie</a
-          >
-          <a
-            href="./compare-page.html"
-            class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white"
-            >Vergelijk</a
-          >
-        </div>
-      </div>
 
-      <div class="flex items-center gap-4 mt-2">
-        <button
-          class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition"
+      <section
+        class="hidden md:flex gap-8 text-slate-400 font-medium absolute left-1/2 -translate-x-1/2 translate-y-[6px]"
+      >
+        <a href="./ontdek.html" class="hover:text-white">Ontdek</a>
+        <a href="./collection-page.html" class="hover:text-white">Collectie</a>
+        <a href="./compare-page.html" class="hover:text-white">Vergelijk</a>
+      </section>
+
+      <section class="flex items-center pt-2 gap-3">
+        <a
+          href="/raad-page.html"
+          class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition text-sm font-semibold"
         >
           <span class="text-cyan-400 text-sm">✦</span>
-          <a href="/raad-page.html" class="text-sm font-semibold"
-            >Raad de game</a
-          >
-        </button>
-        <a href="/login.html" class="text-gray-400 hover:text-white">
+          <span>Raad de game</span>
+        </a>
+
+        <a
+          href="/login.html"
+          class="hidden md:block text-gray-400 hover:text-white"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -74,177 +77,350 @@
             />
           </svg>
         </a>
-      </div>
+
+        <button id="menuBtn" class="md:hidden text-white p-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </section>
     </nav>
 
-    <main class="relative px-24 mt-12 w-full">
-        <header class="flex justify-between mb-8">
-            <div>
-                <h2 class="text-5xl font-extrabold mb-2">Mijn collectie</h2>
-                <p class="text-cyan-400 font-medium"><span id="collectionCounter" class="font-bold">0</span> games in jouw collectie</p>
-            </div>
-            
-            <div class="flex bg-[#0f172a] p-1 rounded-xl border border-gray-800 h-12 my-auto">
-                <button id="gridView" class="p-2 bg-cyan-500/20 text-cyan-400 rounded-lg">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                </button>
-                <button id="listView" class="p-2 text-slate-500 hover:text-gray-300">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-                </button>
-            </div>
-        </header>
-
-        <div class="flex items-center text-slate-500 gap-4 mb-12">
-            <button class="p-2 text-cyan-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg></button>
-            <button class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition active-category">Allemaal (0)</button>
-            <button class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition">Verlanglijst (0)</button>
-            <button class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition">Actief (0)</button>
-        </div>
-
-        <section class="flex flex-wrap items-center justify-between gap-4 mb-8">
-            <div class="flex items-center gap-4">
-                <label for="sortGames" class="text-sm text-slate-400 font-medium">Sorteer op</label>
-                <select
-                        id="sortGames"
-                        class="bg-[#0f172a] border border-gray-800 text-slate-300 rounded-xl px-4 py-2 outline-none focus:border-cyan-400"
-                >
-                    <option value="rating">Rating</option>
-                    <option value="released">Release date</option>
-                    <option value="name">Naam</option>
-                </select>
-            </div>
-
-            <div class="flex items-center gap-3">
-                <input id="showAllGames" type="checkbox" class="w-4 h-4 accent-cyan-400" />
-                <label for="showAllGames" class="text-sm text-slate-400 font-medium">
-                    Toon alle bekende games
-                </label>
-            </div>
-        </section>
-
-        <div id="gameCollection" class="flex flex-col items-center justify-center py-32">
-            <p class="text-slate-500 text-lg mb-6">Geen games in dit categorie</p>
-            <a href="./ontdek.html" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-2xl transition shadow-lg shadow-purple-500/20">
-                Ontdek games
-            </a>
-        </div>
-
-        <section id="gameModal" data-id="" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-6">
-            <section class="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2">
-                <button
-                        id="closeModal"
-                        class="absolute right-5 top-5 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-3xl text-slate-300 hover:text-white"
-                >
-                    ×
-                </button>
-
-                <section class="relative h-[420px] lg:h-full">
-                    <img id="modalCover" src="" alt="" class="h-full w-full object-cover" />
-                </section>
-
-                <section class="flex flex-col gap-6 p-8 lg:p-10">
-                    <h2 id="modalTitle" class="text-4xl lg:text-5xl font-semibold tracking-tight text-white"></h2>
-
-                    <section class="flex flex-wrap items-center gap-4 text-slate-400 text-lg font-medium">
-                        <p>Released: <span id="modalDate"></span></p>
-                    </section>
-
-                    <p id="modalDescription" class="text-slate-400 text-lg leading-relaxed max-w-xl"></p>
-
-                    <section>
-                        <h3 class="mb-4 text-cyan-400 text-sm font-semibold tracking-widest uppercase">Platforms</h3>
-                        <div id="modalPlatforms" class="flex flex-wrap gap-3"></div>
-                    </section>
-
-                    <section class="mt-auto flex flex-col gap-4 sm:flex-row">
-                        <button class="rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 text-lg font-medium text-white hover:scale-105 transition">
-                            Set as Current Game
-                        </button>
-
-                        <button class="add-collection-modal-button rounded-xl border border-cyan-500/40 bg-white/5 px-8 py-3 text-lg font-medium text-cyan-300 hover:bg-cyan-500/10 transition">
-                            Add to Collection
-                        </button>
-                    </section>
-                </section>
-            </section>
-        </section>
-    </main>
-  <section
-          id="gameDetails"
-          class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-6"
-  >
+    <section id="mobileMenu" class="fixed inset-0 z-50 hidden bg-[#050816]">
       <section
-              class="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
+        class="relative w-full flex items-center justify-between pl-6 pr-4 py-6 bg-gradient-to-r from-black via-[#0b1120] to-[#1b1230] border-b border-white/10"
       >
-          <button
-                  id="closeGameDetails"
-                  class="absolute right-5 top-5 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-3xl text-slate-300 hover:text-white"
+        <a
+          href="./index.html"
+          class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+        >
+          GameHub
+        </a>
+
+        <section class="flex items-center pt-2 gap-3">
+          <a
+            href="/raad-page.html"
+            class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition text-sm font-semibold"
           >
-              <span class="-translate-y-0.5 inline-block">×</span>
+            <span class="text-cyan-400 text-sm">✦</span>
+            <span>Raad de game</span>
+          </a>
+
+          <button id="closeMenuBtn" class="text-white p-2 pr-0 shrink-0">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </section>
+      </section>
+
+      <section
+        class="h-[calc(100vh-89px)] flex flex-col items-center justify-center gap-15 text-slate-500 font-black text-5xl tracking-tight -mt-20"
+      >
+        <a href="./ontdek.html" class="hover:text-white transition">Ontdek</a>
+        <a href="./collection-page.html" class="hover:text-white transition"
+          >Collectie</a
+        >
+        <a href="./compare-page.html" class="hover:text-white transition"
+          >Vergelijk</a
+        >
+      </section>
+
+      <a
+        href="/login.html"
+        class="absolute bottom-8 right-6 flex items-center gap-2 text-red-500 hover:text-red-400 text-base font-semibold"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+          />
+        </svg>
+        Logout
+      </a>
+    </section>
+
+    <main class="relative px-24 mt-12 w-full">
+      <header class="flex justify-between mb-8">
+        <div>
+          <h2 class="text-5xl font-extrabold mb-2">Mijn collectie</h2>
+          <p class="text-cyan-400 font-medium">
+            <span id="collectionCounter" class="font-bold">0</span> games in
+            jouw collectie
+          </p>
+        </div>
+
+        <div
+          class="flex bg-[#0f172a] p-1 rounded-xl border border-gray-800 h-12 my-auto"
+        >
+          <button
+            id="gridView"
+            class="p-2 bg-cyan-500/20 text-cyan-400 rounded-lg"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+              ></path>
+            </svg>
+          </button>
+          <button id="listView" class="p-2 text-slate-500 hover:text-gray-300">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="flex items-center text-slate-500 gap-4 mb-12">
+        <button class="p-2 text-cyan-400">
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+            ></path>
+          </svg>
+        </button>
+        <button
+          class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition active-category"
+        >
+          Allemaal (0)
+        </button>
+        <button
+          class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition"
+        >
+          Verlanglijst (0)
+        </button>
+        <button
+          class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition"
+        >
+          Actief (0)
+        </button>
+      </div>
+
+      <section class="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div class="flex items-center gap-4">
+          <label for="sortGames" class="text-sm text-slate-400 font-medium"
+            >Sorteer op</label
+          >
+          <select
+            id="sortGames"
+            class="bg-[#0f172a] border border-gray-800 text-slate-300 rounded-xl px-4 py-2 outline-none focus:border-cyan-400"
+          >
+            <option value="rating">Rating</option>
+            <option value="released">Release date</option>
+            <option value="name">Naam</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <input
+            id="showAllGames"
+            type="checkbox"
+            class="w-4 h-4 accent-cyan-400"
+          />
+          <label for="showAllGames" class="text-sm text-slate-400 font-medium">
+            Toon alle bekende games
+          </label>
+        </div>
+      </section>
+
+      <div
+        id="gameCollection"
+        class="flex flex-col items-center justify-center py-32"
+      >
+        <p class="text-slate-500 text-lg mb-6">Geen games in dit categorie</p>
+        <a
+          href="./ontdek.html"
+          class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-2xl transition shadow-lg shadow-purple-500/20"
+        >
+          Ontdek games
+        </a>
+      </div>
+
+      <section
+        id="gameModal"
+        data-id=""
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-6"
+      >
+        <section
+          class="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
+        >
+          <button
+            id="closeModal"
+            class="absolute right-5 top-5 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-3xl text-slate-300 hover:text-white"
+          >
+            ×
           </button>
 
           <section class="relative h-[420px] lg:h-full">
-              <img
-                      id="gameCover"
-                      src=""
-                      alt=""
-                      class="h-full w-full object-cover"
-              />
+            <img
+              id="modalCover"
+              src=""
+              alt=""
+              class="h-full w-full object-cover"
+            />
           </section>
 
           <section class="flex flex-col gap-6 p-8 lg:p-10">
-              <h2
-                      id="gameTitle"
-                      class="text-4xl lg:text-5xl font-semibold tracking-tight text-white"
-              ></h2>
-              <p
-                      id="gameDescription"
-                      class="text-slate-400 text-lg leading-relaxed max-w-xl"
-              ></p>
-              <p
-                      class="flex items-center gap-2 text-lg text-yellow-400 font-semibold"
+            <h2
+              id="modalTitle"
+              class="text-4xl lg:text-5xl font-semibold tracking-tight text-white"
+            ></h2>
+
+            <section
+              class="flex flex-wrap items-center gap-4 text-slate-400 text-lg font-medium"
+            >
+              <p>Released: <span id="modalDate"></span></p>
+            </section>
+
+            <p
+              id="modalDescription"
+              class="text-slate-400 text-lg leading-relaxed max-w-xl"
+            ></p>
+
+            <section>
+              <h3
+                class="mb-4 text-cyan-400 text-sm font-semibold tracking-widest uppercase"
               >
-                  <span>⭐</span><span id="gameRating"></span>
-              </p>
-              <p class="text-slate-400 text-lg">
-                  Releasedatum: <span id="gameDate"></span>
-              </p>
-              <section>
-                  <h3
-                          class="mb-4 text-cyan-400 text-sm font-semibold tracking-widest uppercase"
-                  >
-                      Platformen
-                  </h3>
-                  <div id="gamePlatforms" class="flex flex-wrap gap-3">
-              <span
-                      class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
-              >PC</span
+                Platforms
+              </h3>
+              <div id="modalPlatforms" class="flex flex-wrap gap-3"></div>
+            </section>
+
+            <section class="mt-auto flex flex-col gap-4 sm:flex-row">
+              <button
+                class="rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 text-lg font-medium text-white hover:scale-105 transition"
               >
-                      <span
-                              class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
-                      >PlayStation 4 / 5</span
-                      >
-                      <span
-                              class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
-                      >Xbox One</span
-                      >
-                  </div>
-              </section>
-              <section class="mt-auto flex flex-col gap-4 sm:flex-row">
-                  <button
-                          class="rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 text-lg font-medium text-white hover:scale-105 transition"
-                  >
-                      Zet actief
-                  </button>
-                  <button
-                          id="verlanglijstGameDetails"
-                          class="rounded-xl border border-cyan-500/40 bg-white/5 px-8 py-3 text-lg font-medium text-cyan-300 hover:bg-cyan-500/10 transition"
-                  >
-                      Voeg toe aan verlanglijst
-                  </button>
-              </section>
+                Set as Current Game
+              </button>
+
+              <button
+                class="add-collection-modal-button rounded-xl border border-cyan-500/40 bg-white/5 px-8 py-3 text-lg font-medium text-cyan-300 hover:bg-cyan-500/10 transition"
+              >
+                Add to Collection
+              </button>
+            </section>
           </section>
+        </section>
       </section>
-  </section>
-</body>
+    </main>
+    <section
+      id="gameDetails"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-6"
+    >
+      <section
+        class="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
+      >
+        <button
+          id="closeGameDetails"
+          class="absolute right-5 top-5 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-3xl text-slate-300 hover:text-white"
+        >
+          <span class="-translate-y-0.5 inline-block">×</span>
+        </button>
+
+        <section class="relative h-[420px] lg:h-full">
+          <img
+            id="gameCover"
+            src=""
+            alt=""
+            class="h-full w-full object-cover"
+          />
+        </section>
+
+        <section class="flex flex-col gap-6 p-8 lg:p-10">
+          <h2
+            id="gameTitle"
+            class="text-4xl lg:text-5xl font-semibold tracking-tight text-white"
+          ></h2>
+          <p
+            id="gameDescription"
+            class="text-slate-400 text-lg leading-relaxed max-w-xl"
+          ></p>
+          <p
+            class="flex items-center gap-2 text-lg text-yellow-400 font-semibold"
+          >
+            <span>⭐</span><span id="gameRating"></span>
+          </p>
+          <p class="text-slate-400 text-lg">
+            Releasedatum: <span id="gameDate"></span>
+          </p>
+          <section>
+            <h3
+              class="mb-4 text-cyan-400 text-sm font-semibold tracking-widest uppercase"
+            >
+              Platformen
+            </h3>
+            <div id="gamePlatforms" class="flex flex-wrap gap-3">
+              <span
+                class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+                >PC</span
+              >
+              <span
+                class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+                >PlayStation 4 / 5</span
+              >
+              <span
+                class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+                >Xbox One</span
+              >
+            </div>
+          </section>
+          <section class="mt-auto flex flex-col gap-4 sm:flex-row">
+            <button
+              class="rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 text-lg font-medium text-white hover:scale-105 transition"
+            >
+              Zet actief
+            </button>
+            <button
+              id="verlanglijstGameDetails"
+              class="rounded-xl border border-cyan-500/40 bg-white/5 px-8 py-3 text-lg font-medium text-cyan-300 hover:bg-cyan-500/10 transition"
+            >
+              Voeg toe aan verlanglijst
+            </button>
+          </section>
+        </section>
+      </section>
+    </section>
+  </body>
 </html>
