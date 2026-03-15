@@ -19,7 +19,8 @@ cards.forEach(card => {
     currentTitle = card.dataset.title;
 
     document.querySelector("#gameTitle").textContent = card.dataset.title;
-    document.querySelector("#gameDescription").textContent = card.dataset.description;
+    document.querySelector("#gameDescription").textContent =
+      card.dataset.description;
     document.querySelector("#gameRating").textContent = card.dataset.rating;
     document.querySelector("#gameDate").textContent = card.dataset.date;
     document.querySelector("#gameCover").src = card.dataset.image;
@@ -52,12 +53,15 @@ if (detail) {
 function renderPlatforms(platformsString) {
   gamePlatforms.innerHTML = "";
 
-  const platforms = platformsString.split(",");
+  const platforms = (platformsString || "").split(",");
 
   platforms.forEach(platform => {
+    const trimmed = platform.trim();
+    if (!trimmed) return;
+
     const span = document.createElement("span");
     span.className = "rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200";
-    span.textContent = platform.trim();
+    span.textContent = trimmed;
     gamePlatforms.appendChild(span);
   });
 }
@@ -75,7 +79,29 @@ function getCollectionStatusesFromLocalStorage() {
 }
 
 function setCollectionStatusesToLocalStorage(collectionStatuses) {
-  localStorage.setItem("collectionStatuses", JSON.stringify(collectionStatuses));
+  localStorage.setItem(
+    "collectionStatuses",
+    JSON.stringify(collectionStatuses)
+  );
+}
+
+function getCollectionGamesFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("collectionGames") || "[]");
+}
+
+function setCollectionGamesToLocalStorage(collectionGames) {
+  localStorage.setItem("collectionGames", JSON.stringify(collectionGames));
+}
+
+function getCollectionNicknamesFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("collectionNicknames") || "{}");
+}
+
+function setCollectionNicknamesToLocalStorage(collectionNicknames) {
+  localStorage.setItem(
+    "collectionNicknames",
+    JSON.stringify(collectionNicknames)
+  );
 }
 
 function isTitleInCollection(title) {
@@ -88,9 +114,25 @@ function getGameStatus(title) {
   return collectionStatuses[title] || "backlog";
 }
 
+function getCurrentGameObject(title, status = "backlog") {
+  return {
+    id: currentId,
+    name: title,
+    description: document.querySelector("#gameDescription").textContent,
+    rating: document.querySelector("#gameRating").textContent,
+    released: document.querySelector("#gameDate").textContent,
+    background_image: document.querySelector("#gameCover").src,
+    platforms: Array.from(document.querySelectorAll("#gamePlatforms span")).map(
+      span => span.textContent
+    ),
+    status: status
+  };
+}
+
 function addGameToCollection(title, status = "backlog") {
   let collectionTitles = getCollectionTitlesFromLocalStorage();
   let collectionStatuses = getCollectionStatusesFromLocalStorage();
+  let collectionGames = getCollectionGamesFromLocalStorage();
 
   if (!collectionTitles.includes(title)) {
     collectionTitles.push(title);
@@ -98,19 +140,40 @@ function addGameToCollection(title, status = "backlog") {
 
   collectionStatuses[title] = status;
 
+  const bestaandIndex = collectionGames.findIndex(game => game.name === title);
+  const nieuwGameObject = getCurrentGameObject(title, status);
+
+  if (bestaandIndex === -1) {
+    collectionGames.push(nieuwGameObject);
+  } else {
+    collectionGames[bestaandIndex] = {
+      ...collectionGames[bestaandIndex],
+      ...nieuwGameObject,
+      status: status
+    };
+  }
+
   setCollectionTitlesToLocalStorage(collectionTitles);
   setCollectionStatusesToLocalStorage(collectionStatuses);
+  setCollectionGamesToLocalStorage(collectionGames);
 }
 
 function removeGameFromCollection(title) {
   let collectionTitles = getCollectionTitlesFromLocalStorage();
   let collectionStatuses = getCollectionStatusesFromLocalStorage();
+  let collectionGames = getCollectionGamesFromLocalStorage();
+  let collectionNicknames = getCollectionNicknamesFromLocalStorage();
 
   collectionTitles = collectionTitles.filter(colTitle => colTitle !== title);
+  collectionGames = collectionGames.filter(game => game.name !== title);
+
   delete collectionStatuses[title];
+  delete collectionNicknames[title];
 
   setCollectionTitlesToLocalStorage(collectionTitles);
   setCollectionStatusesToLocalStorage(collectionStatuses);
+  setCollectionGamesToLocalStorage(collectionGames);
+  setCollectionNicknamesToLocalStorage(collectionNicknames);
 }
 
 function updateCollectionUI() {
@@ -150,7 +213,8 @@ collectionBtn.onclick = () => {
 
   let titles = getCollectionTitlesFromLocalStorage();
   let statuses = getCollectionStatusesFromLocalStorage();
-  let nicknames = JSON.parse(localStorage.getItem("collectionNicknames") || "{}");
+  let nicknames = getCollectionNicknamesFromLocalStorage();
+  let collectionGames = getCollectionGamesFromLocalStorage();
 
   if (titles.includes(currentTitle)) {
     const bevestiging = confirm(
@@ -159,12 +223,15 @@ collectionBtn.onclick = () => {
 
     if (bevestiging) {
       titles = titles.filter(t => t !== currentTitle);
+      collectionGames = collectionGames.filter(game => game.name !== currentTitle);
+
       delete statuses[currentTitle];
       delete nicknames[currentTitle];
 
-      localStorage.setItem("collectionTitles", JSON.stringify(titles));
-      localStorage.setItem("collectionStatuses", JSON.stringify(statuses));
-      localStorage.setItem("collectionNicknames", JSON.stringify(nicknames));
+      setCollectionTitlesToLocalStorage(titles);
+      setCollectionStatusesToLocalStorage(statuses);
+      setCollectionNicknamesToLocalStorage(nicknames);
+      setCollectionGamesToLocalStorage(collectionGames);
     }
   } else {
     const nickname = prompt("Geef een bijnaam voor deze game (optioneel):");
@@ -181,9 +248,25 @@ collectionBtn.onclick = () => {
       nicknames[currentTitle] = nickname.trim();
     }
 
-    localStorage.setItem("collectionTitles", JSON.stringify(titles));
-    localStorage.setItem("collectionStatuses", JSON.stringify(statuses));
-    localStorage.setItem("collectionNicknames", JSON.stringify(nicknames));
+    const bestaandIndex = collectionGames.findIndex(
+      game => game.name === currentTitle
+    );
+    const nieuwGameObject = getCurrentGameObject(currentTitle, statuses[currentTitle]);
+
+    if (bestaandIndex === -1) {
+      collectionGames.push(nieuwGameObject);
+    } else {
+      collectionGames[bestaandIndex] = {
+        ...collectionGames[bestaandIndex],
+        ...nieuwGameObject,
+        status: statuses[currentTitle]
+      };
+    }
+
+    setCollectionTitlesToLocalStorage(titles);
+    setCollectionStatusesToLocalStorage(statuses);
+    setCollectionNicknamesToLocalStorage(nicknames);
+    setCollectionGamesToLocalStorage(collectionGames);
   }
 
   updateCollectionUI();

@@ -42,7 +42,7 @@ function updateCards() {
     }
 }
 
-let games = [];
+let games = getCollectionGamesFromLocalStorage();
 let collectionTitles = getCollectionTitlesFromLocalStorage();
 let collectionStatuses = getCollectionStatusesFromLocalStorage();
 
@@ -89,6 +89,14 @@ function setCollectionStatusesToLocalStorage() {
     localStorage.setItem("collectionStatuses", JSON.stringify(collectionStatuses));
 }
 
+function getCollectionGamesFromLocalStorage() {
+    return JSON.parse(localStorage.getItem("collectionGames") || "[]");
+}
+
+function setCollectionGamesToLocalStorage() {
+    localStorage.setItem("collectionGames", JSON.stringify(games));
+}
+
 function isTitleInCollection(title) {
     collectionTitles = getCollectionTitlesFromLocalStorage();
     return collectionTitles.includes(title);
@@ -97,6 +105,11 @@ function isTitleInCollection(title) {
 function removeTitleFromCollection(title) {
     collectionTitles = collectionTitles.filter(colTitle => colTitle !== title);
     delete collectionStatuses[title];
+    games = games.filter(game => game.name !== title);
+
+    setCollectionTitlesToLocalStorage();
+    setCollectionStatusesToLocalStorage();
+    setCollectionGamesToLocalStorage();
 }
 
 function addTitleToCollection(title) {
@@ -107,6 +120,9 @@ function addTitleToCollection(title) {
     if (!collectionStatuses[title]) {
         collectionStatuses[title] = "backlog";
     }
+
+    setCollectionTitlesToLocalStorage();
+    setCollectionStatusesToLocalStorage();
 }
 
 function getGameStatus(title) {
@@ -172,36 +188,8 @@ function updateDetailModalUI(title, collectionBtn, collectionStatus) {
     }
 }
 
-async function loadGames() {
-    const response = await fetch("../data/details.json");
-    const responseJson = await response.json();
-    let results = responseJson.results;
-
-    const ids = results.map(res => res.id);
-
-    const descriptions = await Promise.all(
-        ids.map(async id => {
-            const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=b98606b4c7c748e991abd01ef0674fdc`);
-            const response2Json = await response2.json();
-
-            if (!response2Json.description_raw) {
-                return "Geen beschrijving beschikbaar.";
-            }
-
-            return `${response2Json.description_raw.split(".")[0]}.`;
-        })
-    );
-
-    results = results.map((res, idx) => ({
-        ...res,
-        description: descriptions[idx]
-    }));
-
-    return results;
-}
-
-function sortGames(games, sortBy) {
-    const sortedGames = [...games];
+function sortGames(gamesToSort, sortBy) {
+    const sortedGames = [...gamesToSort];
 
     if (sortBy === "released") {
         sortedGames.sort((a, b) => new Date(b.released) - new Date(a.released));
@@ -216,7 +204,7 @@ function sortGames(games, sortBy) {
 
 function applyViewClass() {
     if (currentView === "grid") {
-        gameCollection.className = "mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8";
+        gameCollection.className = "mt-10 grid grid-cols-3 gap-8";
         gridViewButton.className = "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
         listViewButton.className = "p-2 text-slate-500 hover:text-gray-300";
     } else {
@@ -269,6 +257,7 @@ function updateCollectionCounter() {
 }
 
 function renderGames() {
+    games = getCollectionGamesFromLocalStorage();
     collectionTitles = getCollectionTitlesFromLocalStorage();
     collectionStatuses = getCollectionStatusesFromLocalStorage();
 
@@ -305,10 +294,6 @@ function renderGames() {
             statusText = "Uitgespeeld";
         }
 
-        const platformsString = (g.platforms || [])
-            .map(p => p.platform.name)
-            .join(", ");
-
         result += `
             <article
                 class="w-full max-w-2xl game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
@@ -317,7 +302,7 @@ function renderGames() {
                 data-rating="${g.rating}"
                 data-date="${g.released}"
                 data-image="${g.background_image}"
-                data-platforms="${platformsString}"
+                data-platforms="${g.platforms}"
             >
                 <section class="relative">
                     <img
@@ -356,9 +341,6 @@ if (addToCollectionDetailButton && gameTitle) {
     addToCollectionDetailButton.addEventListener("click", async () => {
         const title = gameTitle.textContent.trim();
 
-        collectionTitles = getCollectionTitlesFromLocalStorage();
-        collectionStatuses = getCollectionStatusesFromLocalStorage();
-
         if (isTitleInCollection(title)) {
             const bevestiging = confirm(
                 "Weet je zeker dat je deze game wilt verwijderen uit je collectie?"
@@ -367,12 +349,8 @@ if (addToCollectionDetailButton && gameTitle) {
             if (!bevestiging) return;
 
             removeTitleFromCollection(title);
-            setCollectionTitlesToLocalStorage();
-            setCollectionStatusesToLocalStorage();
         } else {
             addTitleToCollection(title);
-            setCollectionTitlesToLocalStorage();
-            setCollectionStatusesToLocalStorage();
         }
 
         await updateCollectionPage();
@@ -387,13 +365,8 @@ if (setBacklogButton && gameTitle) {
     setBacklogButton.addEventListener("click", async () => {
         const title = gameTitle.textContent.trim();
 
-        collectionTitles = getCollectionTitlesFromLocalStorage();
-        collectionStatuses = getCollectionStatusesFromLocalStorage();
-
         if (!isTitleInCollection(title)) {
             addTitleToCollection(title);
-            setCollectionTitlesToLocalStorage();
-            setCollectionStatusesToLocalStorage();
         }
 
         setGameStatus(title, "backlog");
@@ -409,13 +382,8 @@ if (setPlayingButton && gameTitle) {
     setPlayingButton.addEventListener("click", async () => {
         const title = gameTitle.textContent.trim();
 
-        collectionTitles = getCollectionTitlesFromLocalStorage();
-        collectionStatuses = getCollectionStatusesFromLocalStorage();
-
         if (!isTitleInCollection(title)) {
             addTitleToCollection(title);
-            setCollectionTitlesToLocalStorage();
-            setCollectionStatusesToLocalStorage();
         }
 
         setGameStatus(title, "playing");
@@ -431,13 +399,8 @@ if (setFinishedButton && gameTitle) {
     setFinishedButton.addEventListener("click", async () => {
         const title = gameTitle.textContent.trim();
 
-        collectionTitles = getCollectionTitlesFromLocalStorage();
-        collectionStatuses = getCollectionStatusesFromLocalStorage();
-
         if (!isTitleInCollection(title)) {
             addTitleToCollection(title);
-            setCollectionTitlesToLocalStorage();
-            setCollectionStatusesToLocalStorage();
         }
 
         setGameStatus(title, "finished");
@@ -499,11 +462,11 @@ if (sortGamesSelect) {
     });
 }
 
-async function start() {
-    games = await loadGames();
+function start() {
+    games = getCollectionGamesFromLocalStorage();
     renderGames();
     updateCollectionCounter();
     updateCategoryCounts();
 }
 
-start();
+start(); 

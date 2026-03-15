@@ -98,4 +98,3 @@ async function skipGameHandler() {
 gameSearch.addEventListener("input", (e) => (gameSearchHandler(e.currentTarget.value)));
 guessSubmit.addEventListener("click", guessSubmitHandler);
 skipGame.addEventListener("click", skipGameHandler);
-
