@@ -71,20 +71,6 @@ function getGameStatus(title) {
   return statuses[title] || "backlog";
 }
 
-function renderPlatforms(platformsString) {
-  gamePlatforms.innerHTML = "";
-
-  (platformsString || "").split(",").forEach(platform => {
-    const trimmed = platform.trim();
-    if (!trimmed) return;
-
-    const span = document.createElement("span");
-    span.className = "rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200";
-    span.textContent = trimmed;
-    gamePlatforms.appendChild(span);
-  });
-}
-
 function getCurrentGameObject(title, status = "backlog") {
   return {
     id: currentId,
@@ -182,7 +168,6 @@ cards.forEach(card => {
     document.querySelector("#gameCover").src = card.dataset.image;
     document.querySelector("#gameCover").alt = card.dataset.title;
 
-    renderPlatforms(card.dataset.platforms);
     updateCollectionUI();
 
     detail.classList.remove("hidden");
