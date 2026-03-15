@@ -76,7 +76,7 @@ async function guessSubmitHandler() {
     if (!blurImage.classList.contains("duration-1000")) {
         blurImage.classList.add("duration-1000");
     }
-    if (randomGame.name === gameSearch.value) {
+    if (randomGame.name === gameSearch.value && level !== 0) {
         gameWon();
         await blurrGame();
     }
