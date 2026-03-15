@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./src/output.css" />
     <script src="./src/ontdek.js" defer></script>
     <script src="./src/nav.js" defer></script>
+    <script src="./src/active.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
 
@@ -95,7 +96,9 @@
         </button>
       </section>
     </nav>
-
+    <section class="w-full px-6 md:px-24 mt-6 relative z-10">
+      <section id="currentGameBannerHost"></section>
+    </section>
     <section id="mobileMenu" class="fixed inset-0 z-50 hidden bg-[#050816]">
       <section
         class="relative w-full flex items-center justify-between pl-6 pr-4 py-6 bg-gradient-to-r from-black via-[#0b1120] to-[#1b1230] border-b border-white/10"

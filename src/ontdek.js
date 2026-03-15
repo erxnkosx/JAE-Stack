@@ -283,8 +283,34 @@ if (setBacklogButton) {
 if (setPlayingButton) {
   setPlayingButton.onclick = () => {
     if (!currentTitle) return;
-    addGameToCollection(currentTitle, "playing");
+
+    let titles = getCollectionTitlesFromLocalStorage();
+    let statuses = getCollectionStatusesFromLocalStorage();
+
+    if (!titles.includes(currentTitle)) {
+      titles.push(currentTitle);
+    }
+
+    Object.keys(statuses).forEach(title => {
+      if (statuses[title] === "playing") {
+        statuses[title] = "backlog";
+      }
+    });
+
+    statuses[currentTitle] = "playing";
+
+    setCollectionTitlesToLocalStorage(titles);
+    setCollectionStatusesToLocalStorage(statuses);
+
+    setCurrentGameToLocalStorage({
+      id: currentId,
+      title: currentTitle,
+      image: document.querySelector("#gameCover").src,
+      status: "playing"
+    });
+
     updateCollectionUI();
+    renderCurrentGameBanner();
   };
 }
 
