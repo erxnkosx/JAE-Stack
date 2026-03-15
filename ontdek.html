@@ -8,7 +8,6 @@
     <script src="./src/ontdek.js" defer></script>
     <script src="./src/nav.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
   </head>
 
   <body
@@ -513,13 +512,38 @@
             </section>
           </section>
 
-          <section class="mt-auto pt-4">
+          <section class="mt-auto pt-4 flex flex-col gap-4">
             <button
               id="collectionBtn"
-              class="w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700"
+              class="w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700"
             >
-              Voeg toe aan collectie
+              Verwijder uit collectie
             </button>
+            <section class="flex flex-col gap-3">
+              <p class="text-sm text-slate-400 font-semibold pt-5">Kies status</p>
+
+              <section class="flex flex-wrap gap-3 pt-2">
+                <button
+                  id="setBacklog"
+                  class="px-4 py-2 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
+                >
+                  Nog te spelen
+                </button>
+
+                <button
+                  id="setPlaying"
+                  class="px-4 py-2 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
+                >
+                  Aan het spelen
+                </button>
+
+                <button
+                  id="setFinished"
+                  class="px-4 py-2 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
+                >
+                  Uitgespeeld
+                </button>
+              </section>
           </section>
         </section>
       </section>

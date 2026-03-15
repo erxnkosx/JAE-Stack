@@ -6,22 +6,26 @@ const collectionBtn = document.querySelector("#collectionBtn");
 const collectionStatus = document.querySelector("#collectionStatus");
 const gamePlatforms = document.querySelector("#gamePlatforms");
 
-const gameSearch = document.getElementById("gameSearch");
-const suggestions = document.getElementById("suggestions");
+const setBacklogButton = document.getElementById("setBacklog");
+const setPlayingButton = document.getElementById("setPlaying");
+const setFinishedButton = document.getElementById("setFinished");
 
-const collection = [];
 let currentId = "";
+let currentTitle = "";
 
 cards.forEach(card => {
   card.onclick = () => {
+    currentId = card.dataset.id;
+    currentTitle = card.dataset.title;
 
     document.querySelector("#gameTitle").textContent = card.dataset.title;
     document.querySelector("#gameDescription").textContent = card.dataset.description;
     document.querySelector("#gameRating").textContent = card.dataset.rating;
     document.querySelector("#gameDate").textContent = card.dataset.date;
-
     document.querySelector("#gameCover").src = card.dataset.image;
+    document.querySelector("#gameCover").alt = card.dataset.title;
 
+    renderPlatforms(card.dataset.platforms);
     updateCollectionUI();
 
     detail.classList.remove("hidden");
@@ -29,133 +33,156 @@ cards.forEach(card => {
   };
 });
 
-closeBtn.onclick = () => {
-  detail.classList.add("hidden");
-  detail.classList.remove("flex");
-};
-
-detail.onclick = e => {
-  if (e.target === detail) {
+if (closeBtn) {
+  closeBtn.onclick = () => {
     detail.classList.add("hidden");
     detail.classList.remove("flex");
-  }
-};
-
-function inCollection(id) {
-  return collection.includes(id);
+  };
 }
 
-function updateCollectionUI() {
-  if (inCollection(currentId)) {
-    collectionStatus.textContent = "In collectie";
-    collectionStatus.className =
-      "mt-3 rounded-full px-4 py-2 text-sm font-semibold bg-green-600 text-white";
-
-    collectionBtn.textContent = "Verwijder uit collectie";
-    collectionBtn.className =
-      "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700";
-  } else {
-    collectionStatus.textContent = "Niet in collectie";
-    collectionStatus.className =
-      "mt-3 rounded-full px-4 py-2 text-sm font-semibold bg-red-600 text-white";
-
-    collectionBtn.textContent = "Voeg toe aan collectie";
-    collectionBtn.className =
-      "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700";
-  }
-}
-
-collectionBtn.onclick = () => {
-  if (inCollection(currentId)) {
-    const bevestiging = confirm(
-      "Weet je zeker dat je deze game wilt verwijderen uit je collectie?"
-    );
-
-    if (bevestiging) {
-      const index = collection.indexOf(currentId);
-      collection.splice(index, 1);
+if (detail) {
+  detail.onclick = e => {
+    if (e.target === detail) {
+      detail.classList.add("hidden");
+      detail.classList.remove("flex");
     }
-  } else {
-    prompt("Geef een bijnaam (optioneel):");
-    prompt(
-      "Geef status: Nog te spelen / Aan het spelen / Uitgespeeld",
-      "Nog te spelen"
-    );
-
-    collection.push(currentId);
-  }
-
-  updateCollectionUI();
-};
-
-const addToCollectionDetailButton = document.getElementById("collectionBtn");
-const gameTitle = document.getElementById("gameTitle");
-let collectionTitles = getCollectionTitlesFromLocalStorage();
-
-let games = [];
-
-const loadGames = async () => {
-  const response = await fetch("../data/details.json");
-  const responseJson = await response.json();
-  let results = responseJson.results;
-  const ids = results.map(res => res.id);
-
-  const descriptions = await Promise.all(ids.map(async id => {
-    const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=09f7894c43764394b1691501eba8bb44`);
-    const response2Json = await response2.json();
-    const description = `${response2Json.description_raw.split(".")[0]}.`;
-    return description;
-  }));
-
-  results = results.map((res, idx) => ({
-    ...res,
-    description: descriptions[idx]
-  }));
-  return results;
-};
-
-(async () => games = await loadGames())();
-
-function isTitleInCollection(title) {
-  return collectionTitles.includes(title);
+  };
 }
 
-function removeTitleFromCollection(title) {
-  collectionTitles = collectionTitles.filter(colTitle => colTitle !== title);
-}
+function renderPlatforms(platformsString) {
+  gamePlatforms.innerHTML = "";
 
-function addTitleToCollection(title) {
-  collectionTitles.push(title);
-}
+  const platforms = platformsString.split(",");
 
-function setCollectionTitlesToLocalStorage() {
-  localStorage.setItem("collectionTitles", JSON.stringify(collectionTitles));
+  platforms.forEach(platform => {
+    const span = document.createElement("span");
+    span.className = "rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200";
+    span.textContent = platform.trim();
+    gamePlatforms.appendChild(span);
+  });
 }
 
 function getCollectionTitlesFromLocalStorage() {
   return JSON.parse(localStorage.getItem("collectionTitles") || "[]");
 }
 
-function addToCollectionHandler(title) {
-  collectionTitles =  getCollectionTitlesFromLocalStorage();
-  if (isTitleInCollection(title)) {
-    removeTitleFromCollection(title);
-  }
-  else {
-    addTitleToCollection(title);
-  }
-  setCollectionTitlesToLocalStorage();
+function setCollectionTitlesToLocalStorage(collectionTitles) {
+  localStorage.setItem("collectionTitles", JSON.stringify(collectionTitles));
 }
 
+function getCollectionStatusesFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("collectionStatuses") || "{}");
+}
 
+function setCollectionStatusesToLocalStorage(collectionStatuses) {
+  localStorage.setItem("collectionStatuses", JSON.stringify(collectionStatuses));
+}
 
+function isTitleInCollection(title) {
+  const collectionTitles = getCollectionTitlesFromLocalStorage();
+  return collectionTitles.includes(title);
+}
 
+function getGameStatus(title) {
+  const collectionStatuses = getCollectionStatusesFromLocalStorage();
+  return collectionStatuses[title] || "backlog";
+}
 
-addToCollectionDetailButton.addEventListener("click", (e) => {
-  addToCollectionHandler(gameTitle.textContent);
-  console.log(collectionTitles);
+function addGameToCollection(title, status = "backlog") {
+  let collectionTitles = getCollectionTitlesFromLocalStorage();
+  let collectionStatuses = getCollectionStatusesFromLocalStorage();
 
-});
+  if (!collectionTitles.includes(title)) {
+    collectionTitles.push(title);
+  }
 
+  collectionStatuses[title] = status;
 
+  setCollectionTitlesToLocalStorage(collectionTitles);
+  setCollectionStatusesToLocalStorage(collectionStatuses);
+}
 
+function removeGameFromCollection(title) {
+  let collectionTitles = getCollectionTitlesFromLocalStorage();
+  let collectionStatuses = getCollectionStatusesFromLocalStorage();
+
+  collectionTitles = collectionTitles.filter(colTitle => colTitle !== title);
+  delete collectionStatuses[title];
+
+  setCollectionTitlesToLocalStorage(collectionTitles);
+  setCollectionStatusesToLocalStorage(collectionStatuses);
+}
+
+function updateCollectionUI() {
+  if (!isTitleInCollection(currentTitle)) {
+    collectionStatus.textContent = "Niet in collectie";
+    collectionStatus.className =
+      "rounded-full px-4 py-2 text-sm font-semibold bg-red-600 text-white";
+
+    collectionBtn.textContent = "Voeg toe aan collectie";
+    collectionBtn.className =
+      "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700";
+  } else {
+    const status = getGameStatus(currentTitle);
+
+    if (status === "backlog") {
+      collectionStatus.textContent = "Nog te spelen";
+      collectionStatus.className =
+        "rounded-full px-4 py-2 text-sm font-semibold bg-yellow-600 text-white";
+    } else if (status === "playing") {
+      collectionStatus.textContent = "Aan het spelen";
+      collectionStatus.className =
+        "rounded-full px-4 py-2 text-sm font-semibold bg-cyan-600 text-white";
+    } else if (status === "finished") {
+      collectionStatus.textContent = "Uitgespeeld";
+      collectionStatus.className =
+        "rounded-full px-4 py-2 text-sm font-semibold bg-green-600 text-white";
+    }
+
+    collectionBtn.textContent = "Verwijder uit collectie";
+    collectionBtn.className =
+      "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700";
+  }
+}
+
+collectionBtn.onclick = () => {
+  if (!currentTitle) return;
+
+  if (isTitleInCollection(currentTitle)) {
+    const bevestiging = confirm(
+      "Weet je zeker dat je deze game wilt verwijderen uit je collectie?"
+    );
+
+    if (bevestiging) {
+      removeGameFromCollection(currentTitle);
+    }
+  } else {
+    addGameToCollection(currentTitle, "backlog");
+  }
+
+  updateCollectionUI();
+};
+
+if (setBacklogButton) {
+  setBacklogButton.onclick = () => {
+    if (!currentTitle) return;
+    addGameToCollection(currentTitle, "backlog");
+    updateCollectionUI();
+  };
+}
+
+if (setPlayingButton) {
+  setPlayingButton.onclick = () => {
+    if (!currentTitle) return;
+    addGameToCollection(currentTitle, "playing");
+    updateCollectionUI();
+  };
+}
+
+if (setFinishedButton) {
+  setFinishedButton.onclick = () => {
+    if (!currentTitle) return;
+    addGameToCollection(currentTitle, "finished");
+    updateCollectionUI();
+  };
+}
