@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ontdek games</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="./src/ontdek.js" defer></script>
+    <script src="./src/nav.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
   </head>
 
   <body
@@ -27,46 +29,36 @@
     </section>
 
     <nav
-      class="relative w-full flex items-center justify-between px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10"
+      class="relative w-full flex items-center justify-between px-6 md:px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10"
     >
-      <section class="flex items-center gap-12">
-        <a
-          href="./index.html"
-          class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
-        >
-          GameHub
-        </a>
+      <a
+        href="./index.html"
+        class="text-3xl md:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+      >
+        GameHub
+      </a>
 
-        <section class="hidden md:flex gap-6 text-slate-500 font-medium mt-2">
-          <a
-            href="./ontdek.html"
-            class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white"
-            >Ontdek</a
-          >
-          <a
-            href="./collection-page.html"
-            class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white"
-            >Collectie</a
-          >
-          <a
-            href="./compare-page.html"
-            class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white"
-            >Vergelijk</a
-          >
-        </section>
+      <section
+        class="hidden md:flex gap-8 text-slate-400 font-medium absolute left-1/2 -translate-x-1/2 translate-y-[6px]"
+      >
+        <a href="./ontdek.html" class="hover:text-white">Ontdek</a>
+        <a href="./collection-page.html" class="hover:text-white">Collectie</a>
+        <a href="./compare-page.html" class="hover:text-white">Vergelijk</a>
       </section>
 
-      <section class="flex items-center gap-4 mt-2">
-        <button
-          class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition"
+      <section class="flex items-center pt-2 gap-3">
+        <a
+          href="/raad-page.html"
+          class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition text-sm font-semibold"
         >
           <span class="text-cyan-400 text-sm">✦</span>
-          <a href="/raad-page.html" class="text-sm font-semibold"
-            >Raad de game</a
-          >
-        </button>
+          <span>Raad de game</span>
+        </a>
 
-        <a href="/login.html" class="text-gray-400 hover:text-white">
+        <a
+          href="/login.html"
+          class="hidden md:block text-gray-400 hover:text-white"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -82,8 +74,98 @@
             />
           </svg>
         </a>
+
+        <button id="menuBtn" class="md:hidden text-white p-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
       </section>
     </nav>
+
+    <section id="mobileMenu" class="fixed inset-0 z-50 hidden bg-[#050816]">
+      <section
+        class="relative w-full flex items-center justify-between pl-6 pr-4 py-6 bg-gradient-to-r from-black via-[#0b1120] to-[#1b1230] border-b border-white/10"
+      >
+        <a
+          href="./index.html"
+          class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
+        >
+          GameHub
+        </a>
+
+        <section class="flex items-center pt-2 gap-3">
+          <a
+            href="/raad-page.html"
+            class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition text-sm font-semibold"
+          >
+            <span class="text-cyan-400 text-sm">✦</span>
+            <span>Raad de game</span>
+          </a>
+
+          <button id="closeMenuBtn" class="text-white p-2 pr-0 shrink-0">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </section>
+      </section>
+
+      <section
+        class="h-[calc(100vh-89px)] flex flex-col items-center justify-center gap-15 text-slate-500 font-black text-5xl tracking-tight -mt-20"
+      >
+        <a href="./ontdek.html" class="hover:text-white transition">Ontdek</a>
+        <a href="./collection-page.html" class="hover:text-white transition"
+          >Collectie</a
+        >
+        <a href="./compare-page.html" class="hover:text-white transition"
+          >Vergelijk</a
+        >
+      </section>
+
+      <a
+        href="/login.html"
+        class="absolute bottom-8 right-6 flex items-center gap-2 text-red-500 hover:text-red-400 text-base font-semibold"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+          />
+        </svg>
+        Logout
+      </a>
+    </section>
 
     <main class="relative z-10 px-8 pt-16 pb-20">
       <section class="max-w-6xl mx-auto text-center">
