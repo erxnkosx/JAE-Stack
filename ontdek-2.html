@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ontdek games</title>
+    <link rel="stylesheet" href="./src/output.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="./src/ontdek.js" defer></script>
   </head>
@@ -102,33 +103,34 @@
 
       <section class="max-w-5xl mx-auto mt-14">
         <input
+          id="gameSearch"
           type="text"
           placeholder="Zoek games..."
           class="w-full rounded-3xl border border-white/10 bg-white/5 px-10 py-7 text-2xl text-white placeholder-slate-500 outline-none backdrop-blur-md"
         />
+        <section
+          id="suggestions"
+          class="hidden mt-2 rounded-2xl border border-white/10 bg-[#0b1120] overflow-hidden"
+        ></section>
       </section>
 
       <section class="mt-20 grid grid-cols-3 items-center">
         <section class="flex justify-start">
-          <h2 class="text-3xl font-black text-white">Populaire games</h2>
+          <a href="/ontdek.html" class="text-cyan-400 text-xl hover:text-white"
+            >← vorige</a
+          >
         </section>
 
         <section class="flex justify-center items-center gap-6">
-          <a href="/ontdek.html" class="text-white text-xl font-bold">1</a>
           <a
-            href="/ontdek-2.html"
+            href="/ontdek.html"
             class="text-slate-400 text-xl hover:text-white"
-            >2</a
+            >1</a
           >
+          <a href="/ontdek-2.html" class="text-white text-xl font-bold">2</a>
         </section>
 
-        <section class="flex justify-end">
-          <a
-            href="/ontdek-2.html"
-            class="text-cyan-400 text-xl hover:text-white"
-            >volgende →</a
-          >
-        </section>
+        <section></section>
       </section>
 
       <section
@@ -137,18 +139,18 @@
       >
         <article
           class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
-          data-id="little-nightmares"
-          data-title="Little Nightmares"
-          data-description="Een donkere horror-platformgame waarin je als Six ontsnapt uit een griezelige wereld vol gevaar."
-          data-rating="4.03"
-          data-date="2017-04-27"
-          data-image="https://media.rawg.io/media/games/8a0/8a02f84a5916ede2f923b88d5f8217ba.jpg"
+          data-id="outlast"
+          data-title="Outlast"
+          data-description="Een first-person survivalhorrorgame waarin je zonder wapens moet ontsnappen uit een krankzinnigengesticht."
+          data-rating="3.75"
+          data-date="2013-09-03"
+          data-image="https://media.rawg.io/media/games/9dd/9ddabb34840ea9227556670606cf8ea3.jpg"
           data-platforms="PC, PlayStation 4, Xbox One"
         >
           <section class="relative">
             <img
-              src="https://media.rawg.io/media/games/8a0/8a02f84a5916ede2f923b88d5f8217ba.jpg"
-              alt="Little Nightmares"
+              src="https://media.rawg.io/media/games/9dd/9ddabb34840ea9227556670606cf8ea3.jpg"
+              alt="Outlast"
               class="w-full h-[420px] object-cover"
             />
             <span
@@ -157,180 +159,105 @@
             <span
               class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
             >
-              <span>⭐</span><span>4.03</span>
+              <span>⭐</span><span>3.75</span>
             </span>
           </section>
+          <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Outlast</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-3">
+              Een first-person survivalhorrorgame waarin je zonder wapens moet
+              ontsnappen uit een krankzinnigengesticht.
+            </p>
+            <p class="text-slate-400">2013-09-03</p>
+          </section>
+        </article>
 
+        <article
+          class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-id="far-cry-3"
+          data-title="Far Cry 3"
+          data-description="Een openwereld shooter op een tropisch eiland waar je moet overleven tegen piraten en gevaarlijke vijanden."
+          data-rating="4.26"
+          data-date="2012-11-28"
+          data-image="https://media.rawg.io/media/games/15c/15c95a4915f88a3e89c821526afe05fc.jpg"
+          data-platforms="PC, PlayStation 3, Xbox 360"
+        >
+          <section class="relative">
+            <img
+              src="https://media.rawg.io/media/games/15c/15c95a4915f88a3e89c821526afe05fc.jpg"
+              alt="Far Cry 3"
+              class="w-full h-[420px] object-cover"
+            />
+            <span
+              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
+            ></span>
+            <span
+              class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
+            >
+              <span>⭐</span><span>4.26</span>
+            </span>
+          </section>
+          <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Far Cry 3</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-3">
+              Een openwereld shooter op een tropisch eiland waar je moet
+              overleven tegen piraten en gevaarlijke vijanden.
+            </p>
+            <p class="text-slate-400">2012-11-28</p>
+          </section>
+        </article>
+
+        <article
+          class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-id="deus-ex-mankind-divided"
+          data-title="Deus Ex: Mankind Divided"
+          data-description="Een cyberpunk actie-RPG waarin stealth, technologie en keuzes centraal staan in een verdeelde toekomst."
+          data-rating="3.96"
+          data-date="2016-08-22"
+          data-image="https://media.rawg.io/media/games/00d/00d374f12a3ab5f96c500a2cfa901e15.jpg"
+          data-platforms="PC, PlayStation 4, Xbox One"
+        >
+          <section class="relative">
+            <img
+              src="https://media.rawg.io/media/games/00d/00d374f12a3ab5f96c500a2cfa901e15.jpg"
+              alt="Deus Ex: Mankind Divided"
+              class="w-full h-[420px] object-cover"
+            />
+            <span
+              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
+            ></span>
+            <span
+              class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
+            >
+              <span>⭐</span><span>3.96</span>
+            </span>
+          </section>
           <section class="p-6">
             <h3 class="text-2xl font-bold text-white mb-2">
-              Little Nightmares
+              Deus Ex: Mankind Divided
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
-              Een donkere horror-platformgame waarin je als Six ontsnapt uit een
-              griezelige wereld vol gevaar.
+              Een cyberpunk actie-RPG waarin stealth, technologie en keuzes
+              centraal staan in een verdeelde toekomst.
             </p>
-            <p class="text-slate-400">2017-04-27</p>
+            <p class="text-slate-400">2016-08-22</p>
           </section>
         </article>
 
         <article
           class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
-          data-id="bioshock-2"
-          data-title="BioShock 2"
-          data-description="Een sfeervolle shooter in de onderwaterstad Rapture waarin je speelt als een machtige Big Daddy."
-          data-rating="4.07"
-          data-date="2010-02-09"
-          data-image="https://media.rawg.io/media/games/157/15742f2f67eacff546738e1ab5c19d20.jpg"
-          data-platforms="PC, PlayStation 3, Xbox 360"
-        >
-          <section class="relative">
-            <img
-              src="https://media.rawg.io/media/games/157/15742f2f67eacff546738e1ab5c19d20.jpg"
-              alt="BioShock 2"
-              class="w-full h-[420px] object-cover"
-            />
-            <span
-              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
-            ></span>
-            <span
-              class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
-            >
-              <span>⭐</span><span>4.07</span>
-            </span>
-          </section>
-
-          <section class="p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">BioShock 2</h3>
-            <p class="text-slate-300 text-sm leading-relaxed mb-3">
-              Een sfeervolle shooter in de onderwaterstad Rapture waarin je
-              speelt als een machtige Big Daddy.
-            </p>
-            <p class="text-slate-400">2010-02-09</p>
-          </section>
-        </article>
-
-        <article
-          class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
-          data-id="half-life"
-          data-title="Half-Life"
-          data-description="Een legendarische first-person shooter waarin Gordon Freeman moet overleven na een experiment dat fout loopt."
-          data-rating="4.38"
-          data-date="1998-11-19"
-          data-image="https://media.rawg.io/media/games/6c5/6c55e22185876626881b76c11922b073.jpg"
-          data-platforms="PC"
-        >
-          <section class="relative">
-            <img
-              src="https://media.rawg.io/media/games/6c5/6c55e22185876626881b76c11922b073.jpg"
-              alt="Half-Life"
-              class="w-full h-[420px] object-cover"
-            />
-            <span
-              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
-            ></span>
-            <span
-              class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
-            >
-              <span>⭐</span><span>4.38</span>
-            </span>
-          </section>
-
-          <section class="p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">Half-Life</h3>
-            <p class="text-slate-300 text-sm leading-relaxed mb-3">
-              Een legendarische first-person shooter waarin Gordon Freeman moet
-              overleven na een experiment dat fout loopt.
-            </p>
-            <p class="text-slate-400">1998-11-19</p>
-          </section>
-        </article>
-
-        <article
-          class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
-          data-id="mirrors-edge"
-          data-title="Mirror's Edge"
-          data-description="Een snelle parkour-actiongame waarin je door een futuristische stad rent en vijanden ontwijkt."
-          data-rating="4.07"
-          data-date="2008-11-11"
-          data-image="https://media.rawg.io/media/games/8e4/8e4de3f54ac659e08a7ba6a2b731682a.jpg"
-          data-platforms="PC, PlayStation 3, Xbox 360"
-        >
-          <section class="relative">
-            <img
-              src="https://media.rawg.io/media/games/8e4/8e4de3f54ac659e08a7ba6a2b731682a.jpg"
-              alt="Mirror's Edge"
-              class="w-full h-[420px] object-cover"
-            />
-            <span
-              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
-            ></span>
-            <span
-              class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
-            >
-              <span>⭐</span><span>4.07</span>
-            </span>
-          </section>
-
-          <section class="p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">Mirror's Edge</h3>
-            <p class="text-slate-300 text-sm leading-relaxed mb-3">
-              Een snelle parkour-actiongame waarin je door een futuristische
-              stad rent en vijanden ontwijkt.
-            </p>
-            <p class="text-slate-400">2008-11-11</p>
-          </section>
-        </article>
-
-        <article
-          class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
-          data-id="hotline-miami"
-          data-title="Hotline Miami"
-          data-description="Een gewelddadige top-down actiongame met snelle gameplay, neonstijl en een intense soundtrack."
-          data-rating="4.38"
-          data-date="2012-10-23"
-          data-image="https://media.rawg.io/media/games/9fa/9fa63622543e5d4f6d99aa9d73b043de.jpg"
-          data-platforms="PC, PlayStation 4"
-        >
-          <section class="relative">
-            <img
-              src="https://media.rawg.io/media/games/9fa/9fa63622543e5d4f6d99aa9d73b043de.jpg"
-              alt="Hotline Miami"
-              class="w-full h-[420px] object-cover"
-            />
-            <span
-              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
-            ></span>
-            <span
-              class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
-            >
-              <span>⭐</span><span>4.38</span>
-            </span>
-          </section>
-
-          <section class="p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">Hotline Miami</h3>
-            <p class="text-slate-300 text-sm leading-relaxed mb-3">
-              Een gewelddadige top-down actiongame met snelle gameplay,
-              neonstijl en een intense soundtrack.
-            </p>
-            <p class="text-slate-400">2012-10-23</p>
-          </section>
-        </article>
-
-        <article
-          class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
-          data-id="hitman"
-          data-title="Hitman"
-          data-description="Een stealthgame waarin Agent 47 doelwitten uitschakelt met planning, vermommingen en precisie."
-          data-rating="3.93"
-          data-date="2016-03-11"
-          data-image="https://media.rawg.io/media/games/16b/16b1b7b36e2042d1128d5a3e852b3b2f.jpg"
+          data-id="path-of-exile"
+          data-title="Path of Exile"
+          data-description="Een gratis action-RPG met diepe skill-systemen, donkere fantasy en veel loot om te verzamelen."
+          data-rating="3.65"
+          data-date="2013-10-23"
+          data-image="https://media.rawg.io/media/games/d0f/d0f91fe1d92332147e5db74e207cfc7a.jpg"
           data-platforms="PC, PlayStation 4, Xbox One"
         >
           <section class="relative">
             <img
-              src="https://media.rawg.io/media/games/16b/16b1b7b36e2042d1128d5a3e852b3b2f.jpg"
-              alt="Hitman"
+              src="https://media.rawg.io/media/games/d0f/d0f91fe1d92332147e5db74e207cfc7a.jpg"
+              alt="Path of Exile"
               class="w-full h-[420px] object-cover"
             />
             <span
@@ -339,17 +266,88 @@
             <span
               class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
             >
-              <span>⭐</span><span>3.93</span>
+              <span>⭐</span><span>3.65</span>
             </span>
           </section>
-
           <section class="p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">Hitman</h3>
+            <h3 class="text-2xl font-bold text-white mb-2">Path of Exile</h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
-              Een stealthgame waarin Agent 47 doelwitten uitschakelt met
-              planning, vermommingen en precisie.
+              Een gratis action-RPG met diepe skill-systemen, donkere fantasy en
+              veel loot om te verzamelen.
             </p>
-            <p class="text-slate-400">2016-03-11</p>
+            <p class="text-slate-400">2013-10-23</p>
+          </section>
+        </article>
+
+        <article
+          class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-id="alan-wake"
+          data-title="Alan Wake"
+          data-description="Een psychologische thriller waarin licht je belangrijkste wapen is tegen duistere bovennatuurlijke krachten."
+          data-rating="4.09"
+          data-date="2010-05-14"
+          data-image="https://media.rawg.io/media/games/5c0/5c0dd63002cb23f804aab327d40ef119.jpg"
+          data-platforms="PC, Xbox 360"
+        >
+          <section class="relative">
+            <img
+              src="https://media.rawg.io/media/games/5c0/5c0dd63002cb23f804aab327d40ef119.jpg"
+              alt="Alan Wake"
+              class="w-full h-[420px] object-cover"
+            />
+            <span
+              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
+            ></span>
+            <span
+              class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
+            >
+              <span>⭐</span><span>4.09</span>
+            </span>
+          </section>
+          <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Alan Wake</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-3">
+              Een psychologische thriller waarin licht je belangrijkste wapen is
+              tegen duistere bovennatuurlijke krachten.
+            </p>
+            <p class="text-slate-400">2010-05-14</p>
+          </section>
+        </article>
+
+        <article
+          class="game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-id="marvels-spider-man"
+          data-title="Marvel's Spider-Man"
+          data-description="Een openwereld actiegame waarin je als Spider-Man door New York slingert en misdaad bestrijdt."
+          data-rating="4.45"
+          data-date="2018-09-07"
+          data-image="https://media.rawg.io/media/games/9aa/9aa42d16d425fa6f179fc9dc2f763647.jpg"
+          data-platforms="PlayStation 4, PlayStation 5, PC"
+        >
+          <section class="relative">
+            <img
+              src="https://media.rawg.io/media/games/9aa/9aa42d16d425fa6f179fc9dc2f763647.jpg"
+              alt="Marvel's Spider-Man"
+              class="w-full h-[420px] object-cover"
+            />
+            <span
+              class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
+            ></span>
+            <span
+              class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
+            >
+              <span>⭐</span><span>4.45</span>
+            </span>
+          </section>
+          <section class="p-6">
+            <h3 class="text-2xl font-bold text-white mb-2">
+              Marvel's Spider-Man
+            </h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-3">
+              Een openwereld actiegame waarin je als Spider-Man door New York
+              slingert en misdaad bestrijdt.
+            </p>
+            <p class="text-slate-400">2018-09-07</p>
           </section>
         </article>
       </section>
