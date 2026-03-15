@@ -1,27 +1,19 @@
-"use strict";
 
 let allGames = [];
 
 async function init() {
-    try {
-       
-        const response = await fetch("src/games.json");
-        const data = await response.json();
-        allGames = data.results;
+    const response = await fetch("src/games.json");
+    const data = await response.json();
+    allGames = data.results;
 
-        updateGame(0, 1); 
-        updateGame(1, 2); 
+    updateGame(0, 1);
+    updateGame(1, 2);
 
-        setupButtons();
-
-    } catch (error) {
-        console.error("Fout bij laden JSON:", error);
-    }
+    setupButtons();
 }
 
 function updateGame(gameIndex, side) {
     const game = allGames[gameIndex];
-    if (!game) {return;}
 
     document.getElementById(`game-img-${side}`).src = game.background_image;
     document.getElementById(`game-name-${side}`).innerText = game.name;
@@ -77,13 +69,25 @@ function compareRow(id) {
     if (val1 > val2) {
         el1.classList.replace('text-gray-400', 'text-green-400');
         el2.classList.replace('text-gray-400', 'text-red-400');
-        if (arrowLeft) { arrowLeft.innerText = "↗"; arrowLeft.classList.replace('text-gray-500', 'text-green-500'); }
-        if (arrowRight) { arrowRight.innerText = "↘"; arrowRight.classList.replace('text-gray-500', 'text-red-500'); }
+        if (arrowLeft) {
+            arrowLeft.innerText = "↗";
+            arrowLeft.classList.replace('text-gray-500', 'text-green-500');
+        }
+        if (arrowRight) {
+            arrowRight.innerText = "↘";
+            arrowRight.classList.replace('text-gray-500', 'text-red-500');
+        }
     } else if (val1 < val2) {
         el1.classList.replace('text-gray-400', 'text-red-400');
         el2.classList.replace('text-gray-400', 'text-green-400');
-        if (arrowLeft) { arrowLeft.innerText = "↘"; arrowLeft.classList.replace('text-gray-500', 'text-red-500'); }
-        if (arrowRight) { arrowRight.innerText = "↗"; arrowRight.classList.replace('text-gray-500', 'text-green-500'); }
+        if (arrowLeft) {
+            arrowLeft.innerText = "↘";
+            arrowLeft.classList.replace('text-gray-500', 'text-red-500');
+        }
+        if (arrowRight) {
+            arrowRight.innerText = "↗";
+            arrowRight.classList.replace('text-gray-500', 'text-green-500');
+        }
     }
 }
 init();
