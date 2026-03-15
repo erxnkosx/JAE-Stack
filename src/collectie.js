@@ -11,7 +11,7 @@ const loadGames = async () => {
     const ids = results.map(res => res.id);
 
     const descriptions = await Promise.all(ids.map(async id => {
-        const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=09f7894c43764394b1691501eba8bb44`);
+        const response2 = await fetch(`https://api.rawg.io/api/games/${id}?key=b98606b4c7c748e991abd01ef0674fdc`);
         const response2Json = await response2.json();
         const description = `${response2Json.description_raw.split(".")[0]}.`;
         return description;
