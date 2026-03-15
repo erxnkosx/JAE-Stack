@@ -8,45 +8,55 @@
     <script src="./src/ontdek.js" defer></script>
   </head>
 
-  <body class="bg-black text-white min-h-screen  flex flex-col items-center justify-center relative overflow-x-hidden w-screen">
-  <section class="fixed inset-0 w-screen -z-10">
-    <div class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
-
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"></div>
-
-    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-
-    <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"></div>
-  </section>
+  <body
+    class="bg-black text-white min-h-screen flex flex-col items-center justify-center relative overflow-x-hidden w-screen"
+  >
+    <section class="fixed inset-0 w-screen -z-10">
+      <span
+        class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"
+      ></span>
+      <span
+        class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
+      ></span>
+      <span
+        class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+      ></span>
+      <span
+        class="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"
+      ></span>
+    </section>
 
     <nav
       class="relative w-full flex items-center justify-between px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10"
     >
-      <div class="flex items-center gap-12">
+      <section class="flex items-center gap-12">
         <a
-        href="./index.html"
+          href="./index.html"
           class="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
         >
           GameHub
-      </a>
-        <div class="hidden md:flex gap-6 text-slate-500 font-medium mt-2">
+        </a>
+
+        <section class="hidden md:flex gap-6 text-slate-500 font-medium mt-2">
           <a
             href="./ontdek.html"
             class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white"
-            >Ontdek</a>
+            >Ontdek</a
+          >
           <a
             href="./collection-page.html"
             class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white"
-            >Collectie</a>
+            >Collectie</a
+          >
           <a
             href="./compare-page.html"
             class="focus:border-b-2 focus:border-cyan-400 focus:text-cyan-400 hover:text-white"
             >Vergelijk</a
           >
-        </div>
-      </div>
+        </section>
+      </section>
 
-      <div class="flex items-center gap-4 mt-2">
+      <section class="flex items-center gap-4 mt-2">
         <button
           class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition"
         >
@@ -55,6 +65,7 @@
             >Raad de game</a
           >
         </button>
+
         <a href="/login.html" class="text-gray-400 hover:text-white">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -71,7 +82,7 @@
             />
           </svg>
         </a>
-      </div>
+      </section>
     </nav>
 
     <main class="relative z-10 px-8 pt-16 pb-20">
@@ -98,26 +109,26 @@
       </section>
 
       <section class="mt-20 grid grid-cols-3 items-center">
-        <div class="flex justify-start">
+        <section class="flex justify-start">
           <h2 class="text-3xl font-black text-white">Populaire games</h2>
-        </div>
+        </section>
 
-        <div class="flex justify-center items-center gap-6">
+        <section class="flex justify-center items-center gap-6">
           <a href="/ontdek.html" class="text-white text-xl font-bold">1</a>
           <a
             href="/ontdek-2.html"
             class="text-slate-400 text-xl hover:text-white"
             >2</a
           >
-        </div>
+        </section>
 
-        <div class="flex justify-end">
+        <section class="flex justify-end">
           <a
             href="/ontdek-2.html"
             class="text-cyan-400 text-xl hover:text-white"
             >volgende →</a
           >
-        </div>
+        </section>
       </section>
 
       <section
@@ -140,15 +151,16 @@
               alt="Little Nightmares"
               class="w-full h-[420px] object-cover"
             />
-            <div
+            <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
-            ></div>
+            ></span>
             <span
               class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
             >
               <span>⭐</span><span>4.03</span>
             </span>
           </section>
+
           <section class="p-6">
             <h3 class="text-2xl font-bold text-white mb-2">
               Little Nightmares
@@ -177,15 +189,16 @@
               alt="BioShock 2"
               class="w-full h-[420px] object-cover"
             />
-            <div
+            <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
-            ></div>
+            ></span>
             <span
               class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
             >
               <span>⭐</span><span>4.07</span>
             </span>
           </section>
+
           <section class="p-6">
             <h3 class="text-2xl font-bold text-white mb-2">BioShock 2</h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
@@ -212,15 +225,16 @@
               alt="Half-Life"
               class="w-full h-[420px] object-cover"
             />
-            <div
+            <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
-            ></div>
+            ></span>
             <span
               class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
             >
               <span>⭐</span><span>4.38</span>
             </span>
           </section>
+
           <section class="p-6">
             <h3 class="text-2xl font-bold text-white mb-2">Half-Life</h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
@@ -247,15 +261,16 @@
               alt="Mirror's Edge"
               class="w-full h-[420px] object-cover"
             />
-            <div
+            <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
-            ></div>
+            ></span>
             <span
               class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
             >
               <span>⭐</span><span>4.07</span>
             </span>
           </section>
+
           <section class="p-6">
             <h3 class="text-2xl font-bold text-white mb-2">Mirror's Edge</h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
@@ -282,15 +297,16 @@
               alt="Hotline Miami"
               class="w-full h-[420px] object-cover"
             />
-            <div
+            <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
-            ></div>
+            ></span>
             <span
               class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
             >
               <span>⭐</span><span>4.38</span>
             </span>
           </section>
+
           <section class="p-6">
             <h3 class="text-2xl font-bold text-white mb-2">Hotline Miami</h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
@@ -317,15 +333,16 @@
               alt="Hitman"
               class="w-full h-[420px] object-cover"
             />
-            <div
+            <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
-            ></div>
+            ></span>
             <span
               class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold"
             >
               <span>⭐</span><span>3.93</span>
             </span>
           </section>
+
           <section class="p-6">
             <h3 class="text-2xl font-bold text-white mb-2">Hitman</h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
@@ -362,7 +379,7 @@
         </section>
 
         <section class="flex flex-col gap-7 p-10 lg:p-12">
-          <div class="flex flex-col items-start gap-8">
+          <section class="flex flex-col items-start gap-8">
             <h2
               id="gameTitle"
               class="text-5xl font-bold tracking-tight text-white leading-none"
@@ -374,7 +391,7 @@
             >
               Niet in collectie
             </span>
-          </div>
+          </section>
 
           <p
             id="gameDescription"
@@ -397,7 +414,7 @@
             >
               Platformen
             </h3>
-            <div id="gamePlatforms" class="flex flex-wrap gap-3">
+            <section id="gamePlatforms" class="flex flex-wrap gap-3">
               <span
                 class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
                 >PC</span
@@ -410,7 +427,7 @@
                 class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
                 >Xbox One</span
               >
-            </div>
+            </section>
           </section>
 
           <section class="mt-auto pt-4">
