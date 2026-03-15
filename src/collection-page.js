@@ -109,20 +109,6 @@ function addTitleToCollection(title) {
     }
 }
 
-function addToCollectionHandler(title) {
-    collectionTitles = getCollectionTitlesFromLocalStorage();
-    collectionStatuses = getCollectionStatusesFromLocalStorage();
-
-    if (isTitleInCollection(title)) {
-        removeTitleFromCollection(title);
-    } else {
-        addTitleToCollection(title);
-    }
-
-    setCollectionTitlesToLocalStorage();
-    setCollectionStatusesToLocalStorage();
-}
-
 function getGameStatus(title) {
     collectionStatuses = getCollectionStatusesFromLocalStorage();
     return collectionStatuses[title] || "backlog";
@@ -369,7 +355,26 @@ async function updateCollectionPage() {
 if (addToCollectionDetailButton && gameTitle) {
     addToCollectionDetailButton.addEventListener("click", async () => {
         const title = gameTitle.textContent.trim();
-        addToCollectionHandler(title);
+
+        collectionTitles = getCollectionTitlesFromLocalStorage();
+        collectionStatuses = getCollectionStatusesFromLocalStorage();
+
+        if (isTitleInCollection(title)) {
+            const bevestiging = confirm(
+                "Weet je zeker dat je deze game wilt verwijderen uit je collectie?"
+            );
+
+            if (!bevestiging) return;
+
+            removeTitleFromCollection(title);
+            setCollectionTitlesToLocalStorage();
+            setCollectionStatusesToLocalStorage();
+        } else {
+            addTitleToCollection(title);
+            setCollectionTitlesToLocalStorage();
+            setCollectionStatusesToLocalStorage();
+        }
+
         await updateCollectionPage();
 
         const collectionBtn = document.getElementById("collectionBtn");

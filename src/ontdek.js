@@ -148,16 +148,42 @@ function updateCollectionUI() {
 collectionBtn.onclick = () => {
   if (!currentTitle) return;
 
-  if (isTitleInCollection(currentTitle)) {
+  let titles = getCollectionTitlesFromLocalStorage();
+  let statuses = getCollectionStatusesFromLocalStorage();
+  let nicknames = JSON.parse(localStorage.getItem("collectionNicknames") || "{}");
+
+  if (titles.includes(currentTitle)) {
     const bevestiging = confirm(
       "Weet je zeker dat je deze game wilt verwijderen uit je collectie?"
     );
 
     if (bevestiging) {
-      removeGameFromCollection(currentTitle);
+      titles = titles.filter(t => t !== currentTitle);
+      delete statuses[currentTitle];
+      delete nicknames[currentTitle];
+
+      localStorage.setItem("collectionTitles", JSON.stringify(titles));
+      localStorage.setItem("collectionStatuses", JSON.stringify(statuses));
+      localStorage.setItem("collectionNicknames", JSON.stringify(nicknames));
     }
   } else {
-    addGameToCollection(currentTitle, "backlog");
+    const nickname = prompt("Geef een bijnaam voor deze game (optioneel):");
+
+    if (!titles.includes(currentTitle)) {
+      titles.push(currentTitle);
+    }
+
+    if (!statuses[currentTitle]) {
+      statuses[currentTitle] = "backlog";
+    }
+
+    if (nickname && nickname.trim() !== "") {
+      nicknames[currentTitle] = nickname.trim();
+    }
+
+    localStorage.setItem("collectionTitles", JSON.stringify(titles));
+    localStorage.setItem("collectionStatuses", JSON.stringify(statuses));
+    localStorage.setItem("collectionNicknames", JSON.stringify(nicknames));
   }
 
   updateCollectionUI();
