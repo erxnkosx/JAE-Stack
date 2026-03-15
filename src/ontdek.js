@@ -13,59 +13,6 @@ const setFinishedButton = document.getElementById("setFinished");
 let currentId = "";
 let currentTitle = "";
 
-cards.forEach(card => {
-  card.onclick = () => {
-    currentId = card.dataset.id;
-    currentTitle = card.dataset.title;
-
-    document.querySelector("#gameTitle").textContent = card.dataset.title;
-    document.querySelector("#gameDescription").textContent =
-      card.dataset.description;
-    document.querySelector("#gameRating").textContent = card.dataset.rating;
-    document.querySelector("#gameDate").textContent = card.dataset.date;
-    document.querySelector("#gameCover").src = card.dataset.image;
-    document.querySelector("#gameCover").alt = card.dataset.title;
-
-    renderPlatforms(card.dataset.platforms);
-    updateCollectionUI();
-
-    detail.classList.remove("hidden");
-    detail.classList.add("flex");
-  };
-});
-
-if (closeBtn) {
-  closeBtn.onclick = () => {
-    detail.classList.add("hidden");
-    detail.classList.remove("flex");
-  };
-}
-
-if (detail) {
-  detail.onclick = e => {
-    if (e.target === detail) {
-      detail.classList.add("hidden");
-      detail.classList.remove("flex");
-    }
-  };
-}
-
-function renderPlatforms(platformsString) {
-  gamePlatforms.innerHTML = "";
-
-  const platforms = (platformsString || "").split(",");
-
-  platforms.forEach(platform => {
-    const trimmed = platform.trim();
-    if (!trimmed) return;
-
-    const span = document.createElement("span");
-    span.className = "rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200";
-    span.textContent = trimmed;
-    gamePlatforms.appendChild(span);
-  });
-}
-
 function getCollectionTitlesFromLocalStorage() {
   return JSON.parse(localStorage.getItem("collectionTitles") || "[]");
 }
@@ -79,10 +26,7 @@ function getCollectionStatusesFromLocalStorage() {
 }
 
 function setCollectionStatusesToLocalStorage(collectionStatuses) {
-  localStorage.setItem(
-    "collectionStatuses",
-    JSON.stringify(collectionStatuses)
-  );
+  localStorage.setItem("collectionStatuses", JSON.stringify(collectionStatuses));
 }
 
 function getCollectionGamesFromLocalStorage() {
@@ -98,20 +42,47 @@ function getCollectionNicknamesFromLocalStorage() {
 }
 
 function setCollectionNicknamesToLocalStorage(collectionNicknames) {
-  localStorage.setItem(
-    "collectionNicknames",
-    JSON.stringify(collectionNicknames)
-  );
+  localStorage.setItem("collectionNicknames", JSON.stringify(collectionNicknames));
+}
+
+function getStorageData() {
+  return {
+    titles: getCollectionTitlesFromLocalStorage(),
+    statuses: getCollectionStatusesFromLocalStorage(),
+    games: getCollectionGamesFromLocalStorage(),
+    nicknames: getCollectionNicknamesFromLocalStorage()
+  };
+}
+
+function saveStorageData({ titles, statuses, games, nicknames }) {
+  setCollectionTitlesToLocalStorage(titles);
+  setCollectionStatusesToLocalStorage(statuses);
+  setCollectionGamesToLocalStorage(games);
+  setCollectionNicknamesToLocalStorage(nicknames);
 }
 
 function isTitleInCollection(title) {
-  const collectionTitles = getCollectionTitlesFromLocalStorage();
-  return collectionTitles.includes(title);
+  const { titles } = getStorageData();
+  return titles.includes(title);
 }
 
 function getGameStatus(title) {
-  const collectionStatuses = getCollectionStatusesFromLocalStorage();
-  return collectionStatuses[title] || "backlog";
+  const { statuses } = getStorageData();
+  return statuses[title] || "backlog";
+}
+
+function renderPlatforms(platformsString) {
+  gamePlatforms.innerHTML = "";
+
+  (platformsString || "").split(",").forEach(platform => {
+    const trimmed = platform.trim();
+    if (!trimmed) return;
+
+    const span = document.createElement("span");
+    span.className = "rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200";
+    span.textContent = trimmed;
+    gamePlatforms.appendChild(span);
+  });
 }
 
 function getCurrentGameObject(title, status = "backlog") {
@@ -122,58 +93,48 @@ function getCurrentGameObject(title, status = "backlog") {
     rating: document.querySelector("#gameRating").textContent,
     released: document.querySelector("#gameDate").textContent,
     background_image: document.querySelector("#gameCover").src,
-    platforms: Array.from(document.querySelectorAll("#gamePlatforms span")).map(
-      span => span.textContent
-    ),
-    status: status
+    platforms: Array.from(document.querySelectorAll("#gamePlatforms span"))
+      .map(span => span.textContent)
+      .join(", "),
+    status
   };
 }
 
-function addGameToCollection(title, status = "backlog") {
-  let collectionTitles = getCollectionTitlesFromLocalStorage();
-  let collectionStatuses = getCollectionStatusesFromLocalStorage();
-  let collectionGames = getCollectionGamesFromLocalStorage();
+function addOrUpdateGame(title, status = "backlog", nickname = "") {
+  const data = getStorageData();
 
-  if (!collectionTitles.includes(title)) {
-    collectionTitles.push(title);
+  if (!data.titles.includes(title)) {
+    data.titles.push(title);
   }
 
-  collectionStatuses[title] = status;
+  data.statuses[title] = status;
 
-  const bestaandIndex = collectionGames.findIndex(game => game.name === title);
-  const nieuwGameObject = getCurrentGameObject(title, status);
+  const index = data.games.findIndex(game => game.name === title);
+  const gameObject = getCurrentGameObject(title, status);
 
-  if (bestaandIndex === -1) {
-    collectionGames.push(nieuwGameObject);
+  if (index === -1) {
+    data.games.push(gameObject);
   } else {
-    collectionGames[bestaandIndex] = {
-      ...collectionGames[bestaandIndex],
-      ...nieuwGameObject,
-      status: status
-    };
+    data.games[index] = { ...data.games[index], ...gameObject, status };
   }
 
-  setCollectionTitlesToLocalStorage(collectionTitles);
-  setCollectionStatusesToLocalStorage(collectionStatuses);
-  setCollectionGamesToLocalStorage(collectionGames);
+  if (nickname && nickname.trim() !== "") {
+    data.nicknames[title] = nickname.trim();
+  }
+
+  saveStorageData(data);
 }
 
 function removeGameFromCollection(title) {
-  let collectionTitles = getCollectionTitlesFromLocalStorage();
-  let collectionStatuses = getCollectionStatusesFromLocalStorage();
-  let collectionGames = getCollectionGamesFromLocalStorage();
-  let collectionNicknames = getCollectionNicknamesFromLocalStorage();
+  const data = getStorageData();
 
-  collectionTitles = collectionTitles.filter(colTitle => colTitle !== title);
-  collectionGames = collectionGames.filter(game => game.name !== title);
+  data.titles = data.titles.filter(t => t !== title);
+  data.games = data.games.filter(game => game.name !== title);
 
-  delete collectionStatuses[title];
-  delete collectionNicknames[title];
+  delete data.statuses[title];
+  delete data.nicknames[title];
 
-  setCollectionTitlesToLocalStorage(collectionTitles);
-  setCollectionStatusesToLocalStorage(collectionStatuses);
-  setCollectionGamesToLocalStorage(collectionGames);
-  setCollectionNicknamesToLocalStorage(collectionNicknames);
+  saveStorageData(data);
 }
 
 function updateCollectionUI() {
@@ -185,139 +146,109 @@ function updateCollectionUI() {
     collectionBtn.textContent = "Voeg toe aan collectie";
     collectionBtn.className =
       "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700";
-  } else {
-    const status = getGameStatus(currentTitle);
-
-    if (status === "backlog") {
-      collectionStatus.textContent = "Nog te spelen";
-      collectionStatus.className =
-        "rounded-full px-4 py-2 text-sm font-semibold bg-yellow-600 text-white";
-    } else if (status === "playing") {
-      collectionStatus.textContent = "Aan het spelen";
-      collectionStatus.className =
-        "rounded-full px-4 py-2 text-sm font-semibold bg-cyan-600 text-white";
-    } else if (status === "finished") {
-      collectionStatus.textContent = "Uitgespeeld";
-      collectionStatus.className =
-        "rounded-full px-4 py-2 text-sm font-semibold bg-green-600 text-white";
-    }
-
-    collectionBtn.textContent = "Verwijder uit collectie";
-    collectionBtn.className =
-      "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700";
+    return;
   }
+
+  const status = getGameStatus(currentTitle);
+
+  if (status === "backlog") {
+    collectionStatus.textContent = "Nog te spelen";
+    collectionStatus.className =
+      "rounded-full px-4 py-2 text-sm font-semibold bg-yellow-600 text-white";
+  } else if (status === "playing") {
+    collectionStatus.textContent = "Aan het spelen";
+    collectionStatus.className =
+      "rounded-full px-4 py-2 text-sm font-semibold bg-cyan-600 text-white";
+  } else {
+    collectionStatus.textContent = "Uitgespeeld";
+    collectionStatus.className =
+      "rounded-full px-4 py-2 text-sm font-semibold bg-green-600 text-white";
+  }
+
+  collectionBtn.textContent = "Verwijder uit collectie";
+  collectionBtn.className =
+    "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700";
 }
+
+cards.forEach(card => {
+  card.onclick = () => {
+    currentId = card.dataset.id;
+    currentTitle = card.dataset.title;
+
+    document.querySelector("#gameTitle").textContent = card.dataset.title;
+    document.querySelector("#gameDescription").textContent = card.dataset.description;
+    document.querySelector("#gameRating").textContent = card.dataset.rating;
+    document.querySelector("#gameDate").textContent = card.dataset.date;
+    document.querySelector("#gameCover").src = card.dataset.image;
+    document.querySelector("#gameCover").alt = card.dataset.title;
+
+    renderPlatforms(card.dataset.platforms);
+    updateCollectionUI();
+
+    detail.classList.remove("hidden");
+    detail.classList.add("flex");
+  };
+});
+
+closeBtn?.addEventListener("click", () => {
+  detail.classList.add("hidden");
+  detail.classList.remove("flex");
+});
+
+detail?.addEventListener("click", e => {
+  if (e.target === detail) {
+    detail.classList.add("hidden");
+    detail.classList.remove("flex");
+  }
+});
 
 collectionBtn.onclick = () => {
   if (!currentTitle) return;
 
-  let titles = getCollectionTitlesFromLocalStorage();
-  let statuses = getCollectionStatusesFromLocalStorage();
-  let nicknames = getCollectionNicknamesFromLocalStorage();
-  let collectionGames = getCollectionGamesFromLocalStorage();
-
-  if (titles.includes(currentTitle)) {
+  if (isTitleInCollection(currentTitle)) {
     const bevestiging = confirm(
       "Weet je zeker dat je deze game wilt verwijderen uit je collectie?"
     );
 
     if (bevestiging) {
-      titles = titles.filter(t => t !== currentTitle);
-      collectionGames = collectionGames.filter(game => game.name !== currentTitle);
-
-      delete statuses[currentTitle];
-      delete nicknames[currentTitle];
-
-      setCollectionTitlesToLocalStorage(titles);
-      setCollectionStatusesToLocalStorage(statuses);
-      setCollectionNicknamesToLocalStorage(nicknames);
-      setCollectionGamesToLocalStorage(collectionGames);
+      removeGameFromCollection(currentTitle);
     }
   } else {
     const nickname = prompt("Geef een bijnaam voor deze game (optioneel):");
-
-    if (!titles.includes(currentTitle)) {
-      titles.push(currentTitle);
-    }
-
-    if (!statuses[currentTitle]) {
-      statuses[currentTitle] = "backlog";
-    }
-
-    if (nickname && nickname.trim() !== "") {
-      nicknames[currentTitle] = nickname.trim();
-    }
-
-    const bestaandIndex = collectionGames.findIndex(
-      game => game.name === currentTitle
-    );
-    const nieuwGameObject = getCurrentGameObject(currentTitle, statuses[currentTitle]);
-
-    if (bestaandIndex === -1) {
-      collectionGames.push(nieuwGameObject);
-    } else {
-      collectionGames[bestaandIndex] = {
-        ...collectionGames[bestaandIndex],
-        ...nieuwGameObject,
-        status: statuses[currentTitle]
-      };
-    }
-
-    setCollectionTitlesToLocalStorage(titles);
-    setCollectionStatusesToLocalStorage(statuses);
-    setCollectionNicknamesToLocalStorage(nicknames);
-    setCollectionGamesToLocalStorage(collectionGames);
+    addOrUpdateGame(currentTitle, "backlog", nickname);
   }
 
   updateCollectionUI();
 };
 
-if (setBacklogButton) {
-  setBacklogButton.onclick = () => {
-    if (!currentTitle) return;
-    addGameToCollection(currentTitle, "backlog");
-    updateCollectionUI();
-  };
-}
+setBacklogButton?.addEventListener("click", () => {
+  if (!currentTitle) return;
+  addOrUpdateGame(currentTitle, "backlog");
+  updateCollectionUI();
+});
 
-if (setPlayingButton) {
-  setPlayingButton.onclick = () => {
-    if (!currentTitle) return;
+setPlayingButton?.addEventListener("click", () => {
+  if (!currentTitle) return;
 
-    let titles = getCollectionTitlesFromLocalStorage();
-    let statuses = getCollectionStatusesFromLocalStorage();
+  const data = getStorageData();
 
-    if (!titles.includes(currentTitle)) {
-      titles.push(currentTitle);
+  if (!data.titles.includes(currentTitle)) {
+    data.titles.push(currentTitle);
+  }
+
+  Object.keys(data.statuses).forEach(title => {
+    if (data.statuses[title] === "playing") {
+      data.statuses[title] = "backlog";
     }
+  });
 
-    Object.keys(statuses).forEach(title => {
-      if (statuses[title] === "playing") {
-        statuses[title] = "backlog";
-      }
-    });
+  saveStorageData(data);
+  addOrUpdateGame(currentTitle, "playing");
+  updateCollectionUI();
+});
 
-    statuses[currentTitle] = "playing";
-
-    setCollectionTitlesToLocalStorage(titles);
-    setCollectionStatusesToLocalStorage(statuses);
-
-    setCurrentGameToLocalStorage({
-      id: currentId,
-      title: currentTitle,
-      image: document.querySelector("#gameCover").src,
-      status: "playing"
-    });
-
-    updateCollectionUI();
-    renderCurrentGameBanner();
-  };
-}
-
-if (setFinishedButton) {
-  setFinishedButton.onclick = () => {
-    if (!currentTitle) return;
-    addGameToCollection(currentTitle, "finished");
-    updateCollectionUI();
-  };
-}
+setFinishedButton?.addEventListener("click", () => {
+  if (!currentTitle) return;
+  addOrUpdateGame(currentTitle, "finished");
+  updateCollectionUI();
+});

@@ -1,53 +1,10 @@
-function updateCards() {
-    const detail = document.querySelector("#gameDetails");
-    const closeBtn = document.querySelector("#closeGameDetails");
-    const cards = document.querySelectorAll(".game-card");
-    const collectionBtn = document.querySelector("#collectionBtn");
-    const collectionStatus = document.querySelector("#collectionStatus");
-    const gamePlatforms = document.querySelector("#gamePlatforms");
-
-    cards.forEach(card => {
-        card.onclick = () => {
-            const title = card.dataset.title;
-
-            document.querySelector("#gameTitle").textContent = card.dataset.title;
-            document.querySelector("#gameDescription").textContent = card.dataset.description;
-            document.querySelector("#gameRating").textContent = card.dataset.rating;
-            document.querySelector("#gameDate").textContent = card.dataset.date;
-            document.querySelector("#gameCover").src = card.dataset.image;
-            document.querySelector("#gameCover").alt = card.dataset.title;
-
-            renderPlatforms(card.dataset.platforms, gamePlatforms);
-            updateDetailModalUI(title, collectionBtn, collectionStatus);
-
-            detail.classList.remove("hidden");
-            detail.classList.add("flex");
-        };
-    });
-
-    if (closeBtn) {
-        closeBtn.onclick = () => {
-            detail.classList.add("hidden");
-            detail.classList.remove("flex");
-        };
-    }
-
-    if (detail) {
-        detail.onclick = e => {
-            if (e.target === detail) {
-                detail.classList.add("hidden");
-                detail.classList.remove("flex");
-            }
-        };
-    }
-}
-
-let games = getCollectionGamesFromLocalStorage();
-let collectionTitles = getCollectionTitlesFromLocalStorage();
-let collectionStatuses = getCollectionStatusesFromLocalStorage();
-
+const detail = document.querySelector("#gameDetails");
+const closeBtn = document.querySelector("#closeGameDetails");
 const gameCollection = document.getElementById("gameCollection");
-const addToCollectionDetailButton = document.getElementById("collectionBtn");
+
+const collectionBtn = document.getElementById("collectionBtn");
+const collectionStatus = document.getElementById("collectionStatus");
+const gamePlatforms = document.getElementById("gamePlatforms");
 const gameTitle = document.getElementById("gameTitle");
 
 const listViewButton = document.getElementById("listView");
@@ -68,405 +25,365 @@ const setPlayingButton = document.getElementById("setPlaying");
 const setFinishedButton = document.getElementById("setFinished");
 
 const collectionCounter = document.getElementById("collectionCounter");
+const sortGamesSelect = document.getElementById("sortGames");
+
+let games = getCollectionGamesFromLocalStorage();
+let collectionTitles = getCollectionTitlesFromLocalStorage();
+let collectionStatuses = getCollectionStatusesFromLocalStorage();
 
 let currentView = "grid";
 let currentSort = "rating";
 let currentFilter = "all";
 
 function getCollectionTitlesFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("collectionTitles") || "[]");
-}
-
-function setCollectionTitlesToLocalStorage() {
-    localStorage.setItem("collectionTitles", JSON.stringify(collectionTitles));
+  return JSON.parse(localStorage.getItem("collectionTitles") || "[]");
 }
 
 function getCollectionStatusesFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("collectionStatuses") || "{}");
-}
-
-function setCollectionStatusesToLocalStorage() {
-    localStorage.setItem("collectionStatuses", JSON.stringify(collectionStatuses));
+  return JSON.parse(localStorage.getItem("collectionStatuses") || "{}");
 }
 
 function getCollectionGamesFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("collectionGames") || "[]");
+  return JSON.parse(localStorage.getItem("collectionGames") || "[]");
 }
 
-function setCollectionGamesToLocalStorage() {
-    localStorage.setItem("collectionGames", JSON.stringify(games));
+function saveAll() {
+  localStorage.setItem("collectionTitles", JSON.stringify(collectionTitles));
+  localStorage.setItem("collectionStatuses", JSON.stringify(collectionStatuses));
+  localStorage.setItem("collectionGames", JSON.stringify(games));
+}
+
+function refreshData() {
+  games = getCollectionGamesFromLocalStorage();
+  collectionTitles = getCollectionTitlesFromLocalStorage();
+  collectionStatuses = getCollectionStatusesFromLocalStorage();
 }
 
 function isTitleInCollection(title) {
-    collectionTitles = getCollectionTitlesFromLocalStorage();
-    return collectionTitles.includes(title);
-}
-
-function removeTitleFromCollection(title) {
-    collectionTitles = collectionTitles.filter(colTitle => colTitle !== title);
-    delete collectionStatuses[title];
-    games = games.filter(game => game.name !== title);
-
-    setCollectionTitlesToLocalStorage();
-    setCollectionStatusesToLocalStorage();
-    setCollectionGamesToLocalStorage();
-}
-
-function addTitleToCollection(title) {
-    if (!collectionTitles.includes(title)) {
-        collectionTitles.push(title);
-    }
-
-    if (!collectionStatuses[title]) {
-        collectionStatuses[title] = "backlog";
-    }
-
-    setCollectionTitlesToLocalStorage();
-    setCollectionStatusesToLocalStorage();
+  return collectionTitles.includes(title);
 }
 
 function getGameStatus(title) {
-    collectionStatuses = getCollectionStatusesFromLocalStorage();
-    return collectionStatuses[title] || "backlog";
+  return collectionStatuses[title] || "backlog";
+}
+
+function addTitleToCollection(title) {
+  if (!collectionTitles.includes(title)) {
+    collectionTitles.push(title);
+  }
+
+  if (!collectionStatuses[title]) {
+    collectionStatuses[title] = "backlog";
+  }
+
+  saveAll();
+}
+
+function removeTitleFromCollection(title) {
+  collectionTitles = collectionTitles.filter(t => t !== title);
+  delete collectionStatuses[title];
+  games = games.filter(game => game.name !== title);
+  saveAll();
 }
 
 function setGameStatus(title, status) {
-    collectionStatuses = getCollectionStatusesFromLocalStorage();
-    collectionStatuses[title] = status;
-    setCollectionStatusesToLocalStorage();
+  collectionStatuses[title] = status;
+  saveAll();
 }
 
-function renderPlatforms(platformsString, container) {
-    if (!container) return;
+function renderPlatforms(platformsString) {
+  if (!gamePlatforms) return;
 
-    container.innerHTML = "";
+  gamePlatforms.innerHTML = "";
 
-    const platforms = (platformsString || "").split(",");
+  (platformsString || "").split(",").forEach(platform => {
+    const trimmed = platform.trim();
+    if (!trimmed) return;
 
-    platforms.forEach(platform => {
-        const trimmed = platform.trim();
-        if (!trimmed) return;
-
-        const span = document.createElement("span");
-        span.className = "rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200";
-        span.textContent = trimmed;
-        container.appendChild(span);
-    });
+    const span = document.createElement("span");
+    span.className = "rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200";
+    span.textContent = trimmed;
+    gamePlatforms.appendChild(span);
+  });
 }
 
-function updateDetailModalUI(title, collectionBtn, collectionStatus) {
-    if (!collectionBtn || !collectionStatus) return;
+function updateDetailModalUI(title) {
+  if (!collectionBtn || !collectionStatus) return;
 
-    if (!isTitleInCollection(title)) {
-        collectionStatus.textContent = "Niet in collectie";
-        collectionStatus.className =
-            "rounded-full px-4 py-2 text-sm font-semibold bg-red-600 text-white";
+  if (!isTitleInCollection(title)) {
+    collectionStatus.textContent = "Niet in collectie";
+    collectionStatus.className =
+      "rounded-full px-4 py-2 text-sm font-semibold bg-red-600 text-white";
 
-        collectionBtn.textContent = "Voeg toe aan collectie";
-        collectionBtn.className =
-            "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700";
-    } else {
-        const status = getGameStatus(title);
+    collectionBtn.textContent = "Voeg toe aan collectie";
+    collectionBtn.className =
+      "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700";
+    return;
+  }
 
-        if (status === "backlog") {
-            collectionStatus.textContent = "Nog te spelen";
-            collectionStatus.className =
-                "rounded-full px-4 py-2 text-sm font-semibold bg-yellow-600 text-white";
-        } else if (status === "playing") {
-            collectionStatus.textContent = "Aan het spelen";
-            collectionStatus.className =
-                "rounded-full px-4 py-2 text-sm font-semibold bg-cyan-600 text-white";
-        } else if (status === "finished") {
-            collectionStatus.textContent = "Uitgespeeld";
-            collectionStatus.className =
-                "rounded-full px-4 py-2 text-sm font-semibold bg-green-600 text-white";
-        }
+  const status = getGameStatus(title);
 
-        collectionBtn.textContent = "Verwijder uit collectie";
-        collectionBtn.className =
-            "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700";
-    }
+  if (status === "backlog") {
+    collectionStatus.textContent = "Nog te spelen";
+    collectionStatus.className =
+      "rounded-full px-4 py-2 text-sm font-semibold bg-yellow-600 text-white";
+  } else if (status === "playing") {
+    collectionStatus.textContent = "Aan het spelen";
+    collectionStatus.className =
+      "rounded-full px-4 py-2 text-sm font-semibold bg-cyan-600 text-white";
+  } else {
+    collectionStatus.textContent = "Uitgespeeld";
+    collectionStatus.className =
+      "rounded-full px-4 py-2 text-sm font-semibold bg-green-600 text-white";
+  }
+
+  collectionBtn.textContent = "Verwijder uit collectie";
+  collectionBtn.className =
+    "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700";
 }
 
 function sortGames(gamesToSort, sortBy) {
-    const sortedGames = [...gamesToSort];
+  const sortedGames = [...gamesToSort];
 
-    if (sortBy === "released") {
-        sortedGames.sort((a, b) => new Date(b.released) - new Date(a.released));
-    } else if (sortBy === "rating") {
-        sortedGames.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-    } else if (sortBy === "name") {
-        sortedGames.sort((a, b) => a.name.localeCompare(b.name));
-    }
+  if (sortBy === "released") {
+    sortedGames.sort((a, b) => new Date(b.released) - new Date(a.released));
+  } else if (sortBy === "rating") {
+    sortedGames.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+  } else if (sortBy === "name") {
+    sortedGames.sort((a, b) => a.name.localeCompare(b.name));
+  }
 
-    return sortedGames;
+  return sortedGames;
 }
 
 function applyViewClass() {
     if (currentView === "grid") {
-        gameCollection.className = "mt-10 grid grid-cols-3 gap-8";
-        gridViewButton.className = "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
-        listViewButton.className = "p-2 text-slate-500 hover:text-gray-300";
+        gameCollection.className =
+            "mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8";
+        gridViewButton.className =
+            "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
+        listViewButton.className =
+            "p-2 text-slate-500 hover:text-gray-300";
     } else {
-        gameCollection.className = "mt-6 flex flex-col gap-12 items-center justify-center px-32";
-        gridViewButton.className = "p-2 text-slate-500 hover:text-gray-300";
-        listViewButton.className = "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
+        gameCollection.className =
+            "mt-6 flex flex-col gap-8 items-center w-full";
+        gridViewButton.className =
+            "p-2 text-slate-500 hover:text-gray-300";
+        listViewButton.className =
+            "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
     }
 }
 
 function noGames() {
-    gameCollection.className = "flex flex-col items-center justify-center py-32";
-    gameCollection.innerHTML = `
-        <p class="text-slate-500 text-lg mb-6">Geen games in dit categorie</p>
-        <a href="./ontdek.html" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-2xl transition shadow-lg shadow-purple-500/20">
-            Ontdek Games
-        </a>
-    `;
+  gameCollection.className = "flex flex-col items-center justify-center py-32";
+  gameCollection.innerHTML = `
+    <p class="text-slate-500 text-lg mb-6">Geen games in dit categorie</p>
+    <a href="./ontdek.html" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-2xl transition shadow-lg shadow-purple-500/20">
+      Ontdek Games
+    </a>
+  `;
 }
 
 function updateCategoryButtonStyles() {
-    const activeClass = "category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-cyan-400 text-sm font-semibold text-cyan-400 transition";
-    const inactiveClass = "category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition";
+  const activeClass =
+    "category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-cyan-400 text-sm font-semibold text-cyan-400 transition";
+  const inactiveClass =
+    "category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition";
 
-    if (filterAllButton) filterAllButton.className = currentFilter === "all" ? activeClass : inactiveClass;
-    if (filterBacklogButton) filterBacklogButton.className = currentFilter === "backlog" ? activeClass : inactiveClass;
-    if (filterPlayingButton) filterPlayingButton.className = currentFilter === "playing" ? activeClass : inactiveClass;
-    if (filterFinishedButton) filterFinishedButton.className = currentFilter === "finished" ? activeClass : inactiveClass;
+  filterAllButton.className = currentFilter === "all" ? activeClass : inactiveClass;
+  filterBacklogButton.className = currentFilter === "backlog" ? activeClass : inactiveClass;
+  filterPlayingButton.className = currentFilter === "playing" ? activeClass : inactiveClass;
+  filterFinishedButton.className = currentFilter === "finished" ? activeClass : inactiveClass;
 }
 
 function updateCategoryCounts() {
-    collectionTitles = getCollectionTitlesFromLocalStorage();
-    collectionStatuses = getCollectionStatusesFromLocalStorage();
+  refreshData();
 
-    const backlogCount = collectionTitles.filter(title => getGameStatus(title) === "backlog").length;
-    const playingCount = collectionTitles.filter(title => getGameStatus(title) === "playing").length;
-    const finishedCount = collectionTitles.filter(title => getGameStatus(title) === "finished").length;
-
-    if (countAll) countAll.textContent = collectionTitles.length;
-    if (countBacklog) countBacklog.textContent = backlogCount;
-    if (countPlaying) countPlaying.textContent = playingCount;
-    if (countFinished) countFinished.textContent = finishedCount;
+  countAll.textContent = collectionTitles.length;
+  countBacklog.textContent = collectionTitles.filter(title => getGameStatus(title) === "backlog").length;
+  countPlaying.textContent = collectionTitles.filter(title => getGameStatus(title) === "playing").length;
+  countFinished.textContent = collectionTitles.filter(title => getGameStatus(title) === "finished").length;
 }
 
 function updateCollectionCounter() {
-    collectionTitles = getCollectionTitlesFromLocalStorage();
-
-    if (collectionCounter) {
-        collectionCounter.textContent = collectionTitles.length;
-    }
+  refreshData();
+  collectionCounter.textContent = collectionTitles.length;
 }
 
 function renderGames() {
-    games = getCollectionGamesFromLocalStorage();
-    collectionTitles = getCollectionTitlesFromLocalStorage();
-    collectionStatuses = getCollectionStatusesFromLocalStorage();
+  refreshData();
 
-    let collectionGames = games.filter(game => collectionTitles.includes(game.name));
+  let collectionGames = games.filter(game => collectionTitles.includes(game.name));
 
-    if (currentFilter === "backlog") {
-        collectionGames = collectionGames.filter(game => getGameStatus(game.name) === "backlog");
-    } else if (currentFilter === "playing") {
-        collectionGames = collectionGames.filter(game => getGameStatus(game.name) === "playing");
-    } else if (currentFilter === "finished") {
-        collectionGames = collectionGames.filter(game => getGameStatus(game.name) === "finished");
-    }
+  if (currentFilter !== "all") {
+    collectionGames = collectionGames.filter(game => getGameStatus(game.name) === currentFilter);
+  }
 
-    const sortedCollectionGames = sortGames(collectionGames, currentSort);
+  const sortedCollectionGames = sortGames(collectionGames, currentSort);
 
-    updateCategoryCounts();
-    updateCategoryButtonStyles();
+  updateCategoryCounts();
+  updateCategoryButtonStyles();
 
-    if (sortedCollectionGames.length === 0) {
-        noGames();
-        return;
-    }
+  if (sortedCollectionGames.length === 0) {
+    noGames();
+    return;
+  }
 
-    applyViewClass();
+  applyViewClass();
 
-    let result = "";
+  gameCollection.innerHTML = sortedCollectionGames
+    .map(g => {
+      let statusText = "Nog te spelen";
 
-    sortedCollectionGames.forEach(g => {
-        let statusText = "Nog te spelen";
+      if (getGameStatus(g.name) === "playing") statusText = "Aan het spelen";
+      if (getGameStatus(g.name) === "finished") statusText = "Uitgespeeld";
 
-        if (getGameStatus(g.name) === "playing") {
-            statusText = "Aan het spelen";
-        } else if (getGameStatus(g.name) === "finished") {
-            statusText = "Uitgespeeld";
-        }
+      return `
+        <article
+          class="w-full game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-title="${g.name}"
+          data-description="${g.description}"
+          data-rating="${g.rating}"
+          data-date="${g.released}"
+          data-image="${g.background_image}"
+          data-platforms="${g.platforms}"
+        >
+          <section class="relative">
+            <img
+              src="${g.background_image}"
+              alt="game card"
+              class="w-full h-[420px] object-cover"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+            <span class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold">
+              <span>⭐</span><span>${g.rating}</span>
+            </span>
+          </section>
+          <section class="p-6">
+            <div class="flex items-center justify-between gap-4 mb-2">
+              <h3 class="text-2xl font-bold text-white">${g.name}</h3>
+              <span class="text-xs px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">${statusText}</span>
+            </div>
+            <p class="text-slate-300 text-sm leading-relaxed mb-3">${g.description}</p>
+            <p class="text-slate-400">${g.released}</p>
+          </section>
+        </article>
+      `;
+    })
+    .join("");
 
-        result += `
-            <article
-                class="w-full max-w-2xl game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
-                data-title="${g.name}"
-                data-description="${g.description}"
-                data-rating="${g.rating}"
-                data-date="${g.released}"
-                data-image="${g.background_image}"
-                data-platforms="${g.platforms}"
-            >
-                <section class="relative">
-                    <img
-                        src="${g.background_image}"
-                        alt="game card"
-                        class="w-full h-[420px] object-cover"
-                    />
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
-                    <span class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold">
-                        <span>⭐</span><span>${g.rating}</span>
-                    </span>
-                </section>
-                <section class="p-6">
-                    <div class="flex items-center justify-between gap-4 mb-2">
-                        <h3 class="text-2xl font-bold text-white">${g.name}</h3>
-                        <span class="text-xs px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">${statusText}</span>
-                    </div>
-                    <p class="text-slate-300 text-sm leading-relaxed mb-3">${g.description}</p>
-                    <p class="text-slate-400">${g.released}</p>
-                </section>
-            </article>
-        `;
-    });
-
-    gameCollection.innerHTML = result;
-    updateCards();
+  updateCards();
 }
 
-async function updateCollectionPage() {
-    renderGames();
-    updateCollectionCounter();
-    updateCategoryCounts();
+function updateCards() {
+  const cards = document.querySelectorAll(".game-card");
+
+  cards.forEach(card => {
+    card.onclick = () => {
+      const title = card.dataset.title;
+
+      document.querySelector("#gameTitle").textContent = card.dataset.title;
+      document.querySelector("#gameDescription").textContent = card.dataset.description;
+      document.querySelector("#gameRating").textContent = card.dataset.rating;
+      document.querySelector("#gameDate").textContent = card.dataset.date;
+      document.querySelector("#gameCover").src = card.dataset.image;
+      document.querySelector("#gameCover").alt = card.dataset.title;
+
+      renderPlatforms(card.dataset.platforms);
+      updateDetailModalUI(title);
+
+      detail.classList.remove("hidden");
+      detail.classList.add("flex");
+    };
+  });
 }
 
-if (addToCollectionDetailButton && gameTitle) {
-    addToCollectionDetailButton.addEventListener("click", async () => {
-        const title = gameTitle.textContent.trim();
+function changeStatus(status) {
+  const title = gameTitle.textContent.trim();
+  if (!title) return;
 
-        if (isTitleInCollection(title)) {
-            const bevestiging = confirm(
-                "Weet je zeker dat je deze game wilt verwijderen uit je collectie?"
-            );
+  if (!isTitleInCollection(title)) {
+    addTitleToCollection(title);
+  }
 
-            if (!bevestiging) return;
-
-            removeTitleFromCollection(title);
-        } else {
-            addTitleToCollection(title);
-        }
-
-        await updateCollectionPage();
-
-        const collectionBtn = document.getElementById("collectionBtn");
-        const collectionStatus = document.getElementById("collectionStatus");
-        updateDetailModalUI(title, collectionBtn, collectionStatus);
-    });
+  setGameStatus(title, status);
+  renderGames();
+  updateCollectionCounter();
+  updateDetailModalUI(title);
 }
 
-if (setBacklogButton && gameTitle) {
-    setBacklogButton.addEventListener("click", async () => {
-        const title = gameTitle.textContent.trim();
+collectionBtn?.addEventListener("click", () => {
+  const title = gameTitle.textContent.trim();
+  if (!title) return;
 
-        if (!isTitleInCollection(title)) {
-            addTitleToCollection(title);
-        }
+  if (isTitleInCollection(title)) {
+    const bevestiging = confirm("Weet je zeker dat je deze game wilt verwijderen uit je collectie?");
+    if (!bevestiging) return;
+    removeTitleFromCollection(title);
+  } else {
+    addTitleToCollection(title);
+  }
 
-        setGameStatus(title, "backlog");
-        await updateCollectionPage();
+  renderGames();
+  updateCollectionCounter();
+  updateDetailModalUI(title);
+});
 
-        const collectionBtn = document.getElementById("collectionBtn");
-        const collectionStatus = document.getElementById("collectionStatus");
-        updateDetailModalUI(title, collectionBtn, collectionStatus);
-    });
-}
+setBacklogButton?.addEventListener("click", () => changeStatus("backlog"));
+setPlayingButton?.addEventListener("click", () => changeStatus("playing"));
+setFinishedButton?.addEventListener("click", () => changeStatus("finished"));
 
-if (setPlayingButton && gameTitle) {
-    setPlayingButton.addEventListener("click", async () => {
-        const title = gameTitle.textContent.trim();
+gridViewButton?.addEventListener("click", () => {
+  currentView = "grid";
+  renderGames();
+});
 
-        if (!isTitleInCollection(title)) {
-            addTitleToCollection(title);
-        }
+listViewButton?.addEventListener("click", () => {
+  currentView = "list";
+  renderGames();
+});
 
-        setGameStatus(title, "playing");
-        await updateCollectionPage();
+filterAllButton?.addEventListener("click", () => {
+  currentFilter = "all";
+  renderGames();
+});
 
-        const collectionBtn = document.getElementById("collectionBtn");
-        const collectionStatus = document.getElementById("collectionStatus");
-        updateDetailModalUI(title, collectionBtn, collectionStatus);
-    });
-}
+filterBacklogButton?.addEventListener("click", () => {
+  currentFilter = "backlog";
+  renderGames();
+});
 
-if (setFinishedButton && gameTitle) {
-    setFinishedButton.addEventListener("click", async () => {
-        const title = gameTitle.textContent.trim();
+filterPlayingButton?.addEventListener("click", () => {
+  currentFilter = "playing";
+  renderGames();
+});
 
-        if (!isTitleInCollection(title)) {
-            addTitleToCollection(title);
-        }
+filterFinishedButton?.addEventListener("click", () => {
+  currentFilter = "finished";
+  renderGames();
+});
 
-        setGameStatus(title, "finished");
-        await updateCollectionPage();
+sortGamesSelect?.addEventListener("change", e => {
+  currentSort = e.target.value;
+  renderGames();
+});
 
-        const collectionBtn = document.getElementById("collectionBtn");
-        const collectionStatus = document.getElementById("collectionStatus");
-        updateDetailModalUI(title, collectionBtn, collectionStatus);
-    });
-}
+closeBtn?.addEventListener("click", () => {
+  detail.classList.add("hidden");
+  detail.classList.remove("flex");
+});
 
-if (gridViewButton) {
-    gridViewButton.addEventListener("click", () => {
-        currentView = "grid";
-        renderGames();
-    });
-}
-
-if (listViewButton) {
-    listViewButton.addEventListener("click", () => {
-        currentView = "list";
-        renderGames();
-    });
-}
-
-if (filterAllButton) {
-    filterAllButton.addEventListener("click", () => {
-        currentFilter = "all";
-        renderGames();
-    });
-}
-
-if (filterBacklogButton) {
-    filterBacklogButton.addEventListener("click", () => {
-        currentFilter = "backlog";
-        renderGames();
-    });
-}
-
-if (filterPlayingButton) {
-    filterPlayingButton.addEventListener("click", () => {
-        currentFilter = "playing";
-        renderGames();
-    });
-}
-
-if (filterFinishedButton) {
-    filterFinishedButton.addEventListener("click", () => {
-        currentFilter = "finished";
-        renderGames();
-    });
-}
-
-const sortGamesSelect = document.getElementById("sortGames");
-if (sortGamesSelect) {
-    sortGamesSelect.addEventListener("change", (e) => {
-        currentSort = e.target.value;
-        renderGames();
-    });
-}
+detail?.addEventListener("click", e => {
+  if (e.target === detail) {
+    detail.classList.add("hidden");
+    detail.classList.remove("flex");
+  }
+});
 
 function start() {
-    games = getCollectionGamesFromLocalStorage();
-    renderGames();
-    updateCollectionCounter();
-    updateCategoryCounts();
+  renderGames();
+  updateCollectionCounter();
+  updateCategoryCounts();
 }
 
-start(); 
+start();
