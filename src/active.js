@@ -1,18 +1,22 @@
-function getCurrentGameFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("currentGame") || "null");
+function getCollectionGamesFromLocalStorage() {
+    return JSON.parse(localStorage.getItem("collectionGames") || "[]");
 }
 
-function setCurrentGameToLocalStorage(game) {
-    localStorage.setItem("currentGame", JSON.stringify(game));
+function setCollectionGamesToLocalStorage(collectionGames) {
+    localStorage.setItem("collectionGames", JSON.stringify(collectionGames));
 }
 
-function clearCurrentGameFromLocalStorage() {
-    localStorage.removeItem("currentGame");
+function getCollectionStatusesFromLocalStorage() {
+    return JSON.parse(localStorage.getItem("collectionStatuses") || "{}");
 }
 
-function isCurrentGame(title) {
-    const currentGame = getCurrentGameFromLocalStorage();
-    return currentGame && currentGame.title === title;
+function setCollectionStatusesToLocalStorage(collectionStatuses) {
+    localStorage.setItem("collectionStatuses", JSON.stringify(collectionStatuses));
+}
+
+function getCurrentGame() {
+    const games = getCollectionGamesFromLocalStorage();
+    return games.find(game => game.status === "playing") || null;
 }
 
 function formatCurrentGameStatus(status) {
@@ -25,7 +29,7 @@ function renderCurrentGameBanner() {
     const host = document.getElementById("currentGameBannerHost");
     if (!host) return;
 
-    const currentGame = getCurrentGameFromLocalStorage();
+    const currentGame = getCurrentGame();
 
     if (!currentGame) {
         host.innerHTML = "";
@@ -36,8 +40,8 @@ function renderCurrentGameBanner() {
       <section class="w-full rounded-2xl border border-cyan-500/30 bg-white/5 backdrop-blur-md px-5 py-4 flex items-center justify-between gap-4">
         <section class="flex items-center gap-4 min-w-0">
           <img
-            src="${currentGame.image}"
-            alt="${currentGame.title}"
+            src="${currentGame.background_image}"
+            alt="${currentGame.name}"
             class="w-16 h-16 rounded-xl object-cover shrink-0"
           />
           <section class="min-w-0">
@@ -45,7 +49,7 @@ function renderCurrentGameBanner() {
               Actieve game
             </p>
             <h2 class="text-white font-bold text-lg truncate">
-              ${currentGame.title}
+              ${currentGame.name}
             </h2>
             <p class="text-slate-400 text-sm">
               Status: ${formatCurrentGameStatus(currentGame.status)}
@@ -68,7 +72,24 @@ function renderCurrentGameBanner() {
 
     if (clearBtn) {
         clearBtn.onclick = () => {
-            clearCurrentGameFromLocalStorage();
+            const games = getCollectionGamesFromLocalStorage();
+            const statuses = getCollectionStatusesFromLocalStorage();
+
+            const updatedGames = games.map(game =>
+                game.status === "playing"
+                    ? { ...game, status: "backlog" }
+                    : game
+            );
+
+            Object.keys(statuses).forEach(title => {
+                if (statuses[title] === "playing") {
+                    statuses[title] = "backlog";
+                }
+            });
+
+            setCollectionGamesToLocalStorage(updatedGames);
+            setCollectionStatusesToLocalStorage(statuses);
+
             renderCurrentGameBanner();
         };
     }
