@@ -18,7 +18,9 @@ function setCollectionStatusesToLocalStorage(collectionStatuses) {
 
 function getCurrentGame() {
     const games = getCollectionGamesFromLocalStorage();
-    return games.find(game => game.status === "playing") || null;
+    const statuses = getCollectionStatusesFromLocalStorage();
+
+    return games.find(game => statuses[game.name] === "playing") || null;
 }
 
 function formatCurrentGameStatus(status) {
