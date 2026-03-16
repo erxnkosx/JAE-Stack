@@ -6,23 +6,29 @@
     <link rel="stylesheet" href="./src/output.css" />
     <link rel="stylesheet" href="./src/input.css" />
     <script src="./src/nav.js" defer></script>
-      <script src="./src/active.js" defer></script>
+    <script src="./src/active.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script type="module" src="./src/compare.js"></script>
 
     <title>Vergelijk games</title>
   </head>
   <body
-    class="bg-black text-white min-h-screen flex flex-col items-center relative w-full "
+    class="bg-black text-white min-h-screen flex flex-col items-center relative w-full"
   >
     <section class="absolute inset-0 -z-10 overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl "></div>
-        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl "></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"
+      ></div>
+      <div
+        class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl"
+      ></div>
+      <div
+        class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"
+      ></div>
     </section>
 
     <nav
-      class="relative w-full flex items-center justify-between px-6 md:px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10"
+      class="relative w-full flex items-center justify-between px-4 sm:px-6 md:px-10 lg:px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10"
     >
       <a
         href="./index.html"
@@ -36,13 +42,15 @@
       >
         <a href="./ontdek.html" class="hover:text-white">Ontdek</a>
         <a href="./collection-page.html" class="hover:text-white">Collectie</a>
-        <a href="./compare-page.html" class="hover:text-white text-cyan-400">Vergelijk</a>
+        <a href="./compare-page.html" class="hover:text-white text-cyan-400"
+          >Vergelijk</a
+        >
       </section>
 
       <section class="flex items-center pt-2 gap-3">
         <a
           href="./raad-page.html"
-          class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition text-sm font-semibold"
+          class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-3 sm:px-4 py-2 rounded-xl hover:bg-gray-800 transition text-xs sm:text-sm font-semibold"
         >
           <span class="text-cyan-400 text-sm">✦</span>
           <span>Raad de game</span>
@@ -86,9 +94,13 @@
         </button>
       </section>
     </nav>
-    <section class="w-full px-6 md:px-24 mt-6 relative z-10">
-        <section id="currentGameBannerHost"></section>
+
+    <section
+      class="w-full px-4 sm:px-6 md:px-10 lg:px-16 mt-4 sm:mt-6 relative z-10"
+    >
+      <section id="currentGameBannerHost"></section>
     </section>
+
     <section id="mobileMenu" class="fixed inset-0 z-50 hidden bg-[#050816]">
       <section
         class="relative w-full flex items-center justify-between pl-6 pr-4 py-6 bg-gradient-to-r from-black via-[#0b1120] to-[#1b1230] border-b border-white/10"
@@ -162,105 +174,203 @@
       </a>
     </section>
 
-   <header class="text-center mt-12 md:mt-20 mb-12 px-4">
-        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
-            Vergelijk <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Games</span>
-        </h1>
-        <p class="text-lg text-slate-500 mt-6">Selecteer twee games om te vergelijken</p>
+    <header class="text-center mt-12 md:mt-20 mb-12 px-4">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+        Vergelijk
+        <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500"
+          >Games</span
+        >
+      </h1>
+      <p class="text-lg text-slate-500 mt-6">
+        Selecteer twee games om te vergelijken
+      </p>
     </header>
 
     <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pb-20">
-        
-        <section class="flex flex-col lg:flex-row items-center justify-between gap-26 mb-16">
+      <section
+        class="flex flex-col lg:flex-row items-center justify-between gap-26 mb-16"
+      >
+        <article class="relative group w-full flex-1 max-w-lg">
+          <div class="relative">
+            <div
+              class="absolute inset-0 bg-cyan-500/40 rounded-[2rem] blur-lg group-hover:bg-cyan-500/60 transition duration-500"
+            ></div>
+            <div
+              class="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden"
+            >
+              <figure class="relative">
+                <img
+                  id="game-img-1"
+                  src=""
+                  alt="Game 1"
+                  class="w-full h-64 md:h-72 object-cover opacity-70 group-hover:opacity-100 transition duration-500"
+                />
+                <figcaption
+                  class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent"
+                >
+                  <h2
+                    id="game-name-1"
+                    class="text-2xl md:text-3xl font-bold mb-1"
+                  >
+                    Laden...
+                  </h2>
+                  <p
+                    id="game-meta-1"
+                    class="text-cyan-400 font-bold text-sm md:text-base"
+                  >
+                    -
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="mt-4">
+            <button
+              id="button-change-1"
+              class="w-full py-4 text-lg text-cyan-500 bg-white/5 hover:bg-cyan-500/20 border border-white/10 rounded-2xl font-bold transition-all"
+            >
+              Verander Game
+            </button>
+          </div>
+        </article>
 
-            <article class="relative group w-full flex-1 max-w-lg">
-                <div class="relative">
-                    <div class="absolute inset-0 bg-cyan-500/40 rounded-[2rem] blur-lg group-hover:bg-cyan-500/60 transition duration-500"></div>
-                    <div class="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden">
-                        <figure class="relative">
-                            <img id="game-img-1" src="" alt="Game 1" class="w-full h-64 md:h-72 object-cover opacity-70 group-hover:opacity-100 transition duration-500">
-                            <figcaption class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
-                                <h2 id="game-name-1" class="text-2xl md:text-3xl font-bold mb-1">Laden...</h2>
-                                <p id="game-meta-1" class="text-cyan-400 font-bold text-sm md:text-base">-</p>
-                            </figcaption>
-                        </figure>  
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <button id="button-change-1" class="w-full py-4 text-lg text-cyan-500 bg-white/5 hover:bg-cyan-500/20 border border-white/10 rounded-2xl font-bold transition-all">
-                        Verander Game
-                    </button>
-                </div>
-            </article>
+        <article class="relative group w-full flex-1 max-w-lg">
+          <div class="relative">
+            <div
+              class="absolute inset-0 bg-purple-500/40 rounded-[2rem] blur-lg group-hover:bg-purple-500/60 transition duration-500"
+            ></div>
+            <div
+              class="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden"
+            >
+              <figure class="relative">
+                <img
+                  id="game-img-2"
+                  src=""
+                  alt="Game 2"
+                  class="w-full h-64 md:h-72 object-cover opacity-70 group-hover:opacity-100 transition duration-500"
+                />
+                <figcaption
+                  class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent"
+                >
+                  <h2
+                    id="game-name-2"
+                    class="text-2xl md:text-3xl font-bold mb-1"
+                  >
+                    Laden...
+                  </h2>
+                  <p
+                    id="game-meta-2"
+                    class="text-purple-400 font-bold text-sm md:text-base"
+                  >
+                    -
+                  </p>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+          <div class="mt-4">
+            <button
+              id="button-change-2"
+              class="w-full py-4 text-lg text-purple-500 bg-white/5 hover:bg-purple-500/20 border border-white/10 rounded-2xl font-bold transition-all"
+            >
+              Verander Game
+            </button>
+          </div>
+        </article>
+      </section>
 
-            <article class="relative group w-full flex-1 max-w-lg">
-                <div class="relative">
-                    <div class="absolute inset-0 bg-purple-500/40 rounded-[2rem] blur-lg group-hover:bg-purple-500/60 transition duration-500"></div>
-                    <div class="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden">
-                        <figure class="relative">
-                            <img id="game-img-2" src="" alt="Game 2" class="w-full h-64 md:h-72 object-cover opacity-70 group-hover:opacity-100 transition duration-500">
-                            <figcaption class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
-                                <h2 id="game-name-2" class="text-2xl md:text-3xl font-bold mb-1">Laden...</h2>
-                                <p id="game-meta-2" class="text-purple-400 font-bold text-sm md:text-base">-</p>
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <button id="button-change-2" class="w-full py-4 text-lg text-purple-500 bg-white/5 hover:bg-purple-500/20 border border-white/10 rounded-2xl font-bold transition-all">
-                        Verander Game
-                    </button>
-                </div>
-            </article>
+      <section
+        class="max-w-4xl mx-auto bg-black/40 backdrop-blur-2xl border border-white/20 rounded-[2.5rem] p-6 md:p-10 shadow-2xl"
+      >
+        <h3
+          class="text-2xl md:text-4xl pb-6 font-extrabold bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 text-transparent text-center"
+        >
+          Statistieken
+        </h3>
 
-        </section>
+        <ul class="flex flex-col divide-y divide-white/10">
+          <li class="flex items-center justify-between py-6 md:py-8">
+            <span
+              id="rating-1"
+              class="text-lg md:text-xl font-mono text-slate-400"
+              >0.0</span
+            >
+            <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
+              <span class="arrow-left text-slate-500">—</span>
+              <span
+                class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm"
+                >gebruikers beoordeling</span
+              >
+              <span class="arrow-right text-slate-500">—</span>
+            </div>
+            <span
+              id="rating-2"
+              class="text-lg md:text-xl font-mono text-slate-400"
+              >0.0</span
+            >
+          </li>
+          <li class="flex items-center justify-between py-6 md:py-8">
+            <span
+              id="meta-rating-1"
+              class="text-lg md:text-xl font-mono text-slate-400"
+              >0.0</span
+            >
+            <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
+              <span class="arrow-left text-slate-500">—</span>
+              <span
+                class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm"
+                >metacritic</span
+              >
+              <span class="arrow-right text-slate-500">—</span>
+            </div>
+            <span
+              id="meta-rating-2"
+              class="text-lg md:text-xl font-mono text-slate-400"
+              >0.0</span
+            >
+          </li>
 
-        <section class="max-w-4xl mx-auto bg-black/40 backdrop-blur-2xl border border-white/20 rounded-[2.5rem] p-6 md:p-10 shadow-2xl">
-            <h3 class="text-2xl md:text-4xl pb-6 font-extrabold bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 text-transparent text-center">
-                Statistieken
-            </h3>
+          <li class="flex items-center justify-between py-6 md:py-8">
+            <span
+              id="releasedate-1"
+              class="text-sm md:text-xl font-mono text-slate-400"
+              >0000-00-00</span
+            >
+            <div
+              class="flex items-center gap-2 md:gap-3 px-2 text-center text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm"
+            >
+              <span>uitgebracht</span>
+            </div>
+            <span
+              id="releasedate-2"
+              class="text-sm md:text-xl font-mono text-slate-400"
+              >0000-00-00</span
+            >
+          </li>
 
-            <ul class="flex flex-col divide-y divide-white/10">
-                
-                <li class="flex items-center justify-between py-6 md:py-8">
-                    <span id="rating-1" class="text-lg md:text-xl font-mono text-slate-400">0.0</span>
-                    <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
-                        <span class="arrow-left text-slate-500">—</span>
-                        <span class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">gebruikers beoordeling</span>
-                        <span class="arrow-right text-slate-500">—</span>
-                    </div>
-                    <span id="rating-2" class="text-lg md:text-xl font-mono text-slate-400">0.0</span>
-                </li>
-                <li class="flex items-center justify-between py-6 md:py-8">
-                    <span id="meta-rating-1" class="text-lg md:text-xl font-mono text-slate-400">0.0</span>
-                    <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
-                        <span class="arrow-left text-slate-500">—</span>
-                        <span class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">metacritic</span>
-                        <span class="arrow-right text-slate-500">—</span>
-                    </div>
-                    <span id="meta-rating-2" class="text-lg md:text-xl font-mono text-slate-400">0.0</span>
-                </li>
-
-                <li class="flex items-center justify-between py-6 md:py-8">
-                    <span id="releasedate-1" class="text-sm md:text-xl font-mono text-slate-400">0000-00-00</span>
-                    <div class="flex items-center gap-2 md:gap-3 px-2 text-center text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">
-                        <span>uitgebracht</span>
-                    </div>
-                    <span id="releasedate-2" class="text-sm md:text-xl font-mono text-slate-400">0000-00-00</span>
-                </li>
-
-                <li class="flex items-center justify-between py-6 md:py-8">
-                    <span id="platform-1" class="text-lg md:text-xl font-mono text-slate-400">0</span>
-                    <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
-                        <span class="arrow-left text-slate-500">—</span>
-                        <span class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">Platformen</span>
-                        <span class="arrow-right text-slate-500">—</span>
-                    </div>
-                    <span id="platform-2" class="text-lg md:text-xl font-mono text-slate-400">0</span>
-                </li>
-                
-            </ul>
-        </section>
+          <li class="flex items-center justify-between py-6 md:py-8">
+            <span
+              id="platform-1"
+              class="text-lg md:text-xl font-mono text-slate-400"
+              >0</span
+            >
+            <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
+              <span class="arrow-left text-slate-500">—</span>
+              <span
+                class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm"
+                >Platformen</span
+              >
+              <span class="arrow-right text-slate-500">—</span>
+            </div>
+            <span
+              id="platform-2"
+              class="text-lg md:text-xl font-mono text-slate-400"
+              >0</span
+            >
+          </li>
+        </ul>
+      </section>
     </main>
   </body>
 </html>

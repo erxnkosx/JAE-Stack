@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="overflow-x-hidden min-h-min">
+<html lang="en" class="overflow-x-hidden">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,10 +11,8 @@
     <title>Collectiepagina</title>
   </head>
 
-  <body
-    class="bg-black text-white min-h-screen flex flex-col items-center relative overflow-x-hidden w-screen"
-  >
-    <section class="fixed inset-0 w-screen -z-10 overflow-hidden">
+  <body class="bg-black text-white min-h-screen relative overflow-x-hidden">
+    <section class="fixed inset-0 -z-10 overflow-hidden">
       <div
         class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"
       ></div>
@@ -33,7 +31,7 @@
     </section>
 
     <nav
-      class="relative w-full flex items-center justify-between px-6 md:px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10"
+      class="relative w-full flex items-center justify-between px-4 sm:px-6 md:px-10 lg:px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10"
     >
       <a
         href="./index.html"
@@ -46,14 +44,16 @@
         class="hidden md:flex gap-8 text-slate-400 font-medium absolute left-1/2 -translate-x-1/2 translate-y-[6px]"
       >
         <a href="./ontdek.html" class="hover:text-white">Ontdek</a>
-        <a href="./collection-page.html" class="hover:text-white text-cyan-400">Collectie</a>
+        <a href="./collection-page.html" class="hover:text-white text-cyan-400"
+          >Collectie</a
+        >
         <a href="./compare-page.html" class="hover:text-white">Vergelijk</a>
       </section>
 
       <section class="flex items-center pt-2 gap-3">
         <a
           href="./raad-page.html"
-          class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition text-sm font-semibold"
+          class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-3 sm:px-4 py-2 rounded-xl hover:bg-gray-800 transition text-xs sm:text-sm font-semibold"
         >
           <span class="text-cyan-400 text-sm">✦</span>
           <span>Raad de game</span>
@@ -97,9 +97,13 @@
         </button>
       </section>
     </nav>
-    <section class="w-full px-6 md:px-24 mt-6 relative z-10">
+
+    <section
+      class="w-full px-4 sm:px-6 md:px-10 lg:px-16 mt-4 sm:mt-6 relative z-10"
+    >
       <section id="currentGameBannerHost"></section>
     </section>
+
     <section id="mobileMenu" class="fixed inset-0 z-50 hidden bg-[#050816]">
       <section
         class="relative w-full flex items-center justify-between pl-6 pr-4 py-6 bg-gradient-to-r from-black via-[#0b1120] to-[#1b1230] border-b border-white/10"
@@ -173,18 +177,24 @@
       </a>
     </section>
 
-    <main class="relative px-24 mt-8 w-full pb-12">
-      <header class="flex justify-between mb-8">
+    <main
+      class="relative px-4 sm:px-6 md:px-10 lg:px-16 mt-6 sm:mt-8 w-full pb-12"
+    >
+      <header
+        class="flex flex-col gap-4 md:flex-row md:justify-between md:items-start mb-8"
+      >
         <div>
-          <h2 class="text-5xl font-extrabold mb-2">Mijn collectie</h2>
-          <p class="text-cyan-400 font-medium">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-2">
+            Mijn collectie
+          </h2>
+          <p class="text-cyan-400 font-medium text-sm sm:text-base">
             <span id="collectionCounter" class="font-bold">0</span> games in
             jouw collectie
           </p>
         </div>
 
         <div
-          class="flex bg-[#0f172a] p-1 rounded-xl border border-gray-800 h-12 my-auto"
+          class="flex bg-[#0f172a] p-1 rounded-xl border border-gray-800 h-12 w-fit"
         >
           <button
             id="gridView"
@@ -208,8 +218,10 @@
         </div>
       </header>
 
-      <div class="flex items-center text-slate-500 gap-4 mb-12">
-        <button class="p-2 text-cyan-400">
+      <div
+        class="flex flex-wrap items-center text-slate-500 gap-3 sm:gap-4 mb-8 sm:mb-12"
+      >
+        <button class="p-2 text-cyan-400 shrink-0">
           <svg
             class="w-6 h-6"
             fill="none"
@@ -224,40 +236,43 @@
             ></path>
           </svg>
         </button>
+
         <button
           id="filterAll"
-          class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-cyan-400 border-cyan-400 transition"
+          class="category-btn px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-xs sm:text-sm font-semibold text-cyan-400 border-cyan-400 transition"
         >
           Allemaal (<span id="countAll">0</span>)
         </button>
         <button
           id="filterBacklog"
-          class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition"
+          class="category-btn px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-xs sm:text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition"
         >
           Nog te spelen (<span id="countBacklog">0</span>)
         </button>
         <button
           id="filterPlaying"
-          class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition"
+          class="category-btn px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-xs sm:text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition"
         >
           Aan het spelen (<span id="countPlaying">0</span>)
         </button>
         <button
           id="filterFinished"
-          class="category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition"
+          class="category-btn px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-xs sm:text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition"
         >
           Uitgespeeld (<span id="countFinished">0</span>)
         </button>
       </div>
 
-      <section class="flex flex-wrap items-center justify-between gap-4 mb-8">
-        <div class="flex items-center gap-4">
+      <section
+        class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between mb-8"
+      >
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4">
           <label for="sortGames" class="text-sm text-slate-400 font-medium"
             >Sorteer op</label
           >
           <select
             id="sortGames"
-            class="bg-[#0f172a] border border-gray-800 text-slate-300 rounded-xl px-4 py-2 outline-none focus:border-cyan-400"
+            class="bg-[#0f172a] border border-gray-800 text-slate-300 rounded-xl px-4 py-2 outline-none focus:border-cyan-400 text-sm sm:text-base"
           >
             <option value="rating">Rating</option>
             <option value="released">Release date</option>
@@ -279,9 +294,11 @@
 
       <div
         id="gameCollection"
-        class="flex flex-col items-center justify-center py-32"
+        class="flex flex-col items-center justify-center py-24 sm:py-32"
       >
-        <p class="text-slate-500 text-lg mb-6">Geen games in dit categorie</p>
+        <p class="text-slate-500 text-base sm:text-lg mb-6">
+          Geen games in dit categorie
+        </p>
         <a
           href="./ontdek.html"
           class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-2xl transition shadow-lg shadow-purple-500/20"
@@ -293,19 +310,19 @@
       <section
         id="gameModal"
         data-id=""
-        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-6"
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-4 sm:px-6"
       >
         <section
-          class="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
+          class="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-2xl sm:rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
         >
           <button
             id="closeModal"
-            class="absolute right-5 top-5 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-3xl text-slate-300 hover:text-white"
+            class="absolute right-4 top-4 sm:right-5 sm:top-5 z-10 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/10 text-2xl sm:text-3xl text-slate-300 hover:text-white"
           >
             ×
           </button>
 
-          <section class="relative h-[420px] lg:h-full">
+          <section class="relative h-[260px] sm:h-[340px] lg:h-full">
             <img
               id="modalCover"
               src=""
@@ -314,21 +331,21 @@
             />
           </section>
 
-          <section class="flex flex-col gap-6 p-8 lg:p-10">
+          <section class="flex flex-col gap-5 sm:gap-6 p-5 sm:p-8 lg:p-10">
             <h2
               id="modalTitle"
-              class="text-4xl lg:text-5xl font-semibold tracking-tight text-white"
+              class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-tight"
             ></h2>
 
             <section
-              class="flex flex-wrap items-center gap-4 text-slate-400 text-lg font-medium"
+              class="flex flex-wrap items-center gap-4 text-slate-400 text-base sm:text-lg font-medium"
             >
               <p>Released: <span id="modalDate"></span></p>
             </section>
 
             <p
               id="modalDescription"
-              class="text-slate-400 text-lg leading-relaxed max-w-xl"
+              class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl"
             ></p>
 
             <section>
@@ -337,18 +354,21 @@
               >
                 Platforms
               </h3>
-              <div id="modalPlatforms" class="flex flex-wrap gap-3"></div>
+              <div
+                id="modalPlatforms"
+                class="flex flex-wrap gap-2 sm:gap-3"
+              ></div>
             </section>
 
             <section class="mt-auto flex flex-col gap-4 sm:flex-row">
               <button
-                class="rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-3 text-lg font-medium text-white hover:scale-105 transition"
+                class="w-full sm:w-auto rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 sm:px-8 py-3 text-base sm:text-lg font-medium text-white hover:scale-105 transition"
               >
                 Set as Current Game
               </button>
 
               <button
-                class="add-collection-modal-button rounded-xl border border-cyan-500/40 bg-white/5 px-8 py-3 text-lg font-medium text-cyan-300 hover:bg-cyan-500/10 transition"
+                class="add-collection-modal-button w-full sm:w-auto rounded-xl border border-cyan-500/40 bg-white/5 px-6 sm:px-8 py-3 text-base sm:text-lg font-medium text-cyan-300 hover:bg-cyan-500/10 transition"
               >
                 Add to Collection
               </button>
@@ -360,19 +380,19 @@
 
     <section
       id="gameDetails"
-      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-6"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-4 sm:px-6"
     >
       <section
-        class="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
+        class="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-2xl sm:rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
       >
         <button
           id="closeGameDetails"
-          class="absolute right-5 top-5 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-3xl text-slate-300 hover:text-white"
+          class="absolute right-4 top-4 sm:right-5 sm:top-5 z-10 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/10 text-2xl sm:text-3xl text-slate-300 hover:text-white"
         >
           <span class="-translate-y-0.5 inline-block">×</span>
         </button>
 
-        <section class="relative h-[420px] lg:h-full">
+        <section class="relative h-[260px] sm:h-[340px] lg:h-full">
           <img
             id="gameCover"
             src=""
@@ -381,11 +401,11 @@
           />
         </section>
 
-        <section class="flex flex-col gap-7 p-10 lg:p-12">
-          <section class="flex flex-col items-start gap-8">
+        <section class="flex flex-col gap-5 sm:gap-7 p-5 sm:p-8 lg:p-12">
+          <section class="flex flex-col items-start gap-5 sm:gap-8">
             <h2
               id="gameTitle"
-              class="text-5xl font-bold tracking-tight text-white leading-none"
+              class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight"
             ></h2>
 
             <span
@@ -398,16 +418,16 @@
 
           <p
             id="gameDescription"
-            class="text-slate-400 text-lg leading-relaxed max-w-xl"
+            class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl"
           ></p>
 
           <p
-            class="flex items-center gap-2 text-lg text-yellow-400 font-semibold"
+            class="flex items-center gap-2 text-base sm:text-lg text-yellow-400 font-semibold"
           >
             <span>⭐</span><span id="gameRating"></span>
           </p>
 
-          <p class="text-slate-400 text-lg">
+          <p class="text-slate-400 text-base sm:text-lg">
             Releasedatum: <span id="gameDate"></span>
           </p>
 
@@ -417,17 +437,17 @@
             >
               Platformen
             </h3>
-            <section id="gamePlatforms" class="flex flex-wrap gap-3">
+            <section id="gamePlatforms" class="flex flex-wrap gap-2 sm:gap-3">
               <span
-                class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
                 >PC</span
               >
               <span
-                class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
                 >PlayStation 5</span
               >
               <span
-                class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
                 >Xbox One</span
               >
             </section>
@@ -436,12 +456,15 @@
           <section class="mt-auto pt-4 flex flex-col gap-4">
             <button
               id="collectionBtn"
-              class="w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700"
+              class="w-full sm:w-fit sm:min-w-[260px] rounded-xl px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700"
             >
               Verwijder uit collectie
             </button>
+
             <section class="flex flex-col gap-3">
-              <p class="text-sm text-slate-400 font-semibold pt-5">Verander status</p>
+              <p class="text-sm text-slate-400 font-semibold pt-3 sm:pt-5">
+                Verander status
+              </p>
 
               <section class="flex flex-wrap gap-3 pt-2">
                 <button

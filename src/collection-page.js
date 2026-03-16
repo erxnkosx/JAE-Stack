@@ -4,7 +4,6 @@ const gameCollection = document.getElementById("gameCollection");
 
 const collectionBtn = document.getElementById("collectionBtn");
 const collectionStatus = document.getElementById("collectionStatus");
-const gamePlatforms = document.getElementById("gamePlatforms");
 const gameTitle = document.getElementById("gameTitle");
 
 const listViewButton = document.getElementById("listView");
@@ -89,22 +88,6 @@ function removeTitleFromCollection(title) {
 function setGameStatus(title, status) {
   collectionStatuses[title] = status;
   saveAll();
-}
-
-function renderPlatforms(platformsString) {
-  if (!gamePlatforms) return;
-
-  gamePlatforms.innerHTML = "";
-
-  (platformsString || "").split(",").forEach(platform => {
-    const trimmed = platform.trim();
-    if (!trimmed) return;
-
-    const span = document.createElement("span");
-    span.className = "rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200";
-    span.textContent = trimmed;
-    gamePlatforms.appendChild(span);
-  });
 }
 
 function updateDetailModalUI(title) {
@@ -246,7 +229,6 @@ function renderGames() {
           data-rating="${g.rating}"
           data-date="${g.released}"
           data-image="${g.background_image}"
-          data-platforms="${g.platforms}"
         >
           <section class="relative">
             <img
@@ -289,7 +271,6 @@ function updateCards() {
       document.querySelector("#gameCover").src = card.dataset.image;
       document.querySelector("#gameCover").alt = card.dataset.title;
 
-      renderPlatforms(card.dataset.platforms);
       updateDetailModalUI(title);
 
       detail.classList.remove("hidden");
@@ -383,7 +364,7 @@ detail?.addEventListener("click", e => {
 function start() {
   renderGames();
   updateCollectionCounter();
-  updateCategoryCounts();
+  updateCategoryCounts(); 
 }
 
 start();

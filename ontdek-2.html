@@ -11,10 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
 
-  <body
-    class="bg-black text-white min-h-screen flex flex-col items-center justify-center relative overflow-x-hidden w-screen"
-  >
-    <section class="fixed inset-0 w-screen -z-10">
+  <body class="bg-black text-white min-h-screen relative overflow-x-hidden">
+    <section class="fixed inset-0 -z-10">
       <span
         class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"
       ></span>
@@ -30,7 +28,7 @@
     </section>
 
     <nav
-      class="relative w-full flex items-center justify-between px-6 md:px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10"
+      class="relative w-full flex items-center justify-between px-4 sm:px-6 md:px-10 lg:px-24 py-6 bg-white/5 backdrop-blur-md border-b border-white/10"
     >
       <a
         href="./index.html"
@@ -52,7 +50,7 @@
       <section class="flex items-center pt-2 gap-3">
         <a
           href="/raad-page.html"
-          class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-4 py-2 rounded-xl hover:bg-gray-800 transition text-sm font-semibold"
+          class="flex items-center gap-2 bg-[#111827] border border-gray-700 px-3 sm:px-4 py-2 rounded-xl hover:bg-gray-800 transition text-xs sm:text-sm font-semibold"
         >
           <span class="text-cyan-400 text-sm">✦</span>
           <span>Raad de game</span>
@@ -96,9 +94,13 @@
         </button>
       </section>
     </nav>
-    <section class="w-full px-6 md:px-24 mt-6 relative z-10">
+
+    <section
+      class="w-full px-4 sm:px-6 md:px-10 lg:px-16 mt-4 sm:mt-6 relative z-10"
+    >
       <section id="currentGameBannerHost"></section>
     </section>
+
     <section id="mobileMenu" class="fixed inset-0 z-50 hidden bg-[#050816]">
       <section
         class="relative w-full flex items-center justify-between pl-6 pr-4 py-6 bg-gradient-to-r from-black via-[#0b1120] to-[#1b1230] border-b border-white/10"
@@ -172,9 +174,13 @@
       </a>
     </section>
 
-    <main class="relative z-10 px-16 pt-16 pb-20">
+    <main
+      class="relative z-10 px-4 sm:px-6 md:px-10 lg:px-16 pt-10 sm:pt-14 md:pt-16 pb-16 sm:pb-20"
+    >
       <section class="max-w-6xl mx-auto text-center">
-        <h1 class="text-6xl md:text-6xl font-black leading-[1.05] text-white">
+        <h1
+          class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight text-white"
+        >
           Ontdek
           <span
             class="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent"
@@ -182,17 +188,19 @@
           >
         </h1>
 
-        <p class="mt-6 text-slate-400 text-xl md:text-2xl font-light">
+        <p
+          class="mt-4 sm:mt-6 text-slate-400 text-base sm:text-lg md:text-2xl font-light"
+        >
           Zoek in duizenden games en stel je perfecte collectie samen.
         </p>
       </section>
 
-      <section class="max-w-5xl mx-auto mt-14">
+      <section class="max-w-5xl mx-auto mt-10 sm:mt-14">
         <input
           id="gameSearch"
           type="text"
           placeholder="Zoek games..."
-          class="w-full rounded-3xl border border-white/10 bg-white/5 px-10 py-7 text-2xl text-white placeholder-slate-500 outline-none backdrop-blur-md"
+          class="w-full rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 px-5 sm:px-7 md:px-10 py-4 sm:py-5 md:py-6 text-base sm:text-lg md:text-2xl text-white placeholder-slate-500 outline-none backdrop-blur-md"
         />
         <section
           id="suggestions"
@@ -229,13 +237,12 @@
           data-rating="3.75"
           data-date="2013-09-03"
           data-image="https://media.rawg.io/media/games/9dd/9ddabb34840ea9227556670606cf8ea3.jpg"
-          data-platforms="PC, PlayStation 4, Xbox One"
         >
           <section class="relative">
             <img
               src="https://media.rawg.io/media/games/9dd/9ddabb34840ea9227556670606cf8ea3.jpg"
               alt="Outlast"
-              class="w-full h-[420px] object-cover"
+              class="w-full h-64 sm:h-80 lg:h-[420px] object-cover"
             />
             <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
@@ -246,8 +253,10 @@
               <span>⭐</span><span>3.75</span>
             </span>
           </section>
-          <section class="p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">Outlast</h3>
+          <section class="p-4 sm:p-6">
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
+              Outlast
+            </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
               Een first-person survivalhorrorgame waarin je zonder wapens moet
               ontsnappen uit een krankzinnigengesticht.
@@ -264,13 +273,12 @@
           data-rating="4.26"
           data-date="2012-11-28"
           data-image="https://media.rawg.io/media/games/15c/15c95a4915f88a3e89c821526afe05fc.jpg"
-          data-platforms="PC, PlayStation 3, Xbox 360"
         >
           <section class="relative">
             <img
               src="https://media.rawg.io/media/games/15c/15c95a4915f88a3e89c821526afe05fc.jpg"
               alt="Far Cry 3"
-              class="w-full h-[420px] object-cover"
+              class="w-full h-64 sm:h-80 lg:h-[420px] object-cover"
             />
             <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
@@ -281,8 +289,10 @@
               <span>⭐</span><span>4.26</span>
             </span>
           </section>
-          <section class="p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">Far Cry 3</h3>
+          <section class="p-4 sm:p-6">
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
+              Far Cry 3
+            </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
               Een openwereld shooter op een tropisch eiland waar je moet
               overleven tegen piraten en gevaarlijke vijanden.
@@ -299,13 +309,12 @@
           data-rating="3.96"
           data-date="2016-08-22"
           data-image="https://media.rawg.io/media/games/00d/00d374f12a3ab5f96c500a2cfa901e15.jpg"
-          data-platforms="PC, PlayStation 4, Xbox One"
         >
           <section class="relative">
             <img
               src="https://media.rawg.io/media/games/00d/00d374f12a3ab5f96c500a2cfa901e15.jpg"
               alt="Deus Ex: Mankind Divided"
-              class="w-full h-[420px] object-cover"
+              class="w-full h-64 sm:h-80 lg:h-[420px] object-cover"
             />
             <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
@@ -316,8 +325,8 @@
               <span>⭐</span><span>3.96</span>
             </span>
           </section>
-          <section class="p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">
+          <section class="p-4 sm:p-6">
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
               Deus Ex: Mankind Divided
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
@@ -336,13 +345,12 @@
           data-rating="3.65"
           data-date="2013-10-23"
           data-image="https://media.rawg.io/media/games/d0f/d0f91fe1d92332147e5db74e207cfc7a.jpg"
-          data-platforms="PC, PlayStation 4, Xbox One"
         >
           <section class="relative">
             <img
               src="https://media.rawg.io/media/games/d0f/d0f91fe1d92332147e5db74e207cfc7a.jpg"
               alt="Path of Exile"
-              class="w-full h-[420px] object-cover"
+              class="w-full h-64 sm:h-80 lg:h-[420px] object-cover"
             />
             <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
@@ -353,8 +361,10 @@
               <span>⭐</span><span>3.65</span>
             </span>
           </section>
-          <section class="p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">Path of Exile</h3>
+          <section class="p-4 sm:p-6">
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
+              Path of Exile
+            </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
               Een gratis action-RPG met diepe skill-systemen, donkere fantasy en
               veel loot om te verzamelen.
@@ -371,13 +381,12 @@
           data-rating="4.09"
           data-date="2010-05-14"
           data-image="https://media.rawg.io/media/games/5c0/5c0dd63002cb23f804aab327d40ef119.jpg"
-          data-platforms="PC, Xbox 360"
         >
           <section class="relative">
             <img
               src="https://media.rawg.io/media/games/5c0/5c0dd63002cb23f804aab327d40ef119.jpg"
               alt="Alan Wake"
-              class="w-full h-[420px] object-cover"
+              class="w-full h-64 sm:h-80 lg:h-[420px] object-cover"
             />
             <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
@@ -388,8 +397,10 @@
               <span>⭐</span><span>4.09</span>
             </span>
           </section>
-          <section class="p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">Alan Wake</h3>
+          <section class="p-4 sm:p-6">
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
+              Alan Wake
+            </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
               Een psychologische thriller waarin licht je belangrijkste wapen is
               tegen duistere bovennatuurlijke krachten.
@@ -406,13 +417,12 @@
           data-rating="4.45"
           data-date="2018-09-07"
           data-image="https://media.rawg.io/media/games/9aa/9aa42d16d425fa6f179fc9dc2f763647.jpg"
-          data-platforms="PlayStation 4, PlayStation 5, PC"
         >
           <section class="relative">
             <img
               src="https://media.rawg.io/media/games/9aa/9aa42d16d425fa6f179fc9dc2f763647.jpg"
               alt="Marvel's Spider-Man"
-              class="w-full h-[420px] object-cover"
+              class="w-full h-64 sm:h-80 lg:h-[420px] object-cover"
             />
             <span
               class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"
@@ -423,8 +433,8 @@
               <span>⭐</span><span>4.45</span>
             </span>
           </section>
-          <section class="p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">
+          <section class="p-4 sm:p-6">
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">
               Marvel's Spider-Man
             </h3>
             <p class="text-slate-300 text-sm leading-relaxed mb-3">
@@ -439,19 +449,19 @@
 
     <section
       id="gameDetails"
-      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-6"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-4 sm:px-6"
     >
       <section
-        class="relative w-full max-w-6xl overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
+        class="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-2xl sm:rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
       >
         <button
           id="closeGameDetails"
-          class="absolute right-5 top-5 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-3xl text-slate-300 hover:text-white"
+          class="absolute right-4 top-4 sm:right-5 sm:top-5 z-10 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/10 text-2xl sm:text-3xl text-slate-300 hover:text-white"
         >
           <span class="-translate-y-0.5 inline-block">×</span>
         </button>
 
-        <section class="relative h-[420px] lg:h-full">
+        <section class="relative h-[260px] sm:h-[340px] lg:h-full">
           <img
             id="gameCover"
             src=""
@@ -460,11 +470,11 @@
           />
         </section>
 
-        <section class="flex flex-col gap-7 p-10 lg:p-12">
-          <section class="flex flex-col items-start gap-8">
+        <section class="flex flex-col gap-5 sm:gap-7 p-5 sm:p-8 lg:p-12">
+          <section class="flex flex-col items-start gap-5 sm:gap-8">
             <h2
               id="gameTitle"
-              class="text-5xl font-bold tracking-tight text-white leading-none"
+              class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight"
             ></h2>
 
             <span
@@ -477,16 +487,16 @@
 
           <p
             id="gameDescription"
-            class="text-slate-400 text-lg leading-relaxed max-w-xl"
+            class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl"
           ></p>
 
           <p
-            class="flex items-center gap-2 text-lg text-yellow-400 font-semibold"
+            class="flex items-center gap-2 text-base sm:text-lg text-yellow-400 font-semibold"
           >
             <span>⭐</span><span id="gameRating"></span>
           </p>
 
-          <p class="text-slate-400 text-lg">
+          <p class="text-slate-400 text-base sm:text-lg">
             Releasedatum: <span id="gameDate"></span>
           </p>
 
@@ -496,17 +506,17 @@
             >
               Platformen
             </h3>
-            <section id="gamePlatforms" class="flex flex-wrap gap-3">
+            <section id="gamePlatforms" class="flex flex-wrap gap-2 sm:gap-3">
               <span
-                class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
                 >PC</span
               >
               <span
-                class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
                 >PlayStation 5</span
               >
               <span
-                class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200"
+                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
                 >Xbox One</span
               >
             </section>
@@ -515,14 +525,14 @@
           <section class="mt-auto pt-4 flex flex-col gap-4">
             <button
               id="collectionBtn"
-              class="w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700"
+              class="w-full sm:w-fit sm:min-w-[260px] rounded-xl px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700"
             >
               Voeg toe aan collectie
             </button>
 
             <section class="flex flex-col gap-3">
-              <p class="text-sm text-slate-400 font-semibold pt-5">
-                Verander status
+              <p class="text-sm text-slate-400 font-semibold pt-3 sm:pt-5">
+                Kies status
               </p>
 
               <section class="flex flex-wrap gap-3 pt-2">

@@ -4,7 +4,6 @@ const cards = document.querySelectorAll(".game-card");
 
 const collectionBtn = document.querySelector("#collectionBtn");
 const collectionStatus = document.querySelector("#collectionStatus");
-const gamePlatforms = document.querySelector("#gamePlatforms");
 
 const setBacklogButton = document.getElementById("setBacklog");
 const setPlayingButton = document.getElementById("setPlaying");
@@ -79,9 +78,6 @@ function getCurrentGameObject(title, status = "backlog") {
     rating: document.querySelector("#gameRating").textContent,
     released: document.querySelector("#gameDate").textContent,
     background_image: document.querySelector("#gameCover").src,
-    platforms: Array.from(document.querySelectorAll("#gamePlatforms span"))
-      .map(span => span.textContent)
-      .join(", "),
     status
   };
 }
@@ -236,4 +232,91 @@ setFinishedButton?.addEventListener("click", () => {
   if (!currentTitle) return;
   addOrUpdateGame(currentTitle, "finished");
   updateCollectionUI();
+});
+
+const gameSearch = document.getElementById("gameSearch");
+const suggestions = document.getElementById("suggestions");
+
+function hide() {
+    suggestions.classList.add("hidden");
+    suggestions.innerHTML = "";
+}
+
+function showOnlyGame(gameName) {
+    const cards = document.querySelectorAll(".game-card");
+    let found = false;
+
+    cards.forEach(card => {
+        if (card.dataset.title.toLowerCase() === gameName.toLowerCase()) {
+            card.classList.remove("hidden");
+            found = true;
+        } else {
+            card.classList.add("hidden");
+        }
+    });
+
+    if (!found) {
+        showAllGames();
+    }
+}
+
+function showAllGames() {
+    const cards = document.querySelectorAll(".game-card");
+
+    cards.forEach(card => {
+        card.classList.remove("hidden");
+    });
+}
+
+function gameSearchHandler(input) {
+    if (input.length > 1) {
+        let results = Array.from(document.querySelectorAll(".game-card"))
+            .map(card => ({
+                name: card.dataset.title
+            }))
+            .filter(g => g.name.toLowerCase().startsWith(input.toLowerCase()));
+
+        if (results.length > 0) {
+            suggestions.classList.remove("hidden");
+            suggestions.innerHTML = results.map(r => `
+                <div class="suggestion hover:bg-white/10 text-white px-4 py-3 cursor-pointer">
+                    ${r.name}
+                </div>
+            `).join("");
+
+            document.querySelectorAll(".suggestion").forEach(suggestion => {
+                suggestion.addEventListener("click", () => {
+                    gameSearch.value = suggestion.innerText.trim();
+                    hide();
+                    showOnlyGame(suggestion.innerText.trim());
+                });
+            });
+        } else {
+            hide();
+        }
+    } else {
+        hide();
+        showAllGames();
+    }
+}
+
+gameSearch.addEventListener("input", (e) => {
+    gameSearchHandler(e.target.value);
+});
+
+gameSearch.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+
+        const inputValue = gameSearch.value.trim();
+
+        if (inputValue.length === 0) {
+            showAllGames();
+            hide();
+            return;
+        }
+
+        showOnlyGame(inputValue);
+        hide();
+    }
 });
