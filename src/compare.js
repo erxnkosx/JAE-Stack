@@ -21,6 +21,7 @@ function updateGame(gameIndex, side) {
         `Beoordeling: ${game.rating} • Metacritic: ${game.metacritic || 'N/A'}`;
 
     document.getElementById(`rating-${side}`).innerText = game.rating;
+    document.getElementById(`meta-rating-${side}`).innerText = game.metacritic
     document.getElementById(`releasedate-${side}`).innerText = game.released;
     const countPlatform = game.platforms.length;
     document.getElementById(`platform-${side}`).innerText = countPlatform;
@@ -42,6 +43,7 @@ function setupButtons() {
 function compareStats() {
     compareRow('rating');
     compareRow('platform');
+    compareRow(`meta-rating`)
 }
 
 function compareRow(id) {
@@ -55,38 +57,38 @@ function compareRow(id) {
     const val1 = parseFloat(el1.innerText);
     const val2 = parseFloat(el2.innerText);
 
-    el1.className = "text-xl font-mono text-gray-400";
-    el2.className = "text-xl font-mono text-gray-400";
+    el1.className = "text-xl font-mono text-slate-400";
+    el2.className = "text-xl font-mono text-slate-400";
     
     if (arrowLeft) {
         arrowLeft.innerText = "—";
-        arrowLeft.className = "arrow-left text-gray-500";
+        arrowLeft.className = "arrow-left text-slate-500";
     }
     if (arrowRight) {
         arrowRight.innerText = "—";
-        arrowRight.className = "arrow-right text-gray-500";
+        arrowRight.className = "arrow-right text-slate-500";
     }
     if (val1 > val2) {
-        el1.classList.replace('text-gray-400', 'text-green-400');
-        el2.classList.replace('text-gray-400', 'text-red-400');
+        el1.classList.replace('text-slate-400', 'text-green-400');
+        el2.classList.replace('text-slate-400', 'text-red-400');
         if (arrowLeft) {
             arrowLeft.innerText = "↗";
-            arrowLeft.classList.replace('text-gray-500', 'text-green-500');
+            arrowLeft.classList.replace('text-slate-500', 'text-green-500');
         }
         if (arrowRight) {
             arrowRight.innerText = "↘";
-            arrowRight.classList.replace('text-gray-500', 'text-red-500');
+            arrowRight.classList.replace('text-slate-500', 'text-red-500');
         }
     } else if (val1 < val2) {
-        el1.classList.replace('text-gray-400', 'text-red-400');
-        el2.classList.replace('text-gray-400', 'text-green-400');
+        el1.classList.replace('text-slate-400', 'text-red-400');
+        el2.classList.replace('text-slate-400', 'text-green-400');
         if (arrowLeft) {
             arrowLeft.innerText = "↘";
-            arrowLeft.classList.replace('text-gray-500', 'text-red-500');
+            arrowLeft.classList.replace('text-slate-500', 'text-red-500');
         }
         if (arrowRight) {
             arrowRight.innerText = "↗";
-            arrowRight.classList.replace('text-gray-500', 'text-green-500');
+            arrowRight.classList.replace('text-slate-500', 'text-green-500');
         }
     }
 }

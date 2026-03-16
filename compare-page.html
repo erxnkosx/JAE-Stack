@@ -13,9 +13,9 @@
     <title>Vergelijk games</title>
   </head>
   <body
-    class="bg-black text-white min-h-screen flex flex-col items-center relative "
+    class="bg-black text-white min-h-screen flex flex-col items-center relative w-full "
   >
-    <section class="absolute inset-0 -z-1">
+    <section class="absolute inset-0 -z-10 overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-black via-purple-900/20 to-black"></div>
         <div class="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl "></div>
         <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl "></div>
@@ -171,9 +171,9 @@
 
     <main class="relative z-10 max-w-7xl mx-auto px-4 md:px-6 pb-20">
         
-        <section class="flex flex-col lg:flex-row items-center justify-center gap-26 mb-16">
+        <section class="flex flex-col lg:flex-row items-center justify-between gap-26 mb-16">
 
-            <article class="relative group w-full lg:flex-1 max-w-lg">
+            <article class="relative group w-full flex-1 max-w-lg">
                 <div class="relative">
                     <div class="absolute inset-0 bg-cyan-500/40 rounded-[2rem] blur-lg group-hover:bg-cyan-500/60 transition duration-500"></div>
                     <div class="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden">
@@ -193,7 +193,7 @@
                 </div>
             </article>
 
-            <article class="relative group w-full lg:flex-1 max-w-lg">
+            <article class="relative group w-full flex-1 max-w-lg">
                 <div class="relative">
                     <div class="absolute inset-0 bg-purple-500/40 rounded-[2rem] blur-lg group-hover:bg-purple-500/60 transition duration-500"></div>
                     <div class="relative bg-black/60 backdrop-blur-xl border border-white/10 rounded-[2rem] overflow-hidden">
@@ -216,38 +216,47 @@
         </section>
 
         <section class="max-w-4xl mx-auto bg-black/40 backdrop-blur-2xl border border-white/20 rounded-[2.5rem] p-6 md:p-10 shadow-2xl">
-            <h3 class="text-3xl md:text-4xl pb-6 font-extrabold bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 text-transparent text-center">
+            <h3 class="text-2xl md:text-4xl pb-6 font-extrabold bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 text-transparent text-center">
                 Statistieken
             </h3>
 
             <ul class="flex flex-col divide-y divide-white/10">
                 
                 <li class="flex items-center justify-between py-6 md:py-8">
-                    <span id="rating-1" class="text-lg md:text-xl font-mono text-gray-400">0.0</span>
+                    <span id="rating-1" class="text-lg md:text-xl font-mono text-slate-400">0.0</span>
                     <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
-                        <span class="arrow-left text-gray-500">—</span>
-                        <span class="text-gray-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">Beoordeling</span>
-                        <span class="arrow-right text-gray-500">—</span>
+                        <span class="arrow-left text-slate-500">—</span>
+                        <span class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">gebruikers beoordeling</span>
+                        <span class="arrow-right text-slate-500">—</span>
                     </div>
-                    <span id="rating-2" class="text-lg md:text-xl font-mono text-gray-400">0.0</span>
+                    <span id="rating-2" class="text-lg md:text-xl font-mono text-slate-400">0.0</span>
+                </li>
+                <li class="flex items-center justify-between py-6 md:py-8">
+                    <span id="meta-rating-1" class="text-lg md:text-xl font-mono text-slate-400">0.0</span>
+                    <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
+                        <span class="arrow-left text-slate-500">—</span>
+                        <span class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">metacritic</span>
+                        <span class="arrow-right text-slate-500">—</span>
+                    </div>
+                    <span id="meta-rating-2" class="text-lg md:text-xl font-mono text-slate-400">0.0</span>
                 </li>
 
                 <li class="flex items-center justify-between py-6 md:py-8">
-                    <span id="releasedate-1" class="text-sm md:text-xl font-mono text-gray-400">0000-00-00</span>
-                    <div class="flex items-center gap-2 md:gap-3 px-2 text-center text-gray-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">
-                        <span>Releasedatum</span>
+                    <span id="releasedate-1" class="text-sm md:text-xl font-mono text-slate-400">0000-00-00</span>
+                    <div class="flex items-center gap-2 md:gap-3 px-2 text-center text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">
+                        <span>uitgebracht</span>
                     </div>
-                    <span id="releasedate-2" class="text-sm md:text-xl font-mono text-gray-400">0000-00-00</span>
+                    <span id="releasedate-2" class="text-sm md:text-xl font-mono text-slate-400">0000-00-00</span>
                 </li>
 
                 <li class="flex items-center justify-between py-6 md:py-8">
-                    <span id="platform-1" class="text-lg md:text-xl font-mono text-gray-400">0</span>
+                    <span id="platform-1" class="text-lg md:text-xl font-mono text-slate-400">0</span>
                     <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
-                        <span class="arrow-left text-gray-500">—</span>
-                        <span class="text-gray-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">Platformen</span>
-                        <span class="arrow-right text-gray-500">—</span>
+                        <span class="arrow-left text-slate-500">—</span>
+                        <span class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">Platformen</span>
+                        <span class="arrow-right text-slate-500">—</span>
                     </div>
-                    <span id="platform-2" class="text-lg md:text-xl font-mono text-gray-400">0</span>
+                    <span id="platform-2" class="text-lg md:text-xl font-mono text-slate-400">0</span>
                 </li>
                 
             </ul>
