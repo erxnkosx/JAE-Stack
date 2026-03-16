@@ -1,3 +1,5 @@
+const setPLayingBtn = document.getElementById("setPlaying");
+
 function getCollectionGamesFromLocalStorage() {
     return JSON.parse(localStorage.getItem("collectionGames") || "[]");
 }
@@ -102,3 +104,5 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("storage", () => {
     renderCurrentGameBanner();
 });
+
+setPLayingBtn.addEventListener("click", renderCurrentGameBanner);
