@@ -30,17 +30,17 @@ function formatCurrentGameStatus(status) {
 }
 
 function renderCurrentGameBanner() {
-    const host = document.getElementById("currentGameBanner");
+    const currentGameBanner = document.getElementById("currentGameBanner");
     if (!host) return;
 
     const currentGame = getCurrentGame();
 
     if (!currentGame) {
-        host.innerHTML = "";
+        currentGameBanner.innerHTML = "";
         return;
     }
 
-    host.innerHTML = `
+    currentGameBanner.innerHTML = `
       <section class="w-full rounded-2xl border border-cyan-500/30 bg-white/5 backdrop-blur-md px-5 py-4 flex items-center justify-between gap-4">
         <section class="flex items-center gap-4 min-w-0">
           <img
@@ -103,8 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
     renderCurrentGameBanner();
 });
 
-window.addEventListener("storage", () => {
-    renderCurrentGameBanner();
-});
+
 
 setPLayingBtn.addEventListener("click", renderCurrentGameBanner);
