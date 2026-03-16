@@ -1,3 +1,5 @@
+const setPLayingBtn = document.getElementById("setPlaying");
+
 function getCollectionGamesFromLocalStorage() {
     return JSON.parse(localStorage.getItem("collectionGames") || "[]");
 }
@@ -26,7 +28,7 @@ function formatCurrentGameStatus(status) {
 }
 
 function renderCurrentGameBanner() {
-    const host = document.getElementById("currentGameBannerHost");
+    const host = document.getElementById("currentGameBanner");
     if (!host) return;
 
     const currentGame = getCurrentGame();
@@ -45,10 +47,10 @@ function renderCurrentGameBanner() {
             class="w-16 h-16 rounded-xl object-cover shrink-0"
           />
           <section class="min-w-0">
-            <p class="text-xs uppercase tracking-widest text-cyan-400 font-semibold mb-1">
+            <p class="text-xs uppercase text-cyan-400 font-semibold mb-1">
               Actieve game
             </p>
-            <h2 class="text-white font-bold text-lg truncate">
+            <h2 class="text-white font-bold text-lg">
               ${currentGame.name}
             </h2>
             <p class="text-slate-400 text-sm">
@@ -102,3 +104,5 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("storage", () => {
     renderCurrentGameBanner();
 });
+
+setPLayingBtn.addEventListener("click", renderCurrentGameBanner);
