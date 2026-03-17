@@ -48,7 +48,7 @@ function hide() {
 
 async function gameSearchHandler(input) {
     if (input.length > 1) {
-        let results = games.filter(g => g.name.toLowerCase().startsWith(input.slice(0, 3).toLowerCase()));
+        let results = games.filter(g => g.name.toLowerCase().startsWith(input.toLowerCase()));
         suggestions.classList.remove("hidden");
         suggestions.innerHTML = results.map(r => `<div class="suggestion hover:bg-white/10 text-white px-4 py-3 cursor-pointer ">${r.name}</div>`).join("");
         document.querySelectorAll(".suggestion").forEach(suggestion => {
