@@ -26,73 +26,130 @@ const setFinishedButton = document.getElementById("setFinished");
 const collectionCounter = document.getElementById("collectionCounter");
 const sortGamesSelect = document.getElementById("sortGames");
 
-let games = getCollectionGamesFromLocalStorage();
-let collectionTitles = getCollectionTitlesFromLocalStorage();
-let collectionStatuses = getCollectionStatusesFromLocalStorage();
-
 let currentView = "grid";
 let currentSort = "rating";
 let currentFilter = "all";
+let currentTitle = "";
+let currentId = "";
 
 function getCollectionTitlesFromLocalStorage() {
   return JSON.parse(localStorage.getItem("collectionTitles") || "[]");
+}
+
+function setCollectionTitlesToLocalStorage(collectionTitles) {
+  localStorage.setItem("collectionTitles", JSON.stringify(collectionTitles));
 }
 
 function getCollectionStatusesFromLocalStorage() {
   return JSON.parse(localStorage.getItem("collectionStatuses") || "{}");
 }
 
+function setCollectionStatusesToLocalStorage(collectionStatuses) {
+  localStorage.setItem("collectionStatuses", JSON.stringify(collectionStatuses));
+}
+
 function getCollectionGamesFromLocalStorage() {
   return JSON.parse(localStorage.getItem("collectionGames") || "[]");
 }
 
-function saveAll() {
-  localStorage.setItem("collectionTitles", JSON.stringify(collectionTitles));
-  localStorage.setItem("collectionStatuses", JSON.stringify(collectionStatuses));
-  localStorage.setItem("collectionGames", JSON.stringify(games));
+function setCollectionGamesToLocalStorage(collectionGames) {
+  localStorage.setItem("collectionGames", JSON.stringify(collectionGames));
+}
+
+function getCollectionNicknamesFromLocalStorage() {
+  return JSON.parse(localStorage.getItem("collectionNicknames") || "{}");
+}
+
+function setCollectionNicknamesToLocalStorage(collectionNicknames) {
+  localStorage.setItem("collectionNicknames", JSON.stringify(collectionNicknames));
+}
+
+function getStorageData() {
+  return {
+    titles: getCollectionTitlesFromLocalStorage(),
+    statuses: getCollectionStatusesFromLocalStorage(),
+    games: getCollectionGamesFromLocalStorage(),
+    nicknames: getCollectionNicknamesFromLocalStorage()
+  };
+}
+
+function saveStorageData({ titles, statuses, games, nicknames }) {
+  setCollectionTitlesToLocalStorage(titles);
+  setCollectionStatusesToLocalStorage(statuses);
+  setCollectionGamesToLocalStorage(games);
+  setCollectionNicknamesToLocalStorage(nicknames);
 }
 
 function refreshData() {
-  games = getCollectionGamesFromLocalStorage();
-  collectionTitles = getCollectionTitlesFromLocalStorage();
-  collectionStatuses = getCollectionStatusesFromLocalStorage();
+  const data = getStorageData();
+  return data;
 }
 
 function isTitleInCollection(title) {
-  return collectionTitles.includes(title);
+  const { titles } = getStorageData();
+  return titles.includes(title);
 }
 
 function getGameStatus(title) {
-  return collectionStatuses[title] || "backlog";
+  const { statuses } = getStorageData();
+  return statuses[title] || "backlog";
 }
 
-function addTitleToCollection(title) {
-  if (!collectionTitles.includes(title)) {
-    collectionTitles.push(title);
+function getCurrentGameObject(title, status = "backlog") {
+  return {
+    id: currentId,
+    name: title,
+    description: document.querySelector("#gameDescription").textContent,
+    rating: document.querySelector("#gameRating").textContent,
+    released: document.querySelector("#gameDate").textContent,
+    background_image: document.querySelector("#gameCover").src,
+    status
+  };
+}
+
+function getGameObjectFromStoredGames(title) {
+  const { games } = getStorageData();
+  return games.find(game => game.name === title);
+}
+
+function addOrUpdateGame(title, status = "backlog", nickname = "") {
+  const data = getStorageData();
+
+  if (!data.titles.includes(title)) {
+    data.titles.push(title);
   }
 
-  if (!collectionStatuses[title]) {
-    collectionStatuses[title] = "backlog";
+  data.statuses[title] = status;
+
+  const index = data.games.findIndex(game => game.name === title);
+  const gameObject = getCurrentGameObject(title, status);
+
+  if (index === -1) {
+    data.games.push(gameObject);
+  } else {
+    data.games[index] = { ...data.games[index], ...gameObject, status };
   }
 
-  saveAll();
+  if (nickname && nickname.trim() !== "") {
+    data.nicknames[title] = nickname.trim();
+  }
+
+  saveStorageData(data);
 }
 
-function removeTitleFromCollection(title) {
-  collectionTitles = collectionTitles.filter(t => t !== title);
-  delete collectionStatuses[title];
-  games = games.filter(game => game.name !== title);
-  saveAll();
+function removeGameFromCollection(title) {
+  const data = getStorageData();
+
+  data.titles = data.titles.filter(t => t !== title);
+  data.games = data.games.filter(game => game.name !== title);
+
+  delete data.statuses[title];
+  delete data.nicknames[title];
+
+  saveStorageData(data);
 }
 
-function setGameStatus(title, status) {
-  collectionStatuses[title] = status;
-  saveAll();
-}
-
-function updateDetailModalUI(title) {
-  if (!collectionBtn || !collectionStatus) return;
-
+function updateCollectionUI(title) {
   if (!isTitleInCollection(title)) {
     collectionStatus.textContent = "Niet in collectie";
     collectionStatus.className =
@@ -131,7 +188,7 @@ function sortGames(gamesToSort, sortBy) {
   if (sortBy === "released") {
     sortedGames.sort((a, b) => new Date(b.released) - new Date(a.released));
   } else if (sortBy === "rating") {
-    sortedGames.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+    sortedGames.sort((a, b) => (Number(b.rating) || 0) - (Number(a.rating) || 0));
   } else if (sortBy === "name") {
     sortedGames.sort((a, b) => a.name.localeCompare(b.name));
   }
@@ -140,21 +197,21 @@ function sortGames(gamesToSort, sortBy) {
 }
 
 function applyViewClass() {
-    if (currentView === "grid") {
-        gameCollection.className =
-            "mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8";
-        gridViewButton.className =
-            "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
-        listViewButton.className =
-            "p-2 text-slate-500 hover:text-gray-300";
-    } else {
-        gameCollection.className =
-            "mt-6 flex flex-col gap-8 items-center w-full";
-        gridViewButton.className =
-            "p-2 text-slate-500 hover:text-gray-300";
-        listViewButton.className =
-            "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
-    }
+  if (currentView === "grid") {
+    gameCollection.className =
+      "mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8";
+    gridViewButton.className =
+      "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
+    listViewButton.className =
+      "p-2 text-slate-500 hover:text-gray-300";
+  } else {
+    gameCollection.className =
+      "mt-6 flex flex-col gap-8 items-center w-full";
+    gridViewButton.className =
+      "p-2 text-slate-500 hover:text-gray-300";
+    listViewButton.className =
+      "p-2 bg-cyan-500/20 text-cyan-400 rounded-lg";
+  }
 }
 
 function noGames() {
@@ -180,23 +237,23 @@ function updateCategoryButtonStyles() {
 }
 
 function updateCategoryCounts() {
-  refreshData();
+  const data = refreshData();
 
-  countAll.textContent = collectionTitles.length;
-  countBacklog.textContent = collectionTitles.filter(title => getGameStatus(title) === "backlog").length;
-  countPlaying.textContent = collectionTitles.filter(title => getGameStatus(title) === "playing").length;
-  countFinished.textContent = collectionTitles.filter(title => getGameStatus(title) === "finished").length;
+  countAll.textContent = data.titles.length;
+  countBacklog.textContent = data.titles.filter(title => getGameStatus(title) === "backlog").length;
+  countPlaying.textContent = data.titles.filter(title => getGameStatus(title) === "playing").length;
+  countFinished.textContent = data.titles.filter(title => getGameStatus(title) === "finished").length;
 }
 
 function updateCollectionCounter() {
-  refreshData();
-  collectionCounter.textContent = collectionTitles.length;
+  const data = refreshData();
+  collectionCounter.textContent = data.titles.length;
 }
 
 function renderGames() {
-  refreshData();
+  const data = refreshData();
 
-  let collectionGames = games.filter(game => collectionTitles.includes(game.name));
+  let collectionGames = data.games.filter(game => data.titles.includes(game.name));
 
   if (currentFilter !== "all") {
     collectionGames = collectionGames.filter(game => getGameStatus(game.name) === currentFilter);
@@ -224,6 +281,7 @@ function renderGames() {
       return `
         <article
           class="w-full game-card group rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md hover:scale-[1.02] transition duration-300"
+          data-id="${g.id || ""}"
           data-title="${g.name}"
           data-description="${g.description}"
           data-rating="${g.rating}"
@@ -262,7 +320,8 @@ function updateCards() {
 
   cards.forEach(card => {
     card.onclick = () => {
-      const title = card.dataset.title;
+      currentId = card.dataset.id || "";
+      currentTitle = card.dataset.title;
 
       document.querySelector("#gameTitle").textContent = card.dataset.title;
       document.querySelector("#gameDescription").textContent = card.dataset.description;
@@ -271,7 +330,7 @@ function updateCards() {
       document.querySelector("#gameCover").src = card.dataset.image;
       document.querySelector("#gameCover").alt = card.dataset.title;
 
-      updateDetailModalUI(title);
+      updateCollectionUI(currentTitle);
 
       detail.classList.remove("hidden");
       detail.classList.add("flex");
@@ -283,14 +342,28 @@ function changeStatus(status) {
   const title = gameTitle.textContent.trim();
   if (!title) return;
 
-  if (!isTitleInCollection(title)) {
-    addTitleToCollection(title);
+  if (status === "playing") {
+    const data = getStorageData();
+
+    if (!data.titles.includes(title)) {
+      data.titles.push(title);
+    }
+
+    Object.keys(data.statuses).forEach(gameTitleKey => {
+      if (data.statuses[gameTitleKey] === "playing") {
+        data.statuses[gameTitleKey] = "backlog";
+      }
+    });
+
+    saveStorageData(data);
+    addOrUpdateGame(title, "playing");
+  } else {
+    addOrUpdateGame(title, status);
   }
 
-  setGameStatus(title, status);
   renderGames();
   updateCollectionCounter();
-  updateDetailModalUI(title);
+  updateCollectionUI(title);
 }
 
 collectionBtn?.addEventListener("click", () => {
@@ -300,14 +373,15 @@ collectionBtn?.addEventListener("click", () => {
   if (isTitleInCollection(title)) {
     const bevestiging = confirm("Weet je zeker dat je deze game wilt verwijderen uit je collectie?");
     if (!bevestiging) return;
-    removeTitleFromCollection(title);
+    removeGameFromCollection(title);
   } else {
-    addTitleToCollection(title);
+    const nickname = prompt("Geef een bijnaam voor deze game (optioneel):");
+    addOrUpdateGame(title, "backlog", nickname || "");
   }
 
   renderGames();
   updateCollectionCounter();
-  updateDetailModalUI(title);
+  updateCollectionUI(title);
 });
 
 setBacklogButton?.addEventListener("click", () => changeStatus("backlog"));
@@ -364,7 +438,7 @@ detail?.addEventListener("click", e => {
 function start() {
   renderGames();
   updateCollectionCounter();
-  updateCategoryCounts(); 
+  updateCategoryCounts();
 }
 
 start();
