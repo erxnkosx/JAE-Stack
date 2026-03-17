@@ -31,7 +31,7 @@ function formatCurrentGameStatus(status) {
 
 function renderCurrentGameBanner() {
     const currentGameBanner = document.getElementById("currentGameBanner");
-    if (!host) return;
+    if (!currentGameBanner) return;
 
     const currentGame = getCurrentGame();
 
@@ -104,5 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
-setPLayingBtn.addEventListener("click", renderCurrentGameBanner);
+if(setPLayingBtn) {
+    setPLayingBtn.addEventListener("click", renderCurrentGameBanner);
+}
