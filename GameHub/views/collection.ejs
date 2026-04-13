@@ -1,0 +1,322 @@
+<%- include("partials/header") %>
+<%- include("partials/nav") %>
+
+
+    <main
+      class="relative px-4 sm:px-6 md:px-10 lg:px-16 mt-6 sm:mt-8 w-full pb-12"
+    >
+      <header
+        class="flex flex-col gap-4 md:flex-row md:justify-between md:items-start mb-8"
+      >
+        <div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-2">
+            Mijn collectie
+          </h2>
+          <p class="text-cyan-400 font-medium text-sm sm:text-base">
+            <span id="collectionCounter" class="font-bold">0</span> games in
+            jouw collectie
+          </p>
+        </div>
+
+        <div
+          class="flex bg-[#0f172a] p-1 rounded-xl border border-gray-800 h-12 w-fit"
+        >
+          <button
+            id="gridView"
+            class="p-2 bg-cyan-500/20 text-cyan-400 rounded-lg"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+              ></path>
+            </svg>
+          </button>
+          <button id="listView" class="p-2 text-slate-500 hover:text-gray-300">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                fill-rule="evenodd"
+                d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <div
+        class="flex flex-wrap items-center text-slate-500 gap-3 sm:gap-4 mb-8 sm:mb-12"
+      >
+        <button class="p-2 text-cyan-400 shrink-0">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
+            />
+          </svg>
+        </button>
+
+        <button
+          id="filterAll"
+          class="category-btn px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-xs sm:text-sm font-semibold text-cyan-400 border-cyan-400 transition"
+        >
+          Allemaal (<span id="countAll">0</span>)
+        </button>
+        <button
+          id="filterBacklog"
+          class="category-btn px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-xs sm:text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition"
+        >
+          Nog te spelen (<span id="countBacklog">0</span>)
+        </button>
+        <button
+          id="filterPlaying"
+          class="category-btn px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-xs sm:text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition"
+        >
+          Aan het spelen (<span id="countPlaying">0</span>)
+        </button>
+        <button
+          id="filterFinished"
+          class="category-btn px-4 sm:px-6 py-2 sm:py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-xs sm:text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition"
+        >
+          Uitgespeeld (<span id="countFinished">0</span>)
+        </button>
+      </div>
+
+      <section
+        class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between mb-8"
+      >
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4">
+          <label for="sortGames" class="text-sm text-slate-400 font-medium"
+            >Sorteer op</label
+          >
+          <select
+            id="sortGames"
+            class="bg-[#0f172a] border border-gray-800 text-slate-300 rounded-xl px-4 py-2 outline-none focus:border-cyan-400 text-sm sm:text-base"
+          >
+            <option value="rating">Rating</option>
+            <option value="released">Release date</option>
+            <option value="name">Naam</option>
+          </select>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <input
+            id="showAllGames"
+            type="checkbox"
+            class="w-4 h-4 accent-cyan-400"
+          />
+          <label for="showAllGames" class="text-sm text-slate-400 font-medium">
+            Toon alle bekende games
+          </label>
+        </div>
+      </section>
+
+      <div
+        id="gameCollection"
+        class="flex flex-col items-center justify-center py-24 sm:py-32"
+      >
+        <p class="text-slate-500 text-base sm:text-lg mb-6">
+          Geen games in dit categorie
+        </p>
+        <a
+          href="/ontdek"
+          class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-2xl transition shadow-lg shadow-purple-500/20"
+        >
+          Ontdek games
+        </a>
+      </div>
+
+      <section
+        id="gameModal"
+        data-id=""
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-4 sm:px-6"
+      >
+        <section
+          class="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-2xl sm:rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
+        >
+          <button
+            id="closeModal"
+            class="absolute right-4 top-4 sm:right-5 sm:top-5 z-10 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/10 text-2xl sm:text-3xl text-slate-300 hover:text-white"
+          >
+            ×
+          </button>
+
+          <section class="relative h-[260px] sm:h-[340px] lg:h-full">
+            <img
+              id="modalCover"
+              src=""
+              alt=""
+              class="h-full w-full object-cover"
+            />
+          </section>
+
+          <section class="flex flex-col gap-5 sm:gap-6 p-5 sm:p-8 lg:p-10">
+            <h2
+              id="modalTitle"
+              class="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-white leading-tight"
+            ></h2>
+
+            <section
+              class="flex flex-wrap items-center gap-4 text-slate-400 text-base sm:text-lg font-medium"
+            >
+              <p>Released: <span id="modalDate"></span></p>
+            </section>
+
+            <p
+              id="modalDescription"
+              class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl"
+            ></p>
+
+            <section>
+              <h3
+                class="mb-4 text-cyan-400 text-sm font-semibold tracking-widest uppercase"
+              >
+                Platforms
+              </h3>
+              <div
+                id="modalPlatforms"
+                class="flex flex-wrap gap-2 sm:gap-3"
+              ></div>
+            </section>
+
+            <section class="mt-auto flex flex-col gap-4 sm:flex-row">
+              <button
+                class="w-full sm:w-auto rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 px-6 sm:px-8 py-3 text-base sm:text-lg font-medium text-white hover:scale-105 transition"
+              >
+                Set as Current Game
+              </button>
+
+              <button
+                class="add-collection-modal-button w-full sm:w-auto rounded-xl border border-cyan-500/40 bg-white/5 px-6 sm:px-8 py-3 text-base sm:text-lg font-medium text-cyan-300 hover:bg-cyan-500/10 transition"
+              >
+                Add to Collection
+              </button>
+            </section>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <section
+      id="gameDetails"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-4 sm:px-6"
+    >
+      <section
+        class="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-2xl sm:rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
+      >
+        <button
+          id="closeGameDetails"
+          class="absolute right-4 top-4 sm:right-5 sm:top-5 z-10 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/10 text-2xl sm:text-3xl text-slate-300 hover:text-white"
+        >
+          <span class="-translate-y-0.5 inline-block">×</span>
+        </button>
+
+        <section class="relative h-[260px] sm:h-[340px] lg:h-full">
+          <img
+            id="gameCover"
+            src=""
+            alt=""
+            class="h-full w-full object-cover"
+          />
+        </section>
+
+        <section class="flex flex-col gap-5 sm:gap-7 p-5 sm:p-8 lg:p-12">
+          <section class="flex flex-col items-start gap-5 sm:gap-8">
+            <h2
+              id="gameTitle"
+              class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight"
+            ></h2>
+
+            <span
+              id="collectionStatus"
+              class="rounded-full px-4 py-2 text-sm font-semibold bg-red-600 text-white"
+            >
+              Niet in collectie
+            </span>
+          </section>
+
+          <p
+            id="gameDescription"
+            class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl"
+          ></p>
+
+          <p
+            class="flex items-center gap-2 text-base sm:text-lg text-yellow-400 font-semibold"
+          >
+            <span>⭐</span><span id="gameRating"></span>
+          </p>
+
+          <p class="text-slate-400 text-base sm:text-lg">
+            Releasedatum: <span id="gameDate"></span>
+          </p>
+
+          <section>
+            <h3
+              class="mb-4 text-cyan-400 text-sm font-semibold tracking-widest uppercase"
+            >
+              Platformen
+            </h3>
+            <section id="gamePlatforms" class="flex flex-wrap gap-2 sm:gap-3">
+              <span
+                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
+                >PC</span
+              >
+              <span
+                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
+                >PlayStation 5</span
+              >
+              <span
+                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
+                >Xbox One</span
+              >
+            </section>
+          </section>
+
+          <section class="mt-auto pt-4 flex flex-col gap-4">
+            <button
+              id="collectionBtn"
+              class="w-full sm:w-fit sm:min-w-[260px] rounded-xl px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700"
+            >
+              Verwijder uit collectie
+            </button>
+
+            <section class="flex flex-col gap-3">
+              <p class="text-sm text-slate-400 font-semibold pt-3 sm:pt-5">
+                Verander status
+              </p>
+
+              <section class="flex flex-wrap gap-3 pt-2">
+                <button
+                  id="setBacklog"
+                  class="px-4 py-2 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
+                >
+                  Nog te spelen
+                </button>
+
+                <button
+                  id="setPlaying"
+                  class="px-4 py-2 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
+                >
+                  Aan het spelen
+                </button>
+
+                <button
+                  id="setFinished"
+                  class="px-4 py-2 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
+                >
+                  Uitgespeeld
+                </button>
+              </section>
+            </section>
+          </section>
+        </section>
+      </section>
+    </section>
+ <%- include("partials/footer") %>
