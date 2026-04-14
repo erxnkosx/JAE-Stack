@@ -2,8 +2,11 @@
 let allGames = [];
 
 async function init() {
-    const response = await fetch("../src/games.json");
+    console.log("ja");
+    const response = await fetch("/data/games.json");
     const data = await response.json();
+    console.log(data);
+
     allGames = data.results;
 
     updateGame(0, 1);
@@ -92,4 +95,4 @@ function compareRow(id) {
         }
     }
 }
-init();
+(async () => await init())();

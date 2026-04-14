@@ -197,6 +197,7 @@ function sortGames(gamesToSort, sortBy) {
 }
 
 function applyViewClass() {
+  if(!gameCollection) return
   if (currentView === "grid") {
     gameCollection.className =
       "mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8";
@@ -215,6 +216,7 @@ function applyViewClass() {
 }
 
 function noGames() {
+  if (!gameCollection) return;
   gameCollection.className = "flex flex-col items-center justify-center py-32";
   gameCollection.innerHTML = `
     <p class="text-slate-500 text-lg mb-6">Geen games in dit categorie</p>
@@ -225,11 +227,11 @@ function noGames() {
 }
 
 function updateCategoryButtonStyles() {
+  if (!filterAllButton) return;
   const activeClass =
     "category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-cyan-400 text-sm font-semibold text-cyan-400 transition";
   const inactiveClass =
     "category-btn px-6 py-3 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-400 hover:border-cyan-400 hover:text-cyan-400 transition";
-
   filterAllButton.className = currentFilter === "all" ? activeClass : inactiveClass;
   filterBacklogButton.className = currentFilter === "backlog" ? activeClass : inactiveClass;
   filterPlayingButton.className = currentFilter === "playing" ? activeClass : inactiveClass;
@@ -237,8 +239,8 @@ function updateCategoryButtonStyles() {
 }
 
 function updateCategoryCounts() {
+  if(!countAll) return;
   const data = refreshData();
-
   countAll.textContent = data.titles.length;
   countBacklog.textContent = data.titles.filter(title => getGameStatus(title) === "backlog").length;
   countPlaying.textContent = data.titles.filter(title => getGameStatus(title) === "playing").length;
@@ -246,11 +248,13 @@ function updateCategoryCounts() {
 }
 
 function updateCollectionCounter() {
+  if (!collectionCounter) return;
   const data = refreshData();
   collectionCounter.textContent = data.titles.length;
 }
 
 function renderGames() {
+  if (!gameCollection) return;
   const data = refreshData();
 
   let collectionGames = data.games.filter(game => data.titles.includes(game.name));

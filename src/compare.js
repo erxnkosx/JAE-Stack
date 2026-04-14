@@ -62,11 +62,11 @@ function compareRow(id) {
     
     if (arrowLeft) {
         arrowLeft.innerText = "—";
-        arrowLeft.className = "arrow-left text-slate-500";
+        arrowLeft.className = "arrow-left text-xl text-slate-500";
     }
     if (arrowRight) {
         arrowRight.innerText = "—";
-        arrowRight.className = "arrow-right text-slate-500";
+        arrowRight.className = "arrow-right text-xl text-slate-500";
     }
     if (val1 > val2) {
         el1.classList.replace('text-slate-400', 'text-green-400');
