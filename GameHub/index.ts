@@ -2,6 +2,10 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import path from "path";
 
+import { homeRouter } from "./routers/homeRouter";
+import { authRouter } from "./routers/authRouter";
+import { compareRouter } from "./routers/compareRouter";
+
 dotenv.config();
 
 const app : Express = express();
@@ -14,30 +18,9 @@ app.set('views', path.join(__dirname, "views"));
 
 app.set("port", process.env.PORT || 3000);
 
-app.get("/", (req, res) => {
-    
-    res.render("index");
-});
-app.get("/login", (req, res) => {
-    res.render("login");
-});
-
-app.get("/signup", (req, res) => {
-    res.render("signup");
-});
-
-app.get("/ontdek", (req, res) => {
-    res.render("ontdek");
-});
-app.get("/collection", (req, res) => {
-    res.render("collection");
-});
-app.get("/compare", (req, res) => {
-    res.render("compare");
-});
-app.get("/raad-page", (req, res) => {
-    res.render("raad-page");
-});
+app.use("/", homeRouter());
+app.use("/", authRouter());
+app.use("/compare", compareRouter());
 
 app.listen(app.get("port"), () => {
     console.log("Server started on http://localhost:" + app.get('port'));
