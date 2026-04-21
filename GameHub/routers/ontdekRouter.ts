@@ -1,1 +1,11 @@
-//jason
+import express from "express";
+
+export function ontdekRouter() {
+    const router = express.Router();
+
+    router.get("/", (req, res) => {
+        res.render("ontdek");
+    });
+
+    return router;
+}

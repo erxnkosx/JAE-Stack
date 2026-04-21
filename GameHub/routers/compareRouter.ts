@@ -1,6 +1,6 @@
 import express from "express";
 
-export function compareRouter() {
+export function ontdekRouter() {
     const router = express.Router();
 
     router.get("/", (req, res) => {
