@@ -27,7 +27,7 @@ app.use("/", authRouter());
 app.use("/compare", compareRouter());
 app.use("/ontdek", ontdekRouter());
 app.use("/collection", collectionRouter());
-app.use("/raadRouter", raadRouter());
+app.use("/raad-page", raadRouter());
 
 
 app.listen(app.get("port"), () => {
