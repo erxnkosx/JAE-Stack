@@ -1,6 +1,6 @@
 import express from "express";
 
-export function homeRouter() {
+export function collectionRouter() {
     const router = express.Router();
 
     router.get("/", (req, res) => {

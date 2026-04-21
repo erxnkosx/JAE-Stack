@@ -5,6 +5,10 @@ import path from "path";
 import { homeRouter } from "./routers/homeRouter";
 import { authRouter } from "./routers/authRouter";
 import { compareRouter } from "./routers/compareRouter";
+import { ontdekRouter } from "./routers/ontdekRouter";
+import { collectionRouter } from "./routers/collectionRouter";
+import { raadRouter } from "./routers/raadRouter";
+
 
 dotenv.config();
 
@@ -21,6 +25,10 @@ app.set("port", process.env.PORT || 3000);
 app.use("/", homeRouter());
 app.use("/", authRouter());
 app.use("/compare", compareRouter());
+app.use("/ontdek", ontdekRouter());
+app.use("/collection", collectionRouter());
+app.use("/raadRouter", raadRouter());
+
 
 app.listen(app.get("port"), () => {
     console.log("Server started on http://localhost:" + app.get('port'));
