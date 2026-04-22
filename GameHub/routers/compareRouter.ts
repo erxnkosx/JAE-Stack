@@ -1,10 +1,14 @@
 import express from "express";
+import {pageInfo} from "../types";
 
 export function compareRouter() {
     const router = express.Router();
 
     router.get("/", (req, res) => {
-        res.render("compare");
+        const info: pageInfo = {
+            currentPage: "vergelijk"
+        }
+        res.render("compare", { info });
     });
 
     return router;

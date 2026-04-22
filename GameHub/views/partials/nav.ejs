@@ -11,11 +11,10 @@
       <section
         class="hidden md:flex gap-8 text-slate-400 font-medium absolute left-1/2 -translate-x-1/2 translate-y-[6px]"
       >
-        <a href="/ontdek" class="hover:text-white text-cyan-400"
-          >Ontdek</a
+        <a href="/ontdek" class="hover:text-white  <%= info.currentPage === "ontdek" ? "text-cyan-400" : "" %> ">Ontdek</a
         >
-        <a href="/collection" class="hover:text-white">Collectie</a>
-        <a href="/compare" class="hover:text-white">Vergelijk</a>
+        <a href="/collection" class="hover:text-white <%= info.currentPage === "collectie" ? "text-cyan-400" : "" %> ">Collectie</a>
+        <a href="/compare" class="hover:text-white <%= info.currentPage === "vergelijk" ? "text-cyan-400" : "" %> ">Vergelijk</a>
       </section>
 
       <section class="flex items-center pt-2 gap-3">
