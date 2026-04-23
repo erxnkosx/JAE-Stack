@@ -8,6 +8,7 @@ import { compareRouter } from "./routers/compareRouter";
 import { ontdekRouter } from "./routers/ontdekRouter";
 import { collectionRouter } from "./routers/collectionRouter";
 import { raadRouter } from "./routers/raadRouter";
+import {connect} from "./database";
 
 
 dotenv.config();
@@ -23,13 +24,14 @@ app.set('views', path.join(__dirname, "views"));
 app.set("port", process.env.PORT || 3000);
 
 app.use("/index", homeRouter());
-app.use("/", authRouter());
+app.use("/", ontdekRouter());
 app.use("/compare", compareRouter());
 app.use("/ontdek", ontdekRouter());
 app.use("/collection", collectionRouter());
 app.use("/raad-page", raadRouter());
 
 
-app.listen(app.get("port"), () => {
+app.listen(app.get("port"), async () => {
+    await connect();
     console.log("Server started on http://localhost:" + app.get('port'));
 });
