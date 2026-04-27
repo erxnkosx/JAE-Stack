@@ -1,7 +1,7 @@
  <%- include("partials/header", { scripts: ['/js/raad.js', '/js/nav.js', '/js/active.js'] }) %>
 <%- include("partials/nav") %>
     
-    <main class="px-12 pb-2 flex flex-col items-center mt-8 shrink-0">
+    <main class="w-full px-12 pb-2 flex flex-col items-center mt-8 shrink-0">
       <section class="w-full max-w-2xl flex flex-col items-center">
         <section class="text-center mb-4">
           <h1 class="text-5xl text-white font-black mb-2.5">
@@ -17,30 +17,33 @@
         >
           <img
             id="blurImage"
-            src=""
+            src="<%= guessGame.game.background_image %>"
             alt="Mystery Game"
             class="w-full h-full object-cover transition-all duration-1000"
-            style="filter: blur(40px)"
+            style="filter: blur(<%= guessGame.tries * 10%>px)"
           />
           <p
             class="text-slate-300 font-semibold absolute top-6 right-6 px-5 py-3 glass-strong rounded-xl border-2 border-white/20"
           >
             Blur Level:
-            <span id="blurLevel" class="font-black text-cyan-400">40%</span>
+            <span id="blurLevel" class="font-black text-cyan-400"><%= guessGame.tries * 10 %>%</span>
           </p>
           <p
             class="font-black text-cyan-400 absolute top-6 left-6 px-5 py-3 glass-strong rounded-xl border-2 border-white/20"
           >
             Level
             <span class="font-black text-cyan-400 mr-1" id="currentLevel"
-              >1 </span
-            >: <span id="currentProgress">0</span> / 10
+              ><%= user.progression.level %> </span
+            >: <span id="currentProgress"><%= user.progression.experience%></span> / 10
           </p>
         </section>
+
+        <form class="w-full justify-center">
 
         <section class="relative max-w-5xl mx-auto w-full">
           <input
             id="gameSearch"
+            name="guess"
             type="text"
             placeholder="Raad spel..."
             class="mb-8 w-full rounded-3xl border border-white/10 bg-white/5 px-10 py-7 text-2xl text-white placeholder-slate-500 outline-none backdrop-blur-md"
@@ -51,39 +54,45 @@
           ></section>
         </section>
 
-        <section class="flex gap-12 mb-8">
-          <button
-            id="skipGame"
-            class="hover:bg-white/5 inline-flex items-center gap-2 justify-center rounded-xl font-semibold transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group glass text-cyan-300 border-cyan-500/30 hover:ring-cyan-400/50 hover:scale-105 neon-cyan px-6 py-3 text-base"
-          >
-            <svg
-              fill="currentColor"
-              viewBox="-1.5 -2.5 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="xMinYMin"
-              class="jam jam-refresh-reverse w-5 h-5"
-              transform="rotate(180)matrix(-1, 0, 0, 1, 0, 0)"
+
+          <section class="flex gap-12 mb-8 justify-center">
+            <button formmethod="get"
+                    formaction="/raad-page/restart"
+              id="skipGame"
+              class="hover:bg-white/5 inline-flex items-center gap-2 justify-center rounded-xl font-semibold transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group glass text-cyan-300 border-cyan-500/30 hover:ring-cyan-400/50 hover:scale-105 neon-cyan px-6 py-3 text-base"
             >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <path
-                  d="M4.859 5.308l1.594-.488a1 1 0 0 1 .585 1.913l-3.825 1.17a1 1 0 0 1-1.249-.665L.794 3.413a1 1 0 1 1 1.913-.585l.44 1.441C5.555.56 10.332-1.035 14.573.703a9.381 9.381 0 0 1 5.38 5.831 1 1 0 1 1-1.905.608A7.381 7.381 0 0 0 4.86 5.308zm12.327 8.195l-1.775.443a1 1 0 1 1-.484-1.94l3.643-.909a.997.997 0 0 1 .61-.08 1 1 0 0 1 .84.75l.968 3.88a1 1 0 0 1-1.94.484l-.33-1.322a9.381 9.381 0 0 1-16.384-1.796l-.26-.634a1 1 0 1 1 1.851-.758l.26.633a7.381 7.381 0 0 0 13.001 1.25z"
-                ></path>
-              </g>
-            </svg>
-          </button>
-          <button
-            id="guessSubmit"
-            class="hover:bg-white/5 glass-strong items-center gap-2 justify-center rounded-xl font-semibold transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group glass text-cyan-300 border-cyan-500/30 hover:ring-cyan-400/50 hover:scale-105 neon-cyan px-6 py-3 text-base"
-          >
-            <span>Doe een Gok</span>
-          </button>
-        </section>
+              <svg
+                fill="currentColor"
+                viewBox="-1.5 -2.5 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMinYMin"
+                class="jam jam-refresh-reverse w-5 h-5"
+                transform="rotate(180)matrix(-1, 0, 0, 1, 0, 0)"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M4.859 5.308l1.594-.488a1 1 0 0 1 .585 1.913l-3.825 1.17a1 1 0 0 1-1.249-.665L.794 3.413a1 1 0 1 1 1.913-.585l.44 1.441C5.555.56 10.332-1.035 14.573.703a9.381 9.381 0 0 1 5.38 5.831 1 1 0 1 1-1.905.608A7.381 7.381 0 0 0 4.86 5.308zm12.327 8.195l-1.775.443a1 1 0 1 1-.484-1.94l3.643-.909a.997.997 0 0 1 .61-.08 1 1 0 0 1 .84.75l.968 3.88a1 1 0 0 1-1.94.484l-.33-1.322a9.381 9.381 0 0 1-16.384-1.796l-.26-.634a1 1 0 1 1 1.851-.758l.26.633a7.381 7.381 0 0 0 13.001 1.25z"
+                  ></path>
+                </g>
+              </svg>
+            </button>
+            <% if (guessGame.isGuessable) { %>
+            <button formaction="/raad-page/guess"
+                    formmethod="post"
+              id="guessSubmit"
+              class="hover:bg-white/5 glass-strong items-center gap-2 justify-center rounded-xl font-semibold transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group glass text-cyan-300 border-cyan-500/30 hover:ring-cyan-400/50 hover:scale-105 neon-cyan px-6 py-3 text-base"
+            >
+              <span>Doe een Gok</span>
+            </button>
+            <% } %>
+          </section>
+        </form>
 
         <p class="text-slate-500 mb-2">
           Verkeerde antwoorden maken de afbeelding minder wazig

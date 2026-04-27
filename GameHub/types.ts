@@ -1,14 +1,14 @@
 type currentPage = "ontdek" | "collectie" | "vergelijk" | "raad";
 // fix: capitalize (PageInfo)
 export interface pageInfo {
-    currentPage: currentPage
+    currentPage: currentPage;
 }
 
 export interface PlatformDetails {
     name: string;
 }
 export interface PlatformInfo {
-    platform: PlatformDetails
+    platform: PlatformDetails;
 }
 
 interface Genre {
@@ -23,6 +23,21 @@ export interface Game {
     background_image: string;
     metacritic: number;
     platforms: PlatformInfo[];
-    genres: Genre[]
+    genres: Genre[];
+}
+
+export interface Progression {
+    level: number;
+    experience: number;
+}
+export interface User {
+    progression: Progression;
+}
+
+export interface GuessGame {
+    guess: string;
+    tries: number;
+    game: Game;
+    isGuessable: boolean;
 }
 
