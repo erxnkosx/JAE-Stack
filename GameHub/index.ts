@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
 import path from "path";
-
+import session from "express-session";
 import { homeRouter } from "./routers/homeRouter";
 import { authRouter } from "./routers/authRouter";
 import { compareRouter } from "./routers/compareRouter";
@@ -23,7 +23,13 @@ app.set('views', path.join(__dirname, "views"));
 
 app.set("port", process.env.PORT || 3000);
 
-app.use("/index", homeRouter());
+app.use(session({
+    secret: process.env.SESSION_SECRET || "secret",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use("/", homeRouter());
 app.use("/", authRouter());
 app.use("/compare", compareRouter());
 app.use("/ontdek", ontdekRouter());

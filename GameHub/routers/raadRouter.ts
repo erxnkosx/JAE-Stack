@@ -3,6 +3,7 @@ import {Game, GuessGame, pageInfo, Progression, User} from "../types";
 import {getGames} from "../database";
 import session from "../sessions/raad-session";
 import {evaluateGame, restartGame} from "../services/raadService";
+
 export function raadRouter() {
     const router = express.Router();
     router.use(session);
@@ -12,7 +13,7 @@ export function raadRouter() {
         }
 
         if (!req.session.user) {
-            req.session.user = { progression: { level: 1, experience: 0 } };
+            req.session.user = { id: "", email: "", progression: { level: 1, experience: 0 } };
         }
 
         if (!req.session.guessGame) {

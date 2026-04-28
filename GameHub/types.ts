@@ -31,7 +31,10 @@ export interface Progression {
     experience: number;
 }
 export interface User {
+    id: string;
     progression: Progression;
+    email: string;
+    password?: string;
 }
 
 export interface GuessGame {
@@ -41,3 +44,7 @@ export interface GuessGame {
     isGuessable: boolean;
 }
 
+export interface FlashMessage {
+    type: "error" | "success"
+    message: string;
+}
