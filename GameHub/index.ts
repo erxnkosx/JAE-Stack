@@ -23,7 +23,7 @@ app.set('views', path.join(__dirname, "views"));
 
 app.set("port", process.env.PORT || 3000);
 
-app.use("/", homeRouter());
+app.use("/index", homeRouter());
 app.use("/", authRouter());
 app.use("/compare", compareRouter());
 app.use("/ontdek", ontdekRouter());

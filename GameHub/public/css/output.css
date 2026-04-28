@@ -1295,6 +1295,9 @@
   .text-yellow-400 {
     color: var(--color-yellow-400);
   }
+  .capitalize {
+    text-transform: capitalize;
+  }
   .uppercase {
     text-transform: uppercase;
   }
@@ -1828,16 +1831,6 @@
   .focus\:border-cyan-400 {
     &:focus {
       border-color: var(--color-cyan-400);
-    }
-  }
-  .focus\:text-cyan-400 {
-    &:focus {
-      color: var(--color-cyan-400);
-    }
-  }
-  .active\:text-cyan-400 {
-    &:active {
-      color: var(--color-cyan-400);
     }
   }
   .disabled\:cursor-not-allowed {
