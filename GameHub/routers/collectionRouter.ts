@@ -1,10 +1,14 @@
 import express from "express";
+import {pageInfo} from "../types";
 
 export function collectionRouter() {
     const router = express.Router();
 
     router.get("/", (req, res) => {
-        res.render("collection");
+        const info: pageInfo = {
+            currentPage: "collectie"
+        }
+        res.render("collection", { info });
     });
 
     return router;

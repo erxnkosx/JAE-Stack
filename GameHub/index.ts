@@ -8,6 +8,7 @@ import { compareRouter } from "./routers/compareRouter";
 import { ontdekRouter } from "./routers/ontdekRouter";
 import { collectionRouter } from "./routers/collectionRouter";
 import { raadRouter } from "./routers/raadRouter";
+import {connect} from "./database";
 
 
 dotenv.config();
@@ -30,6 +31,7 @@ app.use("/collection", collectionRouter());
 app.use("/raad-page", raadRouter());
 
 
-app.listen(app.get("port"), () => {
+app.listen(app.get("port"), async () => {
+    await connect();
     console.log("Server started on http://localhost:" + app.get('port'));
 });

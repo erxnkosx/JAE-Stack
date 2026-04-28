@@ -1830,6 +1830,16 @@
       border-color: var(--color-cyan-400);
     }
   }
+  .focus\:text-cyan-400 {
+    &:focus {
+      color: var(--color-cyan-400);
+    }
+  }
+  .active\:text-cyan-400 {
+    &:active {
+      color: var(--color-cyan-400);
+    }
+  }
   .disabled\:cursor-not-allowed {
     &:disabled {
       cursor: not-allowed;
