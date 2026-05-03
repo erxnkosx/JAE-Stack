@@ -1,19 +1,15 @@
 import express from "express";
-import {Game, GuessGame, pageInfo, Progression, User} from "../types";
+import {Game, GuessGame, pageInfo, User} from "../types";
 import {getGames} from "../database";
-import session from "../sessions/raad-session";
+import {secureMiddleware} from "../middleware/secureMiddleware";
 import {evaluateGame, restartGame} from "../services/raadService";
 
 export function raadRouter() {
     const router = express.Router();
-    router.use(session);
-    router.get("/", async (req, res) => {
+
+    router.get("/", secureMiddleware, async (req, res) => {
         const info: pageInfo = {
             currentPage: "raad"
-        }
-
-        if (!req.session.user) {
-            req.session.user = { id: "", email: "", progression: { level: 1, experience: 0 } };
         }
 
         if (!req.session.guessGame) {
@@ -26,7 +22,7 @@ export function raadRouter() {
         res.render("raad-page", { info, guessGame: req.session.guessGame, user: req.session.user });
     });
 
-    router.post("/guess", async (req, res) => {
+    router.post("/guess", secureMiddleware, async (req, res) => {
         const guessGame: GuessGame | undefined = req.session.guessGame;
         const user: User | undefined = req.session.user;
         if (!guessGame) throw new Error("No game object 1")
@@ -40,7 +36,7 @@ export function raadRouter() {
         res.render("raad-page", { info, guessGame, user });
     });
 
-    router.get("/restart", async (req, res) => {
+    router.get("/restart", secureMiddleware, async (req, res) => {
         const guessGame: GuessGame | undefined = req.session.guessGame;
         const user: User | undefined = req.session.user;
         if (!guessGame) throw new Error("No game object 1")
@@ -48,10 +44,7 @@ export function raadRouter() {
 
         await restartGame(guessGame, user);
         res.redirect("/raad-page");
-
     })
-
-
 
     return router;
 }

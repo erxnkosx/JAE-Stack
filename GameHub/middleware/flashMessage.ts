@@ -8,4 +8,4 @@ export function flashMiddleware(req: Request, res: Response, next: NextFunction)
         res.locals.message = undefined;
     }
     next();
-};
+}
