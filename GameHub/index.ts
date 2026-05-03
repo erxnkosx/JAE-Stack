@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import dotenv from "dotenv";
 import path from "path";
-import session from "express-session";
+import session from "./sessions/session"; 
 import { homeRouter } from "./routers/homeRouter";
 import { authRouter } from "./routers/authRouter";
 import { compareRouter } from "./routers/compareRouter";
@@ -9,6 +9,7 @@ import { ontdekRouter } from "./routers/ontdekRouter";
 import { collectionRouter } from "./routers/collectionRouter";
 import { raadRouter } from "./routers/raadRouter";
 import {connect} from "./database";
+import { flashMiddleware } from "./middleware/flashMessage";
 
 
 dotenv.config();
@@ -23,11 +24,8 @@ app.set('views', path.join(__dirname, "views"));
 
 app.set("port", process.env.PORT || 3000);
 
-app.use(session({
-    secret: process.env.SESSION_SECRET || "secret",
-    resave: false,
-    saveUninitialized: false
-}));
+app.use(session);
+app.use(flashMiddleware);
 
 app.use("/", homeRouter());
 app.use("/", authRouter());
@@ -38,6 +36,11 @@ app.use("/raad-page", raadRouter());
 
 
 app.listen(app.get("port"), async () => {
-    await connect();
-    console.log("Server started on http://localhost:" + app.get('port'));
+    try {
+        await connect();
+        console.log("Server started on http://localhost:" + app.get("port"));
+    } catch (e) {
+        console.log(e);
+        process.exit(1);
+    }
 });

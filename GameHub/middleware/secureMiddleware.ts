@@ -8,3 +8,11 @@ export function secureMiddleware(req: Request, res: Response, next: NextFunction
         res.redirect("/login");
     }
 }
+
+export function redirectIfLoggedIn(req: Request, res: Response, next: NextFunction) {
+    if (req.session.user) {
+        res.redirect("/ontdek");
+    } else {
+        next();
+    }
+}

@@ -1,10 +1,12 @@
 import express from "express";
 import {User} from "../types"
 import { login, register } from "../database";
+import { redirectIfLoggedIn } from "../middleware/secureMiddleware";
+
 export function authRouter() {
     const router = express.Router();
 
-    router.get("/login", (req, res) => {
+    router.get("/login", redirectIfLoggedIn, (req, res) => {
         res.render("login");
     });
 
@@ -15,7 +17,7 @@ export function authRouter() {
             let user : User = await login(email, password);
             delete user.password; 
             req.session.user = user;
-            req.session.message = {type: "success", message: "Login successful"};
+            req.session.message = {type: "success", message: "Login succesvol"};
             res.redirect("/")
         } catch (e : any) {
             req.session.message = {type: "error", message: e.message};
@@ -23,40 +25,32 @@ export function authRouter() {
         }
     });
 
-    router.get("/signup", (req, res) => {
+    router.get("/signup",redirectIfLoggedIn, (req, res) => {
         res.render("signup");
     });
     
     router.post("/signup", async (req, res) => {
-    const email: string = req.body.email;
-    const password: string = req.body.password;
+        const email: string = req.body.email;
+        const password: string = req.body.password;
 
-    try {
+        try {
 
-        let user: User = await register(email, password);
+            let user: User = await register(email, password);
 
-        delete user.password;
-        req.session.user = user;
-        req.session.message = {
-        type: "success",
-        message: "Signup successful",
-        };
+            delete user.password;
+            req.session.user = user;
+            req.session.message = { type: "success", message: "Registratie succesvol" };
+            res.redirect("/");
+        } catch (e: any) {
+            req.session.message = { type: "error", message: e.message };
+            res.redirect("/signup");
+        }
+        });
 
-        res.redirect("/");
-    } catch (e: any) {
-        req.session.message = {
-        type: "error",
-        message: e.message,
-        };
-
-        res.redirect("/signup");
-    }
-    });
-
-    router.post("/logout", (req, res) => {  
-        delete req.session.user;
-        req.session.message = {type: "success", message: "Logout successful"};
-        res.redirect("/login");
+        router.post("/logout", (req, res) => {
+        req.session.destroy(() => {
+            res.redirect("/login");
+        });
     });
     return router;
 }

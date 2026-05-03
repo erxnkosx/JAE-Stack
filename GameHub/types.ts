@@ -1,6 +1,6 @@
 type currentPage = "ontdek" | "collectie" | "vergelijk" | "raad";
-// fix: capitalize (PageInfo)
-export interface pageInfo {
+
+export interface PageInfo {
     currentPage: currentPage;
 }
 
@@ -19,11 +19,12 @@ export interface Game {
     id: number
     name: string;
     rating: number;
-    released: Date;
+    released: string;
     background_image: string;
     metacritic: number;
     platforms: PlatformInfo[];
     genres: Genre[];
+    description_raw?: string;
 }
 
 export interface Progression {
@@ -31,7 +32,7 @@ export interface Progression {
     experience: number;
 }
 export interface User {
-    id: string;
+    _id?: string;
     progression: Progression;
     email: string;
     password?: string;
