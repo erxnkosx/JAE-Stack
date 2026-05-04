@@ -1,5 +1,5 @@
 import express from "express";
-import {Game, GuessGame, pageInfo, User} from "../types";
+import {Game, GuessGame, PageInfo, User} from "../types";
 import {getGames} from "../database";
 import {secureMiddleware} from "../middleware/secureMiddleware";
 import {evaluateGame, restartGame} from "../services/raadService";
@@ -8,7 +8,7 @@ export function raadRouter() {
     const router = express.Router();
 
     router.get("/", secureMiddleware, async (req, res) => {
-        const info: pageInfo = {
+        const info: PageInfo = {
             currentPage: "raad"
         }
 
@@ -29,7 +29,7 @@ export function raadRouter() {
         if (!user) throw new Error("No user");
 
         guessGame.guess = req.body.guess as string ?? "";
-        const info: pageInfo = { currentPage: "raad" }
+        const info: PageInfo = { currentPage: "raad" }
 
         await evaluateGame(guessGame, req.session.user!);
 
