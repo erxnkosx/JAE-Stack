@@ -1,5 +1,6 @@
 async function getCurrentGame() {
     const res = await fetch("/collection/api");
+    if (!res.ok) return null;
     const collection = await res.json();
     return collection.find(g => g.status === "playing") || null;
 }
