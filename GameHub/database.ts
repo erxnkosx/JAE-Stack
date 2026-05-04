@@ -3,7 +3,7 @@ import "dotenv/config";
 import {Game, GameEntry, User} from "./types";
 import bcrypt from 'bcrypt';
 
-const MONGO_URI: string | undefined = process.env.MONGO_URI;
+export const MONGO_URI: string | undefined = process.env.MONGO_URI;
 if (!MONGO_URI) throw new Error("MONGO_URI is undefined");
 
 const API_KEY: string | undefined = process.env.API_KEY;

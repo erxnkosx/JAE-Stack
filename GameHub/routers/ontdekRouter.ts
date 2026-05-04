@@ -3,7 +3,7 @@ import { PageInfo } from "../types";
 import { secureMiddleware } from "../middleware/secureMiddleware";
 import { getGames } from "../database";
 
-export function ontdekRouter() {
+export default function ontdekRouter() {
     const router = express.Router();
 
     router.get("/", secureMiddleware, async (req, res) => {
@@ -42,12 +42,11 @@ export function ontdekRouter() {
         res.json(games);
     });
 
-        router.get("/:id", secureMiddleware, async (req, res) => {
+    router.get("/:id", secureMiddleware, async (req, res) => {
         const response = await fetch(`https://api.rawg.io/api/games/${req.params.id}?key=${process.env.API_KEY}`);
         const data = await response.json();
         const description = data.description_raw || "Geen beschrijving beschikbaar.";
         res.json({ description: description.length > 200 ? description.substring(0, 200) + "..." : description });
-
     });
 
     return router;
