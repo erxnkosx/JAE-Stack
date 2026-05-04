@@ -50,8 +50,10 @@ const seed = async () => {
     for (let i = 1; i <= 100; i++) {
         const response = await fetch(`https://api.rawg.io/api/games/${i}?key=${API_KEY}`);
         const game: Game = await response.json();
-        if (game.name) games.push(game);
-        games.push(game);
+        if (game.name) 
+        {
+            games.push(game);
+        }
     }
     await gamesCollection.insertMany(games);
 }

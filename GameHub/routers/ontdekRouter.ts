@@ -14,9 +14,16 @@ export function ontdekRouter() {
             `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page=${page}&page_size=${pageSize}&ordering=-rating`
         );
         const data = await response.json();
+
+        const games = await Promise.all(data.results.map(async (game: any) => {
+            const detail = await fetch(`https://api.rawg.io/api/games/${game.id}?key=${process.env.API_KEY}`);
+            const detailData = await detail.json();
+            return { ...game, description_raw: detailData.description_raw || "" };
+        }));
+
         res.render("ontdek", {
             info,
-            games: data.results,
+            games,
             currentPage: page,
             hasNextPage: Boolean(data.next),
             hasPreviousPage: Boolean(data.previous)
@@ -33,6 +40,14 @@ export function ontdekRouter() {
     router.get("/api", secureMiddleware, async (req, res) => {
         const games = await getGames();
         res.json(games);
+    });
+
+        router.get("/:id", secureMiddleware, async (req, res) => {
+        const response = await fetch(`https://api.rawg.io/api/games/${req.params.id}?key=${process.env.API_KEY}`);
+        const data = await response.json();
+        const description = data.description_raw || "Geen beschrijving beschikbaar.";
+        res.json({ description: description.length > 200 ? description.substring(0, 200) + "..." : description });
+
     });
 
     return router;

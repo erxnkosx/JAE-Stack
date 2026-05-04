@@ -37,37 +37,47 @@
         ></section>
     </section>
 
-    <section class="max-w-6xl mx-auto mt-20 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <h2 class="text-3xl font-black text-white">Populaire games</h2>
+    <section class="max-w-7xl mx-auto mt-20">
+        <h2 class="text-3xl font-black text-white mb-6">Populaire games</h2>
 
-        <section class="flex items-center gap-6">
+        <nav class="flex items-center justify-between border-t border-white/10 pt-4">
             <% if (hasPreviousPage) { %>
-                <a
-                        href="/ontdek?page=<%= currentPage - 1 %>"
-                        class="text-cyan-400 text-xl hover:text-white"
-                >
-                    ← vorige
+                <a href="/ontdek?page=<%= currentPage - 1 %>" class="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition text-sm font-semibold">
+                    ← Vorige
                 </a>
+            <% } else { %>
+                <span class="flex items-center gap-2 text-slate-600 text-sm font-semibold cursor-not-allowed">
+                    ← Vorige
+                </span>
             <% } %>
 
-            <span class="text-white text-xl font-bold">
-        Pagina <%= currentPage %>
-      </span>
+            <div class="flex items-center gap-1">
+                <% for(let i = Math.max(1, currentPage - 2); i <= Math.min(currentPage + 2, 500); i++) { %>
+                    <% if (i === Math.max(1, currentPage - 2) && i > 1) { %>
+                        <a href="/ontdek?page=1" class="px-3 py-1.5 rounded-lg text-sm font-semibold text-slate-400 hover:text-cyan-400 transition">1</a>
+                        <span class="text-slate-600 px-1">...</span>
+                    <% } %>
+                    <a href="/ontdek?page=<%= i %>" class="px-3 py-1.5 rounded-lg text-sm font-semibold transition <%= i === currentPage ? 'bg-cyan-500/20 border border-cyan-500/30 text-cyan-400' : 'text-slate-400 hover:text-cyan-400' %>">
+                        <%= i %>
+                    </a>
+                <% } %>
+            </div>
 
             <% if (hasNextPage) { %>
-                <a
-                        href="/ontdek?page=<%= currentPage + 1 %>"
-                        class="text-cyan-400 text-xl hover:text-white"
-                >
-                    volgende →
+                <a href="/ontdek?page=<%= currentPage + 1 %>" class="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition text-sm font-semibold">
+                    Volgende →
                 </a>
+            <% } else { %>
+                <span class="flex items-center gap-2 text-slate-600 text-sm font-semibold cursor-not-allowed">
+                    Volgende →
+                </span>
             <% } %>
-        </section>
+        </nav>
     </section>
 
     <section
             id="gamesStorage"
-            class="max-w-6xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            class="max-w-7xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
     >
         <% games.forEach(game => { %>
             <article
@@ -100,15 +110,15 @@
 
                 <section class="p-6">
                     <h3 class="text-2xl font-bold text-white mb-2">
-                        <%= game.name %>
+                        <%= game.name.split(" ").length > 3 ? game.name.split(" ").slice(0, 3).join(" ") + " ..." : game.name %>
                     </h3>
 
                     <p class="text-slate-300 text-sm leading-relaxed mb-3">
-                        Geen beschrijving beschikbaar.
+                        <%= game.description_raw ? game.description_raw.substring(0, 30) + "..." : "Geen beschrijving beschikbaar." %>
                     </p>
 
                     <p class="text-slate-400">
-                        <%= game.released || 'Onbekend' %>
+                        <%= game.released || 'Datum onbekend' %>
                     </p>
                 </section>
             </article>

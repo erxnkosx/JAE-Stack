@@ -35,12 +35,18 @@ document.querySelectorAll(".game-card").forEach(card => {
     currentRawgId = parseInt(card.dataset.id);
 
     document.querySelector("#gameTitle").textContent = card.dataset.title;
-    document.querySelector("#gameDescription").textContent = card.dataset.description;
+    document.querySelector("#gameDescription").textContent = "Laden...";
     document.querySelector("#gameRating").textContent = card.dataset.rating;
     document.querySelector("#gameDate").textContent = card.dataset.date;
     document.querySelector("#gameCover").src = card.dataset.image;
     document.querySelector("#gameCover").alt = card.dataset.title;
 
+    const res = await fetch(`/ontdek/${currentRawgId}`);
+    if (res.ok) {
+      const detail = await res.json();
+      document.querySelector("#gameDescription").textContent = detail.description;
+    }
+    
     await updateCollectionUI();
 
     document.querySelector("#gameDetails").classList.remove("hidden");
