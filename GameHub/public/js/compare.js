@@ -1,13 +1,8 @@
-
 let allGames = [];
 
 async function init() {
-    console.log("ja");
-    const response = await fetch("/data/games.json");
-    const data = await response.json();
-    console.log(data);
-
-    allGames = data.results;
+    const response = await fetch("/ontdek/api");
+    allGames = await response.json();
 
     updateGame(0, 1);
     updateGame(1, 2);
@@ -24,10 +19,9 @@ function updateGame(gameIndex, side) {
         `Beoordeling: ${game.rating} • Metacritic: ${game.metacritic || 'N/A'}`;
 
     document.getElementById(`rating-${side}`).innerText = game.rating;
-    document.getElementById(`meta-rating-${side}`).innerText = game.metacritic
+    document.getElementById(`meta-rating-${side}`).innerText = game.metacritic;
     document.getElementById(`releasedate-${side}`).innerText = game.released;
-    const countPlatform = game.platforms.length;
-    document.getElementById(`platform-${side}`).innerText = countPlatform;
+    document.getElementById(`platform-${side}`).innerText = game.platforms?.length || 0;
 
     compareStats();
 }
@@ -43,10 +37,11 @@ function setupButtons() {
         updateGame(randomIndex, 2);
     };
 }
+
 function compareStats() {
     compareRow('rating');
     compareRow('platform');
-    compareRow(`meta-rating`)
+    compareRow('meta-rating');
 }
 
 function compareRow(id) {
