@@ -1,6 +1,6 @@
 type currentPage = "ontdek" | "collectie" | "vergelijk" | "raad";
-// fix: capitalize (PageInfo)
-export interface pageInfo {
+
+export interface PageInfo {
     currentPage: currentPage;
 }
 
@@ -24,6 +24,7 @@ export interface Game {
     metacritic: number;
     platforms: PlatformInfo[];
     genres: Genre[];
+    description_raw?: string;
 }
 
 export interface Progression {

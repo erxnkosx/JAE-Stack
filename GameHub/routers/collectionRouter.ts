@@ -1,5 +1,5 @@
 import express from "express";
-import {pageInfo} from "../types";
+import {PageInfo} from "../types";
 import { getCollection, addToCollection, updateStatus, removeFromCollection } from "../database";
 import { secureMiddleware } from "../middleware/secureMiddleware";
 
@@ -7,7 +7,7 @@ export function collectionRouter() {
     const router = express.Router();
 
     router.get("/", secureMiddleware, async (req, res) => {
-        const info: pageInfo = { currentPage: "collectie" };
+        const info: PageInfo = { currentPage: "collectie" };
         const userId = req.session.user!._id!.toString();
         const collection = await getCollection(userId);
         res.render("collection", { info, collection });

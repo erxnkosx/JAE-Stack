@@ -2,7 +2,6 @@ import {Collection, MongoClient} from "mongodb";
 import "dotenv/config";
 import {Game, GameEntry, User} from "./types";
 import bcrypt from 'bcrypt';
-import crypto from "crypto";
 
 const MONGO_URI: string | undefined = process.env.MONGO_URI;
 if (!MONGO_URI) throw new Error("MONGO_URI is undefined");
@@ -16,7 +15,7 @@ export const gamesCollection: Collection<Game> = client.db("gamehub").collection
 export const gameEntry: Collection<User> = client.db("gamehub").collection("users");
 export const gameEntryCollection: Collection<GameEntry> = client.db("gamehub").collection<GameEntry>("gameEntries");
 
-export const SALT_ROUNDS = 10;
+const SALT_ROUNDS : number = 10;
 
 const exit = async () => {
     try {
@@ -40,8 +39,8 @@ export const connect = async () => {
     }
 }
 
-export const getGames = async () => {
-    return await gamesCollection.find().toArray();
+export const getGames = async () : Promise<Game[]> => {
+    return await gamesCollection.find({}).toArray();
 }
 
 const seed = async () => {
@@ -51,6 +50,7 @@ const seed = async () => {
     for (let i = 1; i <= 100; i++) {
         const response = await fetch(`https://api.rawg.io/api/games/${i}?key=${API_KEY}`);
         const game: Game = await response.json();
+        if (game.name) games.push(game);
         games.push(game);
     }
     await gamesCollection.insertMany(games);
@@ -58,28 +58,28 @@ const seed = async () => {
 
 export async function login(email: string, password: string) {
     if (email === "" || password === "") {
-        throw new Error("Email and password required");
+        throw new Error("Email en wachtwoord zijn verplicht");
     }
-    let user : User | null = await gameEntry.findOne<User>({email: email});
+    let user: User | null = await gameEntry.findOne<User>({ email: email });
     if (user) {
         if (await bcrypt.compare(password, user.password!)) {
             return user;
         } else {
-            throw new Error("Password incorrect");
+            throw new Error("Wachtwoord incorrect");
         }
     } else {
-        throw new Error("User not found");
+        throw new Error("Gebruiker niet gevonden");
     }
 }
 
 export async function register(email: string, password: string): Promise<User> {
     if (email === "" || password === "") {
-        throw new Error("Email and password required");
+        throw new Error("Email en wachtwoord zijn verplicht");
     }
 
     const existingUser = await gameEntry.findOne({ email });
     if (existingUser) {
-        throw new Error("User already exists");
+        throw new Error("Gebruiker bestaat al");
     }
 
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
