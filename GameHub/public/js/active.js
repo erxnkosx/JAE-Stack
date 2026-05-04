@@ -1,39 +1,14 @@
-const setPLayingBtn = document.getElementById("setPlaying");
-
-function getCollectionGamesFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("collectionGames") || "[]");
+async function getCurrentGame() {
+    const res = await fetch("/collection/api");
+    const collection = await res.json();
+    return collection.find(g => g.status === "playing") || null;
 }
 
-function setCollectionGamesToLocalStorage(collectionGames) {
-    localStorage.setItem("collectionGames", JSON.stringify(collectionGames));
-}
-
-function getCollectionStatusesFromLocalStorage() {
-    return JSON.parse(localStorage.getItem("collectionStatuses") || "{}");
-}
-
-function setCollectionStatusesToLocalStorage(collectionStatuses) {
-    localStorage.setItem("collectionStatuses", JSON.stringify(collectionStatuses));
-}
-
-function getCurrentGame() {
-    const games = getCollectionGamesFromLocalStorage();
-    const statuses = getCollectionStatusesFromLocalStorage();
-
-    return games.find(game => statuses[game.name] === "playing") || null;
-}
-
-function formatCurrentGameStatus(status) {
-    if (status === "playing") return "Aan het spelen";
-    if (status === "finished") return "Uitgespeeld";
-    return "Nog te spelen";
-}
-
-function renderCurrentGameBanner() {
+async function renderCurrentGameBanner() {
     const currentGameBanner = document.getElementById("currentGameBanner");
     if (!currentGameBanner) return;
 
-    const currentGame = getCurrentGame();
+    const currentGame = await getCurrentGame();
 
     if (!currentGame) {
         currentGameBanner.innerHTML = "";
@@ -45,65 +20,41 @@ function renderCurrentGameBanner() {
         <section class="flex items-center gap-4 min-w-0">
           <img
             src="${currentGame.background_image}"
-            alt="${currentGame.name}"
+            alt="${currentGame.title}"
             class="w-16 h-16 rounded-xl object-cover shrink-0"
           />
           <section class="min-w-0">
-            <p class="text-xs uppercase text-cyan-400 font-semibold mb-1">
-              Actieve game
-            </p>
-            <h2 class="text-white font-bold text-lg">
-              ${currentGame.name}
-            </h2>
-            <p class="text-slate-400 text-sm">
-              Status: ${formatCurrentGameStatus(currentGame.status)}
-            </p>
+            <p class="text-xs uppercase text-cyan-400 font-semibold mb-1">Actieve game</p>
+            <h2 class="text-white font-bold text-lg">${currentGame.title}</h2>
+            <p class="text-slate-400 text-sm">Status: Aan het spelen</p>
           </section>
         </section>
-
-        <section class="flex items-center gap-3 shrink-0">
-          <button
-            id="clearCurrentGameBtn"
-            class="px-4 py-2 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 hover:bg-red-500/25 transition text-sm font-semibold"
-          >
-            Verwijderen
-          </button>
-        </section>
+        <button
+          id="clearCurrentGameBtn"
+          class="px-4 py-2 rounded-xl bg-red-500/15 border border-red-500/30 text-red-300 hover:bg-red-500/25 transition text-sm font-semibold shrink-0"
+        >
+          Verwijderen
+        </button>
       </section>
     `;
 
-    const clearBtn = document.getElementById("clearCurrentGameBtn");
-
-    if (clearBtn) {
-        clearBtn.onclick = () => {
-            const games = getCollectionGamesFromLocalStorage();
-            const statuses = getCollectionStatusesFromLocalStorage();
-
-            const updatedGames = games.map(game =>
-                game.status === "playing"
-                    ? { ...game, status: "backlog" }
-                    : game
-            );
-
-            Object.keys(statuses).forEach(title => {
-                if (statuses[title] === "playing") {
-                    statuses[title] = "backlog";
-                }
-            });
-
-            setCollectionGamesToLocalStorage(updatedGames);
-            setCollectionStatusesToLocalStorage(statuses);
-
-            renderCurrentGameBanner();
-        };
-    }
+    document.getElementById("clearCurrentGameBtn").onclick = async () => {
+        await fetch(`/collection/api/${currentGame.rawg_id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: "backlog" })
+        });
+        await renderCurrentGameBanner();
+    };
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     renderCurrentGameBanner();
 });
 
-
-if(setPLayingBtn) {
-    setPLayingBtn.addEventListener("click", renderCurrentGameBanner);
+const setPlayingBtn = document.getElementById("setPlaying");
+if (setPlayingBtn) {
+    setPlayingBtn.addEventListener("click", () => {
+        setTimeout(renderCurrentGameBanner, 300);
+    });
 }
