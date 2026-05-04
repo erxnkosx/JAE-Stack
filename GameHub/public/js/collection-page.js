@@ -52,7 +52,7 @@ async function renderGames() {
         <section class="p-6">
           <div class="flex items-center justify-between gap-4 mb-2">
             <h3 class="text-2xl font-bold text-white">${g.title}</h3>
-            <span class="text-xs px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">${statusText}</span>
+            <span class="text-xs px-2 py-1 rounded-full whitespace-nowrap ${g.status === 'playing' ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/20' : g.status === 'finished' ? 'bg-green-500/10 text-green-300 border border-green-500/20' : 'bg-yellow-500/10 text-yellow-300 border border-yellow-500/20'}">${statusText}</span>
           </div>
           <p class="text-slate-300 text-sm leading-relaxed mb-3">${g.description}</p>
           <p class="text-slate-400">${g.released}</p>
