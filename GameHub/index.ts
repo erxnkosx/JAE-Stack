@@ -10,6 +10,7 @@ import { collectionRouter } from "./routers/collectionRouter";
 import { raadRouter } from "./routers/raadRouter";
 import {connect} from "./database";
 import { flashMiddleware } from "./middleware/flashMessage";
+import apiRouter from "./routers/apiRouter";
 
 
 dotenv.config();
@@ -33,7 +34,7 @@ app.use("/compare", compareRouter());
 app.use("/ontdek", ontdekRouter());
 app.use("/collection", collectionRouter());
 app.use("/raad-page", raadRouter());
-
+app.use(apiRouter());
 
 app.listen(app.get("port"), async () => {
     try {

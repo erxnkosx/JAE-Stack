@@ -1,3 +1,6 @@
+/*
+import { getGames } from "../../database";
+
 let games = [];
 let randomGame;
 let blurImage;
@@ -9,17 +12,14 @@ let currentLevel = 1;
 let currentProgress = 0;
 let level = 40;
 
-const loadGames = async () => {
-    const response = await fetch("../data/details.json");
-    const responseJson = await response.json();
-    return responseJson.results;
-};
+
 // const inputGuess = document.getElementById("inputGuess");
 const guessSubmit = document.getElementById("guessSubmit");
 
 async function blurrGame() {
     if (games.length === 0) {
-        games = await loadGames();
+        games = await getGames();
+        console.log(games);
     }
 
     level = 40;
@@ -98,3 +98,5 @@ async function skipGameHandler() {
 gameSearch.addEventListener("input", (e) => (gameSearchHandler(e.currentTarget.value)));
 guessSubmit.addEventListener("click", guessSubmitHandler);
 skipGame.addEventListener("click", skipGameHandler);
+
+*/
