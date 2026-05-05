@@ -36,6 +36,24 @@ export default function ontdekRouter() {
         const data = await response.json();
         res.json(data.results);
     });
+    router.get("/game/:rawgId", async (req, res) => {
+    const id = req.params.rawgId;
+    try {
+        const response = await fetch(
+            `https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY}`
+        );
+
+        if (!response.ok) {
+            return res.status(404).json({ error: "Game niet gevonden" });
+        }
+
+        const gameData = await response.json();
+        
+        res.json(gameData); 
+    } catch (error) {
+        res.status(500).json({ error: "Server fout" });
+    }
+});
 
     router.get("/api", secureMiddleware, async (req, res) => {
         const games = await getGames();

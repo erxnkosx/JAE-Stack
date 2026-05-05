@@ -30,28 +30,58 @@ async function updateCollectionUI() {
   collectionBtn.className = "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700";
 }
 
-document.querySelectorAll(".game-card").forEach(card => {
-  card.onclick = async () => {
-    currentRawgId = parseInt(card.dataset.id);
+// cards.forEach(card => {
+//   card.onclick = () => {
+//     currentId = card.dataset.id;
+//     currentTitle = card.dataset.title;
 
-    document.querySelector("#gameTitle").textContent = card.dataset.title;
-    document.querySelector("#gameDescription").textContent = "Laden...";
-    document.querySelector("#gameRating").textContent = card.dataset.rating;
-    document.querySelector("#gameDate").textContent = card.dataset.date;
-    document.querySelector("#gameCover").src = card.dataset.image;
-    document.querySelector("#gameCover").alt = card.dataset.title;
+//     document.querySelector("#gameTitle").textContent = card.dataset.title;
+//     document.querySelector("#gameDescription").textContent = card.dataset.description;
+//     document.querySelector("#gameRating").textContent = card.dataset.rating;
+//     document.querySelector("#gameDate").textContent = card.dataset.date;
+//     document.querySelector("#gameCover").src = card.dataset.image;
+//     document.querySelector("#gameCover").alt = card.dataset.title;
 
-    const res = await fetch(`/ontdek/${currentRawgId}`);
-    if (res.ok) {
-      const detail = await res.json();
-      document.querySelector("#gameDescription").textContent = detail.description;
-    }
-    
-    await updateCollectionUI();
+//     updateCollectionUI();
 
-    document.querySelector("#gameDetails").classList.remove("hidden");
-    document.querySelector("#gameDetails").classList.add("flex");
-  };
+//     detail.classList.remove("hidden");
+//     detail.classList.add("flex");
+//   };
+// });
+cards.forEach(card => {
+    card.onclick = async () => {
+        currentId = card.dataset.id;
+        currentTitle = card.dataset.title;
+
+        document.querySelector("#gameTitle").textContent = "Laden...";
+        document.querySelector("#gameDescription").textContent = "Details ophalen...";
+        
+        detail.classList.remove("hidden");
+        detail.classList.add("flex");
+
+        try {
+            const response = await fetch(`/ontdek/game/${currentId}`);
+            const game = await response.json();
+
+            document.querySelector("#gameTitle").textContent = game.name;
+            document.querySelector("#gameDescription").innerHTML = game.description_raw || "Geen beschrijving.";
+            document.querySelector("#gameRating").textContent = game.rating || "N/A";
+            document.querySelector("#gameDate").textContent = game.released || "Onbekend";
+            document.querySelector("#gameCover").src = game.background_image || '/images/placeholder.jpg';
+
+            if (game.platforms) {
+                document.querySelector("#gamePlatforms").innerHTML = game.platforms
+                    .map(p => `<span class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200">${p.platform.name}</span>`)
+                    .join("");
+            }
+
+            updateCollectionUI();
+
+        } catch (error) {
+            console.error("Fout:", error);
+            document.querySelector("#gameDescription").textContent = "Kon de details niet laden.";
+        }
+    };
 });
 
 document.querySelector("#closeGameDetails")?.addEventListener("click", () => {
