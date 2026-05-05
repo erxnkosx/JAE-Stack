@@ -1,17 +1,19 @@
 import {Collection, MongoClient} from "mongodb";
 import "dotenv/config";
-import {Game, User} from "./types";
+import {Game, GameEntry, User} from "./types";
 import bcrypt from 'bcrypt';
 
-const MONGO_URI: string | undefined = process.env.MONGO_URI;
+export const MONGO_URI: string | undefined = process.env.MONGO_URI;
 if (!MONGO_URI) throw new Error("MONGO_URI is undefined");
 
 const API_KEY: string | undefined = process.env.API_KEY;
 if (!API_KEY) throw new Error("API_KEY is undefined");
 
 export const client: MongoClient = new MongoClient(MONGO_URI);
+    
 export const gamesCollection: Collection<Game> = client.db("gamehub").collection("games");
 export const gameEntry: Collection<User> = client.db("gamehub").collection("users");
+export const gameEntryCollection: Collection<GameEntry> = client.db("gamehub").collection<GameEntry>("gameEntries");
 
 const SALT_ROUNDS : number = 10;
 
@@ -48,8 +50,10 @@ const seed = async () => {
     for (let i = 1; i <= 100; i++) {
         const response = await fetch(`https://api.rawg.io/api/games/${i}?key=${API_KEY}`);
         const game: Game = await response.json();
-        if (game.name) games.push(game);
-        games.push(game);
+        if (game.name) 
+        {
+            games.push(game);
+        }
     }
     await gamesCollection.insertMany(games);
 }
@@ -85,7 +89,7 @@ export async function register(email: string, password: string): Promise<User> {
     const newUser: User = {
         email,
         password: hashedPassword,
-        progression: { level: 1, experience: 0 }
+        progression: {level: 1, experience: 0}
     };
 
     await gameEntry.insertOne(newUser);
@@ -97,3 +101,29 @@ export async function seedDatabase() {
     await seed();
 }
 
+export async function getCollection(userId: string): Promise<GameEntry[]> {
+    return await gameEntryCollection.find({ user_id: userId }).toArray();
+}
+
+export async function addToCollection(entry: GameEntry): Promise<void> {
+    const existing = await gameEntryCollection.findOne({ user_id: entry.user_id, rawg_id: entry.rawg_id });
+    if (existing) throw new Error("Game zit al in je collectie");
+    await gameEntryCollection.insertOne(entry);
+}
+
+export async function updateStatus(userId: string, rawgId: number, status: "backlog" | "playing" | "finished"): Promise<void> {
+    if (status === "playing") {
+        await gameEntryCollection.updateMany(
+            { user_id: userId, status: "playing" },
+            { $set: { status: "backlog" } }
+        );
+    }
+    await gameEntryCollection.updateOne(
+        { user_id: userId, rawg_id: rawgId },
+        { $set: { status: status } }
+    );
+}
+
+export async function removeFromCollection(userId: string, rawgId: number): Promise<void> {
+    await gameEntryCollection.deleteOne({ user_id: userId, rawg_id: rawgId });
+}

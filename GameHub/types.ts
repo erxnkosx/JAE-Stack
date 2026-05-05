@@ -49,3 +49,15 @@ export interface FlashMessage {
     type: "error" | "success"
     message: string;
 }
+
+export interface GameEntry {
+    user_id: string;
+    rawg_id: number;
+    title: string;
+    nickname: string;
+    status: "backlog" | "playing" | "finished";
+    background_image: string;
+    rating: number;
+    released: string;
+    description: string;
+}

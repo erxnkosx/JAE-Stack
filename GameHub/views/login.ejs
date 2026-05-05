@@ -9,8 +9,13 @@
             <p class="mt-2 text-slate-500 ">Welkom terug gamer!</p>
         </header>
         <section class=" bg-white/5 backdrop-blur-md p-8 rounded-[2rem] border border-white/10 ">
+            <% if (locals.message) { %>
+                <div class="mb-4 px-4 py-3 rounded-xl text-sm font-semibold <%= message.type === 'success' ? 'bg-green-600/20 text-green-400 border border-green-500/30' : 'bg-red-600/20 text-red-400 border border-red-500/30' %>">
+                    <%= message.message %>
+                </div>
+            <% } %>
             <form id="loginForm" action="/login" method="post" class="flex flex-col gap-2 p-2">
-                <label for="email" class=" text-xs font-bold uppercase text-cyan-500  ">e-mail</label>
+                <label for="email" class=" text-xs font-bold uppercase text-cyan-500  ">email</label>
                 <section class=" relative ">
                     <input type="email" name="email" id="email" placeholder="jouw@e-mail.com" required
                     class=" w-full pl-10 bg-white/10 border border-white/10 rounded-xl pr-4 py-3 mb-5 placeholder-slate-500 ">

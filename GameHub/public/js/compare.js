@@ -1,16 +1,15 @@
-
 let allGames = [];
 
 async function init() {
-    console.log("ja");
-    const response = await fetch("/data/games.json");
-    const data = await response.json();
-    console.log(data);
+    const response = await fetch("/compare/api");
+    allGames = await response.json();
 
-    allGames = data.results;
+    const index1 = Math.floor(Math.random() * allGames.length);
+    let index2 = Math.floor(Math.random() * allGames.length);
+    while (index2 === index1) index2 = Math.floor(Math.random() * allGames.length);
 
-    updateGame(0, 1);
-    updateGame(1, 2);
+    updateGame(index1, 1);
+    updateGame(index2, 2);
 
     setupButtons();
 }
@@ -24,10 +23,9 @@ function updateGame(gameIndex, side) {
         `Beoordeling: ${game.rating} • Metacritic: ${game.metacritic || 'N/A'}`;
 
     document.getElementById(`rating-${side}`).innerText = game.rating;
-    document.getElementById(`meta-rating-${side}`).innerText = game.metacritic
-    document.getElementById(`releasedate-${side}`).innerText = game.released;
-    const countPlatform = game.platforms.length;
-    document.getElementById(`platform-${side}`).innerText = countPlatform;
+    document.getElementById(`meta-rating-${side}`).innerText = game.metacritic || 'N/A';
+    document.getElementById(`releasedate-${side}`).innerText = game.released || 'Onbekend';
+    document.getElementById(`platform-${side}`).innerText = game.platforms?.length || 0;
 
     compareStats();
 }
@@ -43,10 +41,11 @@ function setupButtons() {
         updateGame(randomIndex, 2);
     };
 }
+
 function compareStats() {
     compareRow('rating');
     compareRow('platform');
-    compareRow(`meta-rating`)
+    compareRow('meta-rating');
 }
 
 function compareRow(id) {
@@ -60,8 +59,8 @@ function compareRow(id) {
     const val1 = parseFloat(el1.innerText);
     const val2 = parseFloat(el2.innerText);
 
-    el1.className = "text-xl font-mono text-slate-400";
-    el2.className = "text-xl font-mono text-slate-400";
+    el1.className = "text-xl font-mono text-slate-400 text-left";
+    el2.className = "text-xl font-mono text-slate-400 text-right";
     
     if (arrowLeft) {
         arrowLeft.innerText = "—";
@@ -95,4 +94,4 @@ function compareRow(id) {
         }
     }
 }
-(async () => await init())();
+init();

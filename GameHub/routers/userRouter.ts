@@ -1,10 +1,11 @@
-import { Router } from "express";
+import express from "express";
 
-export function userRouter() {
-    const router = Router();
+export default function userRouter() {
+    const router = express.Router();
 
-    router.get("/", async(req, res) => {
+    router.get("/", async (req, res) => {
         res.render("user");
     });
+
     return router;
 }

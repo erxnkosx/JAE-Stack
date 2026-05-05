@@ -2,14 +2,14 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import path from "path";
 import session from "./sessions/session"; 
-import { homeRouter } from "./routers/homeRouter";
-import { authRouter } from "./routers/authRouter";
-import { compareRouter } from "./routers/compareRouter";
-import { ontdekRouter } from "./routers/ontdekRouter";
-import { collectionRouter } from "./routers/collectionRouter";
-import { raadRouter } from "./routers/raadRouter";
+import  homeRouter  from "./routers/homeRouter";
+import  authRouter  from "./routers/authRouter";
+import compareRouter  from "./routers/compareRouter";
+import ontdekRouter from "./routers/ontdekRouter";
+import  collectionRouter  from "./routers/collectionRouter";
+import  raadRouter  from "./routers/raadRouter";
 import {connect} from "./database";
-import { flashMiddleware } from "./middleware/flashMessage";
+import  {flashMiddleware}  from "./middleware/flashMessage";
 import apiRouter from "./routers/apiRouter";
 
 
