@@ -1,14 +1,13 @@
 import dotenv from "dotenv";
+import { MONGO_URI } from "../database";
 dotenv.config();
 
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import { User, FlashMessage } from "../types";
 
-export const MONGODB_URI = process.env.MONGO_URI;
-
 const mongoStore = MongoStore.create({
-    mongoUrl: MONGODB_URI,
+    mongoUrl: MONGO_URI,
     dbName: "sessions",
     collectionName: "gamehub"
 });

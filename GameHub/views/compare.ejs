@@ -117,86 +117,46 @@
           Statistieken
         </h3>
 
-        <ul class="flex flex-col divide-y divide-white/10">
-          <li class="flex items-center justify-between py-6 md:py-8">
-            <span
-              id="rating-1"
-              class="text-lg md:text-xl font-mono text-slate-400"
-              >0.0</span
-            >
-            <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
-              <span class="arrow-left text-slate-500">—</span>
-              <span
-                class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm"
-                >gebruikers beoordeling</span
-              >
-              <span class="arrow-right text-slate-500">—</span>
-            </div>
-            <span
-              id="rating-2"
-              class="text-lg md:text-xl font-mono text-slate-400"
-              >0.0</span
-            >
-          </li>
-          <li class="flex items-center justify-between py-6 md:py-8">
-            <span
-              id="meta-rating-1"
-              class="text-lg md:text-xl font-mono text-slate-400"
-              >0.0</span
-            >
-            <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
-              <span class="arrow-left text-slate-500">—</span>
-              <span
-                class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm"
-                >metacritic</span
-              >
-              <span class="arrow-right text-slate-500">—</span>
-            </div>
-            <span
-              id="meta-rating-2"
-              class="text-lg md:text-xl font-mono text-slate-400"
-              >0.0</span
-            >
-          </li>
+      <ul class="flex flex-col divide-y divide-white/10">
+        <li class="grid grid-cols-3 items-center py-6 md:py-8">
+          <span id="rating-1" class="text-lg md:text-xl font-mono text-slate-400 text-left">0.0</span>
+          <div class="flex items-center justify-center gap-2 md:gap-3 text-center">
+            <span class="arrow-left text-slate-500">—</span>
+            <span class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">gebruikers beoordeling</span>
+            <span class="arrow-right text-slate-500">—</span>
+          </div>
+          <span id="rating-2" class="text-lg md:text-xl font-mono text-slate-400 text-right">0.0</span>
+        </li>
 
-          <li class="flex items-center justify-between py-6 md:py-8">
-            <span
-              id="releasedate-1"
-              class="text-sm md:text-xl font-mono text-slate-400"
-              >0000-00-00</span
-            >
-            <div
-              class="flex items-center gap-2 md:gap-3 px-2 text-center text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm"
-            >
-              <span>uitgebracht</span>
-            </div>
-            <span
-              id="releasedate-2"
-              class="text-sm md:text-xl font-mono text-slate-400"
-              >0000-00-00</span
-            >
-          </li>
+        <li class="grid grid-cols-3 items-center py-6 md:py-8">
+          <span id="meta-rating-1" class="text-lg md:text-xl font-mono text-slate-400 text-left">0.0</span>
+          <div class="flex items-center justify-center gap-2 md:gap-3 text-center">
+            <span class="arrow-left text-slate-500">—</span>
+            <span class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">metacritic</span>
+            <span class="arrow-right text-slate-500">—</span>
+          </div>
+          <span id="meta-rating-2" class="text-lg md:text-xl font-mono text-slate-400 text-right">0.0</span>
+        </li>
 
-          <li class="flex items-center justify-between py-6 md:py-8">
-            <span
-              id="platform-1"
-              class="text-lg md:text-xl font-mono text-slate-400"
-              >0</span
-            >
-            <div class="flex items-center gap-2 md:gap-3 px-2 text-center">
-              <span class="arrow-left text-slate-500">—</span>
-              <span
-                class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm"
-                >Platformen</span
-              >
-              <span class="arrow-right text-slate-500">—</span>
-            </div>
-            <span
-              id="platform-2"
-              class="text-lg md:text-xl font-mono text-slate-400"
-              >0</span
-            >
-          </li>
-        </ul>
+        <li class="grid grid-cols-3 items-center py-6 md:py-8">
+          <span id="releasedate-1" class="text-sm md:text-xl font-mono text-slate-400 text-left">0000-00-00</span>
+          <div class="flex items-center justify-center gap-2 md:gap-3 text-center">
+            <span class="arrow-left text-slate-500">—</span>
+            <span class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">uitgebracht</span>
+            <span class="arrow-right text-slate-500">—</span>
+          </div>
+          <span id="releasedate-2" class="text-sm md:text-xl font-mono text-slate-400 text-right">0000-00-00</span>
+        </li>
+
+        <li class="grid grid-cols-3 items-center py-6 md:py-8">
+          <span id="platform-1" class="text-lg md:text-xl font-mono text-slate-400 text-left">0</span>
+          <div class="flex items-center justify-center gap-2 md:gap-3 text-center">
+            <span class="arrow-left text-slate-500">—</span>
+            <span class="text-slate-400 uppercase tracking-tighter font-bold text-[10px] md:text-sm">Platformen</span>
+            <span class="arrow-right text-slate-500">—</span>
+          </div>
+          <span id="platform-2" class="text-lg md:text-xl font-mono text-slate-400 text-right">0</span>
+        </li>
+      </ul>
       </section>
   <%- include("partials/footer") %>

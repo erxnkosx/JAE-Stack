@@ -4,7 +4,7 @@ import {getGames} from "../database";
 import {secureMiddleware} from "../middleware/secureMiddleware";
 import {evaluateGame, restartGame} from "../services/raadService";
 
-export function raadRouter() {
+export default function raadRouter() {
     const router = express.Router();
 
     router.get("/", secureMiddleware, async (req, res) => {

@@ -1,9 +1,9 @@
 import express from "express";
 import {User} from "../types"
 import { login, register } from "../database";
-import { redirectIfLoggedIn } from "../middleware/secureMiddleware";
+import { redirectIfLoggedIn, secureMiddleware } from "../middleware/secureMiddleware";
 
-export function authRouter() {
+export default function authRouter() {
     const router = express.Router();
 
     router.get("/login", redirectIfLoggedIn, (req, res) => {
@@ -47,9 +47,9 @@ export function authRouter() {
         }
         });
 
-        router.post("/logout", (req, res) => {
+    router.post("/logout",secureMiddleware, (req, res) => {
         req.session.destroy(() => {
-            res.redirect("/login");
+            res.redirect("/");
         });
     });
     return router;
