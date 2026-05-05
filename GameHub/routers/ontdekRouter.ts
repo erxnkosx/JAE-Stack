@@ -29,6 +29,24 @@ export function ontdekRouter() {
         const response = await fetch(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&q=${q}`);
 
     });
+    router.get("/game/:rawgId", async (req, res) => {
+    const id = req.params.rawgId;
+    try {
+        const response = await fetch(
+            `https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY}`
+        );
+
+        if (!response.ok) {
+            return res.status(404).json({ error: "Game niet gevonden" });
+        }
+
+        const gameData = await response.json();
+        
+        res.json(gameData); 
+    } catch (error) {
+        res.status(500).json({ error: "Server fout" });
+    }
+});
 
 
     return router;
