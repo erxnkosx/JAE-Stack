@@ -47,7 +47,9 @@
         ></section>
     </section>
 
+
     <section class="max-w-7xl mx-auto mt-20">
+        <% if (!isSearching) { %>
         <h2 class="text-3xl font-black text-white mb-6">Populaire games</h2>
 
         <nav class="flex items-center justify-between border-t border-white/10 pt-4">
@@ -83,6 +85,7 @@
                 </span>
             <% } %>
         </nav>
+        <% } %>
     </section>
 
     <section

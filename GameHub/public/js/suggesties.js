@@ -28,7 +28,6 @@ async function fetchGames(q) {
     const results = await response.json();
     if(results.length === 0) return hide();
 
-    if (!gameSearch) {
 
         box.innerHTML = results.map(r => `<div class="hover:bg-white/10 text-white px-4 py-3 cursor-pointer ">${r.name}</div>`).join("");
         box.addEventListener("click", (e) => {
@@ -36,7 +35,6 @@ async function fetchGames(q) {
             hide();
         });
         show()
-    }
 }
 
 document.addEventListener("click", (e) => {
