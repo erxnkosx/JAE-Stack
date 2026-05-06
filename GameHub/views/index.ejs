@@ -1,6 +1,6 @@
 <%- include("partials/header", { scripts: ['/js/index.js'] }) %>
 
-  <main class="animate-fadeIn relative min-h-screen md:py-16 md:px-30 p-4 flex flex-col items-center">
+  <main class="animate-fadeIn relative min-h-screen md:pt-8 md:pb-16 md:px-30 p-4 flex flex-col items-center">
     <div class="w-full relative flex flex-wrap items-center justify-end gap-3 mb-10 min-h-[40px]">
       <% if (locals.message) { %>
         <div class="w-full sm:w-auto sm:absolute sm:left-1/2 sm:-translate-x-1/2 text-center px-4 py-2 rounded-xl text-sm font-semibold <%= message.type === 'success' ? 'bg-green-600/20 text-green-400 border border-green-500/30' : 'bg-red-600/20 text-red-400 border border-red-500/30' %>">
@@ -14,10 +14,10 @@
     </div>
     <section class="flex flex-col items-center text-center w-full">
         <h1 class="text-3xl sm:text-5xl font-black leading-tight gradient-text mb-4 sm:mb-6 animate-gradient">
-          Welkom bij GameHub
+          Welkom bij de projectselectie
         </h1>
         <p class="text-slate-400 text-base sm:text-xl font-light">
-          Kies je gewenste project
+          Maak een keuze
         </p>
       </section>
 
@@ -148,39 +148,15 @@
           </section>
         </article>
       </section>
-      <section
-        class="pop-up-container pointer-events-none transition-all opacity-0 duration-500 fixed z-1000 inset-0 bg-black/40 backdrop-blur-lg flex items-center justify-center"
-      >
-        <section
-          class="pop-up-card w-120 h-60 rounded-2xl transition-all opacity-0 glass-strong neon-cyan flex flex-col items-center justify-center text-2xl text-slate-500 font-black gradient-text animate-gradient"
-        >
-          <button
-            class="pop-up-close absolute right-3 top-3 p-2 rounded-2xl backdrop-blur-xl transition-all duration-500 glass text-slate-400 hover:text-white hover:scale-105"
-          >
-            <svg
-              class="w-2.5 h-2.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z"
-                  fill="currentColor"
-                ></path>
-              </g>
-            </svg>
-          </button>
-          Binnenkort beschikbaar...
-        </section>
-      </section>
+      <dialog id="locked_modal" style="display:none" class="fixed inset-0 m-auto w-120 h-60 rounded-2xl glass-strong neon-cyan flex flex-col items-center justify-center text-2xl text-slate-500 font-black gradient-text animate-gradient backdrop:bg-black/40 backdrop:backdrop-blur-lg">
+        <button id="modal-close" class="absolute right-3 top-3 p-2 rounded-2xl backdrop-blur-xl transition-all duration-500 bg-white/3 text-slate-400 hover:text-white hover:scale-105 focus:outline-none" style="border:none;">
+          <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_iconCarrier">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z" fill="currentColor"></path>
+            </g>
+          </svg>
+        </button>
+        Binnenkort beschikbaar...
+      </dialog>
 
    <%- include("partials/footer") %>

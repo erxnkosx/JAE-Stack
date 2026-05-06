@@ -1,38 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.querySelector(".pop-up-container");
-  const card = document.querySelector(".pop-up-card");
-  const closeButton = document.querySelector(".pop-up-close");
+  const modal = document.getElementById("locked_modal");
+  const closeBtn = document.getElementById("modal-close");
   const lockedProjects = document.querySelectorAll(".not-available");
 
-  if (!container  || !card || !closeButton || lockedProjects.length === 0) return;
+  if (!modal || lockedProjects.length === 0) return;
 
-  function toggleContainer(isOpen) {
-    container.classList.toggle("opacity-100", isOpen);
-    container.classList.toggle("pointer-events-auto", isOpen);
-    container.classList.toggle("opacity-0", !isOpen);
-    container.classList.toggle("pointer-events-none", !isOpen);
-
-    card.classList.toggle("opacity-100", isOpen);
-    card.classList.toggle("opacity-0", !isOpen);
-  }
+  modal.style.display = "none";
 
   lockedProjects.forEach((project) => {
     project.style.cursor = "pointer";
-    project.addEventListener("click", (e) => {
-      toggleContainer(true);
+    project.addEventListener("click", () => {
+      modal.style.display = "";
+      modal.showModal();
     });
   });
 
-  closeButton.addEventListener("click", (e) => {
-    e.stopPropagation();
-    toggleContainer(false);
+  closeBtn.addEventListener("click", () => {
+    modal.close();
+    modal.style.display = "none";
   });
 
-  container.addEventListener("click", () => toggleContainer(false));
-  card.addEventListener("click", (e) => e.stopPropagation());
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.close();
+      modal.style.display = "none";
+    }
+  });
 
   window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") toggleContainer(false);
+    if (e.key === "Escape") {
+      modal.close();
+      modal.style.display = "none";
+    }
   });
 });
-
