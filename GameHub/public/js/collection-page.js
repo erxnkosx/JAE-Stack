@@ -318,4 +318,4 @@ function setupEventListeners() {
 }
 
 setupEventListeners();
-renderGames();
+await renderGames();
