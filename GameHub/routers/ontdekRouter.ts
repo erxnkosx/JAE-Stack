@@ -9,6 +9,7 @@ export default function ontdekRouter() {
     const cachedGames = new Map<string, Cache>();
     router.get("/", secureMiddleware, async (req, res) => {
         const info: PageInfo = { currentPage: "ontdek" };
+        const isSearching: boolean = false;
         const page = Number(req.query.page) || 1;
         const pageSize = 12;
         const response = await fetch(
@@ -22,6 +23,7 @@ export default function ontdekRouter() {
         res.render("ontdek", {
             info,
             games,
+            isSearching,
             currentPage: page,
             hasNextPage: Boolean(data.next),
             hasPreviousPage: Boolean(data.previous)
@@ -31,25 +33,28 @@ export default function ontdekRouter() {
     router.get("/suggestions", async (req, res) => {
         const q = req.query.q as string;
         const info: PageInfo = { currentPage: "ontdek" };
+        const isSearching: boolean = true;
         const page: number = 0;
         let games: Game[] = [];
         console.log(q);
 
-        const gamesInCache: Game[] = findQueryInCache(q, cachedGames);
+        if (cachedGames.size !== 0) {
+            games = findQueryInCache(q, cachedGames);
+        }
 
-        if (gamesInCache.length === 0) {
+        if (games.length === 0) {
             games = await fetchAllGamesWithQuery(q);
             cacheGames(q, cachedGames, games);
         }
         console.log("Fetched: ", games.length);
         console.log("Cache", cachedGames.size);
 
-        games = games.length > 0 ? games : gamesInCache;
         games = await getGamesDetail(games);
 
 
         res.render("ontdek", {
             info,
+            isSearching,
             games: games,
             currentPage: page,
             hasNextPage: false,
