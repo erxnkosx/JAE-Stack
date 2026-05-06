@@ -1,5 +1,10 @@
 type currentPage = "ontdek" | "collectie" | "vergelijk" | "raad";
 
+export interface Cache {
+    games: Game[];
+    expiresAt: Number;
+}
+
 export interface PageInfo {
     currentPage: currentPage;
 }

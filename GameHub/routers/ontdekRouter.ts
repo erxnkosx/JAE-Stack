@@ -1,11 +1,12 @@
 import express from "express";
-import { PageInfo } from "../types";
+import {PageInfo, Cache, Game} from "../types";
 import { secureMiddleware } from "../middleware/secureMiddleware";
 import { getGames } from "../database";
+import {cacheGames, fetchAllGamesWithQuery, findQueryInCache, getGamesDetail} from "../services/gamesService";
 
 export default function ontdekRouter() {
     const router = express.Router();
-
+    const cachedGames = new Map<string, Cache>();
     router.get("/", secureMiddleware, async (req, res) => {
         const info: PageInfo = { currentPage: "ontdek" };
         const page = Number(req.query.page) || 1;
@@ -15,11 +16,8 @@ export default function ontdekRouter() {
         );
         const data = await response.json();
 
-        const games = await Promise.all(data.results.map(async (game: any) => {
-            const detail = await fetch(`https://api.rawg.io/api/games/${game.id}?key=${process.env.API_KEY}`);
-            const detailData = await detail.json();
-            return { ...game, description_raw: detailData.description_raw || "" };
-        }));
+        const games = await getGamesDetail(data.results);
+
 
         res.render("ontdek", {
             info,
@@ -30,11 +28,43 @@ export default function ontdekRouter() {
         });
     });
 
+    router.get("/suggestions", async (req, res) => {
+        const q = req.query.q as string;
+        const info: PageInfo = { currentPage: "ontdek" };
+        const page: number = 0;
+        let games: Game[] = [];
+        console.log(q);
+
+        const gamesInCache: Game[] = findQueryInCache(q, cachedGames);
+
+        if (gamesInCache.length === 0) {
+            games = await fetchAllGamesWithQuery(q);
+            cacheGames(q, cachedGames, games);
+        }
+        console.log("Fetched: ", games.length);
+        console.log("Cache", cachedGames.size);
+
+        games = games.length > 0 ? games : gamesInCache;
+        games = await getGamesDetail(games);
+
+
+        res.render("ontdek", {
+            info,
+            games: games,
+            currentPage: page,
+            hasNextPage: false,
+            hasPreviousPage: false
+        });
+    });
+
+
+
     router.get("/suggest", async (req, res) => {
         const q = String(req.query.q);
         const response = await fetch(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&search=${q}&page_size=5`);
         const data = await response.json();
         res.json(data.results);
+
     });
     router.get("/game/:rawgId", async (req, res) => {
     const id = req.params.rawgId;

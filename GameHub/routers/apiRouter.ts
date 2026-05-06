@@ -11,5 +11,16 @@ export default function apiRouter() {
         return res.json(response.results);
     });
 
+    router.get("/api/allGames", async (req, res) => {
+
+        let next: boolean = true;
+        let page: number = 1;
+        const response = await fetch(
+            `https://api.rawg.io/api/games?key=${process.env.API_KEY}&page=${page}&ordering=-rating`
+        );
+        const data = await response.json();
+        return res.json(data.results);
+    })
+
     return router;
 }
