@@ -1,6 +1,7 @@
 
 const gameSearch = document.getElementById("gameSearch");
 const box = document.getElementById("suggestions");
+const gameStorage = document.getElementById("gamesStorage");
 
 let t = null;
 
@@ -27,12 +28,15 @@ async function fetchGames(q) {
     const results = await response.json();
     if(results.length === 0) return hide();
 
-    box.innerHTML = results.map(r => `<div class="hover:bg-white/10 text-white px-4 py-3 cursor-pointer ">${r.name}</div>`).join("");
-    box.addEventListener("click", (e) => {
-        gameSearch.value = e.target.textContent;
-        hide();
-    });
-    show()
+    if (!gameSearch) {
+
+        box.innerHTML = results.map(r => `<div class="hover:bg-white/10 text-white px-4 py-3 cursor-pointer ">${r.name}</div>`).join("");
+        box.addEventListener("click", (e) => {
+            gameSearch.value = e.target.textContent;
+            hide();
+        });
+        show()
+    }
 }
 
 document.addEventListener("click", (e) => {

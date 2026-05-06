@@ -24,12 +24,22 @@
     </section>
 
     <section class="max-w-5xl mx-auto mt-10 sm:mt-14">
+        <form class="relative">
         <input
                 id="gameSearch"
                 type="text"
                 placeholder="Zoek games..."
+                name="q"
                 class="w-full rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 px-5 sm:px-7 md:px-10 py-4 sm:py-5 md:py-6 text-base sm:text-lg md:text-2xl text-white placeholder-slate-500 outline-none backdrop-blur-md"
         />
+
+            <button formaction="/ontdek/suggestions" class="absolute right-5 top-0 bottom-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+            </button>
+        </form>
+
 
         <section
                 id="suggestions"

@@ -1,185 +1,244 @@
-let currentRawgId = null;
+document.addEventListener("DOMContentLoaded", () => {
+    let currentRawgId = null;
 
-async function fetchCollection() {
-  const res = await fetch("/collection/api");
-  if (!res.ok) return [];
-  return await res.json();
-}
+    const detail = document.querySelector("#gameDetails");
+    const cards = document.querySelectorAll(".game-card");
 
-async function updateCollectionUI() {
-  const collection = await fetchCollection();
-  const game = collection.find(g => g.rawg_id === currentRawgId);
+    console.log("Aantal cards:", cards.length);
 
-  const collectionBtn = document.querySelector("#collectionBtn");
-  const collectionStatus = document.querySelector("#collectionStatus");
+    const statusLabels = {
+        backlog: "Nog te spelen",
+        playing: "Aan het spelen",
+        finished: "Uitgespeeld"
+    };
 
-  if (!game) {
-    collectionStatus.textContent = "Niet in collectie";
-    collectionStatus.className = "rounded-full px-4 py-2 text-sm font-semibold bg-red-600 text-white";
-    collectionBtn.textContent = "Voeg toe aan collectie";
-    collectionBtn.className = "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700";
-    return;
-  }
+    const statusColors = {
+        backlog: "bg-yellow-600",
+        playing: "bg-cyan-600",
+        finished: "bg-green-600"
+    };
 
-  const statusLabels = { backlog: "Nog te spelen", playing: "Aan het spelen", finished: "Uitgespeeld" };
-  const statusColors = { backlog: "bg-yellow-600", playing: "bg-cyan-600", finished: "bg-green-600" };
+    async function fetchCollection() {
+        const response = await fetch("/collection/api");
 
-  collectionStatus.textContent = statusLabels[game.status];
-  collectionStatus.className = `rounded-full px-4 py-2 text-sm font-semibold ${statusColors[game.status]} text-white`;
-  collectionBtn.textContent = "Verwijder uit collectie";
-  collectionBtn.className = "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700";
-}
+        if (!response.ok) {
+            return [];
+        }
 
-// cards.forEach(card => {
-//   card.onclick = () => {
-//     currentId = card.dataset.id;
-//     currentTitle = card.dataset.title;
+        return await response.json();
+    }
 
-//     document.querySelector("#gameTitle").textContent = card.dataset.title;
-//     document.querySelector("#gameDescription").textContent = card.dataset.description;
-//     document.querySelector("#gameRating").textContent = card.dataset.rating;
-//     document.querySelector("#gameDate").textContent = card.dataset.date;
-//     document.querySelector("#gameCover").src = card.dataset.image;
-//     document.querySelector("#gameCover").alt = card.dataset.title;
+    function openModal() {
+        detail?.classList.remove("hidden");
+        detail?.classList.add("flex");
+    }
 
-//     updateCollectionUI();
+    function closeModal() {
+        detail?.classList.add("hidden");
+        detail?.classList.remove("flex");
+    }
 
-//     detail.classList.remove("hidden");
-//     detail.classList.add("flex");
-//   };
-// });
-cards.forEach(card => {
-    card.onclick = async () => {
-        currentId = card.dataset.id;
-        currentTitle = card.dataset.title;
-
+    function setLoadingState() {
         document.querySelector("#gameTitle").textContent = "Laden...";
         document.querySelector("#gameDescription").textContent = "Details ophalen...";
-        
-        detail.classList.remove("hidden");
-        detail.classList.add("flex");
+        document.querySelector("#gameRating").textContent = "";
+        document.querySelector("#gameDate").textContent = "";
+
+        const platforms = document.querySelector("#gamePlatforms");
+
+        if (platforms) {
+            platforms.innerHTML = "";
+        }
+    }
+
+    function fillGameDetails(game) {
+        document.querySelector("#gameTitle").textContent = game.name;
+        document.querySelector("#gameDescription").textContent = game.description_raw || "Geen beschrijving.";
+        document.querySelector("#gameRating").textContent = game.rating || "N/A";
+        document.querySelector("#gameDate").textContent = game.released || "Onbekend";
+
+        const cover = document.querySelector("#gameCover");
+        cover.src = game.background_image || "/images/placeholder.jpg";
+        cover.alt = game.name;
+
+        const platforms = document.querySelector("#gamePlatforms");
+
+        if (!platforms) {
+            return;
+        }
+
+        if (!game.platforms) {
+            platforms.innerHTML = "";
+            return;
+        }
+
+        platforms.innerHTML = game.platforms
+            .map(platformInfo => `
+                <span class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200">
+                    ${platformInfo.platform.name}
+                </span>
+            `)
+            .join("");
+    }
+
+    async function openGameDetails(rawgId) {
+        currentRawgId = Number(rawgId);
+
+        setLoadingState();
+        openModal();
 
         try {
-            const response = await fetch(`/ontdek/game/${currentId}`);
-            const game = await response.json();
+            const response = await fetch(`/ontdek/game/${currentRawgId}`);
 
-            document.querySelector("#gameTitle").textContent = game.name;
-            document.querySelector("#gameDescription").innerHTML = game.description_raw || "Geen beschrijving.";
-            document.querySelector("#gameRating").textContent = game.rating || "N/A";
-            document.querySelector("#gameDate").textContent = game.released || "Onbekend";
-            document.querySelector("#gameCover").src = game.background_image || '/images/placeholder.jpg';
-
-            if (game.platforms) {
-                document.querySelector("#gamePlatforms").innerHTML = game.platforms
-                    .map(p => `<span class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200">${p.platform.name}</span>`)
-                    .join("");
+            if (!response.ok) {
+                throw new Error("Game details konden niet geladen worden.");
             }
 
-            updateCollectionUI();
+            const game = await response.json();
 
+            fillGameDetails(game);
+            await updateCollectionUI();
         } catch (error) {
-            console.error("Fout:", error);
+            console.error(error);
             document.querySelector("#gameDescription").textContent = "Kon de details niet laden.";
         }
-    };
-});
+    }
 
-document.querySelector("#closeGameDetails")?.addEventListener("click", () => {
-  document.querySelector("#gameDetails").classList.add("hidden");
-  document.querySelector("#gameDetails").classList.remove("flex");
-});
+    async function updateCollectionUI() {
+        const collection = await fetchCollection();
+        const game = collection.find(game => Number(game.rawg_id) === Number(currentRawgId));
 
-document.querySelector("#gameDetails")?.addEventListener("click", e => {
-  if (e.target === document.querySelector("#gameDetails")) {
-    document.querySelector("#gameDetails").classList.add("hidden");
-    document.querySelector("#gameDetails").classList.remove("flex");
-  }
-});
+        const collectionBtn = document.querySelector("#collectionBtn");
+        const collectionStatus = document.querySelector("#collectionStatus");
 
-document.querySelector("#collectionBtn").onclick = async () => {
-  if (!currentRawgId) return;
+        if (!collectionBtn || !collectionStatus) {
+            return;
+        }
 
-  const collection = await fetchCollection();
-  const inCollection = collection.some(g => g.rawg_id === currentRawgId);
+        if (!game) {
+            collectionStatus.textContent = "Niet in collectie";
+            collectionStatus.className = "rounded-full px-4 py-2 text-sm font-semibold bg-red-600 text-white";
 
-  if (inCollection) {
-    if (!confirm("Weet je zeker dat je deze game wilt verwijderen uit je collectie?")) return;
-    await fetch(`/collection/api/${currentRawgId}`, { method: "DELETE" });
-  } else {
-    const nickname = prompt("Geef een bijnaam voor deze game (optioneel):");
-    await fetch("/collection/api", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        rawg_id: currentRawgId,
-        title: document.querySelector("#gameTitle").textContent,
-        nickname: nickname || "",
-        status: "backlog",
-        background_image: document.querySelector("#gameCover").src,
-        rating: document.querySelector("#gameRating").textContent,
-        released: document.querySelector("#gameDate").textContent,
-        description: document.querySelector("#gameDescription").textContent
-      })
-    });
-  }
-  await updateCollectionUI();
-};
+            collectionBtn.textContent = "Voeg toe aan collectie";
+            collectionBtn.className = "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700";
 
-async function changeStatus(status) {
-  if (!currentRawgId) return;
-  await fetch(`/collection/api/${currentRawgId}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ status })
-  });
-  await updateCollectionUI();
-}
+            return;
+        }
 
-document.getElementById("setBacklog")?.addEventListener("click", () => changeStatus("backlog"));
-document.getElementById("setPlaying")?.addEventListener("click", () => changeStatus("playing"));
-document.getElementById("setFinished")?.addEventListener("click", () => changeStatus("finished"));
+        collectionStatus.textContent = statusLabels[game.status] || "In collectie";
+        collectionStatus.className = `rounded-full px-4 py-2 text-sm font-semibold ${statusColors[game.status] || "bg-slate-600"} text-white`;
 
-const gameSearch = document.getElementById("gameSearch");
-const suggestions = document.getElementById("suggestions");
+        collectionBtn.textContent = "Verwijder uit collectie";
+        collectionBtn.className = "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700";
+    }
 
-gameSearch.addEventListener("input", e => {
-  const input = e.target.value;
-  suggestions.innerHTML = "";
-  suggestions.classList.add("hidden");
+    function getCurrentGamePayload() {
+        return {
+            rawg_id: currentRawgId,
+            title: document.querySelector("#gameTitle").textContent,
+            nickname: prompt("Geef een bijnaam voor deze game (optioneel):") || "",
+            status: "backlog",
+            background_image: document.querySelector("#gameCover").src,
+            rating: document.querySelector("#gameRating").textContent,
+            released: document.querySelector("#gameDate").textContent,
+            description: document.querySelector("#gameDescription").textContent
+        };
+    }
 
-  if (input.length <= 1) {
-    document.querySelectorAll(".game-card").forEach(c => c.classList.remove("hidden"));
-    return;
-  }
-
-  const results = Array.from(document.querySelectorAll(".game-card"))
-    .filter(card => card.dataset.title.toLowerCase().startsWith(input.toLowerCase()));
-
-  if (results.length > 0) {
-    suggestions.classList.remove("hidden");
-    suggestions.innerHTML = results.map(c => `
-      <div class="suggestion hover:bg-white/10 text-white px-4 py-3 cursor-pointer">${c.dataset.title}</div>
-    `).join("");
-
-    document.querySelectorAll(".suggestion").forEach(s => {
-      s.addEventListener("click", () => {
-        gameSearch.value = s.innerText.trim();
-        suggestions.classList.add("hidden");
-        document.querySelectorAll(".game-card").forEach(c => {
-          c.classList.toggle("hidden", c.dataset.title.toLowerCase() !== s.innerText.trim().toLowerCase());
+    async function addGameToCollection() {
+        await fetch("/collection/api", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(getCurrentGamePayload())
         });
-      });
-    });
-  }
-});
+    }
 
-gameSearch.addEventListener("keydown", e => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    const val = gameSearch.value.trim();
-    suggestions.classList.add("hidden");
-    document.querySelectorAll(".game-card").forEach(c => {
-      c.classList.toggle("hidden", val.length > 0 && c.dataset.title.toLowerCase() !== val.toLowerCase());
-    });
-  }
+    async function removeGameFromCollection() {
+        const confirmed = confirm("Weet je zeker dat je deze game wilt verwijderen uit je collectie?");
+
+        if (!confirmed) {
+            return false;
+        }
+
+        await fetch(`/collection/api/${currentRawgId}`, {
+            method: "DELETE"
+        });
+
+        return true;
+    }
+
+    async function toggleCollection() {
+        if (!currentRawgId) {
+            return;
+        }
+
+        const collection = await fetchCollection();
+        const inCollection = collection.some(game => Number(game.rawg_id) === Number(currentRawgId));
+
+        if (inCollection) {
+            const removed = await removeGameFromCollection();
+
+            if (!removed) {
+                return;
+            }
+        } else {
+            await addGameToCollection();
+        }
+
+        await updateCollectionUI();
+    }
+
+    async function changeStatus(status) {
+        if (!currentRawgId) {
+            return;
+        }
+
+        await fetch(`/collection/api/${currentRawgId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ status })
+        });
+
+        await updateCollectionUI();
+    }
+
+
+    function setupCardEvents() {
+        cards.forEach(card => {
+            card.addEventListener("click", () => {
+                openGameDetails(card.dataset.id);
+            });
+        });
+    }
+
+    function setupModalEvents() {
+        document.querySelector("#closeGameDetails")?.addEventListener("click", closeModal);
+
+        detail?.addEventListener("click", event => {
+            if (event.target === detail) {
+                closeModal();
+            }
+        });
+    }
+
+    function setupCollectionEvents() {
+        document.querySelector("#collectionBtn")?.addEventListener("click", toggleCollection);
+
+        document.querySelector("#setBacklog")?.addEventListener("click", () => changeStatus("backlog"));
+        document.querySelector("#setPlaying")?.addEventListener("click", () => changeStatus("playing"));
+        document.querySelector("#setFinished")?.addEventListener("click", () => changeStatus("finished"));
+    }
+
+
+    function init() {
+        setupCardEvents();
+        setupModalEvents();
+        setupCollectionEvents();
+    }
+
+    init();
 });
