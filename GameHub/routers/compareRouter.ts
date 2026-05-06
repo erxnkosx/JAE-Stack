@@ -15,7 +15,7 @@ export default function compareRouter() {
     });
 
     router.get("/api", secureMiddleware, async (req, res) => {
-        const response = await fetch(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&page_size=100&ordering=-rating`);
+        const response = await fetch(`https://api.rawg.io/api/games?key=${process.env.API_KEY}`);
         const data = await response.json();
         res.json(data.results);
     });
