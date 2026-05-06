@@ -46,9 +46,20 @@ function compareStats() {
     compareRow('rating');
     compareRow('platform');
     compareRow('meta-rating');
+    compareRow('releasedate', "date");
 }
 
-function compareRow(id) {
+function getComparableValue(element, type="") {
+    const text = element.innerText.trim();
+
+    if (type === "date") {
+        return new Date(text).getTime();
+    }
+
+    return parseFloat(text);
+}
+
+function compareRow(id, type="") {
     const el1 = document.getElementById(`${id}-1`);
     const el2 = document.getElementById(`${id}-2`);
     
@@ -56,8 +67,8 @@ function compareRow(id) {
     const arrowLeft = parent.querySelector('.arrow-left');
     const arrowRight = parent.querySelector('.arrow-right');
 
-    const val1 = parseFloat(el1.innerText);
-    const val2 = parseFloat(el2.innerText);
+    const val1 = getComparableValue(el1, type);
+    const val2 = getComparableValue(el2, type);
 
     el1.className = "text-xl font-mono text-slate-400 text-left";
     el2.className = "text-xl font-mono text-slate-400 text-right";
