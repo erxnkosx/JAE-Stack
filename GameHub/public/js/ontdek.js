@@ -136,7 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return {
             rawg_id: currentRawgId,
             title: document.querySelector("#gameTitle").textContent,
-            nickname: prompt("Geef een bijnaam voor deze game (optioneel):") || "",
             status: "backlog",
             background_image: document.querySelector("#gameCover").src,
             rating: document.querySelector("#gameRating").textContent,
@@ -154,19 +153,20 @@ document.addEventListener("DOMContentLoaded", () => {
             body: JSON.stringify(getCurrentGamePayload())
         });
     }
+    
+    window.closeVerwijder = function() {
+        document.getElementById('verwijderModal').style.display = 'none';
+    }
 
+    window.confirmDelete = async function() {
+        document.getElementById('verwijderModal').style.display = 'none';
+        await fetch(`/collection/api/${currentRawgId}`, { method: "DELETE" });
+        await updateCollectionUI();
+    }
+    
     async function removeGameFromCollection() {
-        const confirmed = confirm("Weet je zeker dat je deze game wilt verwijderen uit je collectie?");
-
-        if (!confirmed) {
-            return false;
-        }
-
-        await fetch(`/collection/api/${currentRawgId}`, {
-            method: "DELETE"
-        });
-
-        return true;
+        document.getElementById('verwijderModal').style.display = 'flex';
+        return false;
     }
 
     async function toggleCollection() {

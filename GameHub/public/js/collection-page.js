@@ -214,16 +214,15 @@ async function addGameToCollection() {
   });
 }
 
-async function removeGameFromCollection() {
-  const confirmed = confirm("Weet je zeker dat je deze game wilt verwijderen?");
+window.closeVerwijder = async function() {
+    document.getElementById('verwijderModal').style.display = 'none';
+}
 
-  if (!confirmed) {
-    return;
-  }
-
-  await fetch(`/collection/api/${currentRawgId}`, {
-    method: "DELETE"
-  });
+window.confirmDelete = async function() {
+    document.getElementById('verwijderModal').style.display = 'none';
+    await fetch(`/collection/api/${currentRawgId}`, { method: "DELETE" });
+    await renderGames();
+    await updateCollectionUI();
 }
 
 async function toggleCollection() {
@@ -235,7 +234,7 @@ async function toggleCollection() {
   const gameExists = collection.some(game => game.rawg_id === currentRawgId);
 
   if (gameExists) {
-    await removeGameFromCollection();
+    document.getElementById('verwijderModal').style.display = 'flex';
   } else {
     await addGameToCollection();
   }
