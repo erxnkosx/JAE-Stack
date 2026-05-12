@@ -77,14 +77,15 @@ export default function ontdekRouter() {
         const response = await fetch(
             `https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY}`
         );
-
+        console.log("raw");
         if (!response.ok) {
             return res.status(404).json({ error: "Game niet gevonden" });
         }
 
         const gameData = await response.json();
-        
-        res.json(gameData); 
+        const description = gameData.description_raw || "Geen beschrijving beschikbaar.";
+        const descriptionShort = description.length > 200 ? description.substring(0, 200) : description;
+        res.json({ ...gameData, description_raw: descriptionShort });
     } catch (error) {
         res.status(500).json({ error: "Server fout" });
     }
@@ -99,6 +100,7 @@ export default function ontdekRouter() {
         const response = await fetch(`https://api.rawg.io/api/games/${req.params.id}?key=${process.env.API_KEY}`);
         const data = await response.json();
         const description = data.description_raw || "Geen beschrijving beschikbaar.";
+        console.log("substring");
         res.json({ description: description.length > 200 ? description.substring(0, 200) + "..." : description });
     });
 
