@@ -12,7 +12,7 @@ if (!API_KEY) throw new Error("API_KEY is undefined");
 export const client: MongoClient = new MongoClient(MONGO_URI);
     
 export const gamesCollection: Collection<Game> = client.db("gamehub").collection("games");
-export const gameEntry: Collection<User> = client.db("gamehub").collection("users");
+export const userCollection: Collection<User> = client.db("gamehub").collection("users");
 export const gameEntryCollection: Collection<GameEntry> = client.db("gamehub").collection<GameEntry>("gameEntries");
 
 const SALT_ROUNDS : number = 10;
@@ -62,7 +62,7 @@ export async function login(email: string, password: string) {
     if (email === "" || password === "") {
         throw new Error("Email en wachtwoord zijn verplicht");
     }
-    let user: User | null = await gameEntry.findOne<User>({ email: email });
+    let user: User | null = await userCollection.findOne<User>({ email: email });
     if (user) {
         if (await bcrypt.compare(password, user.password!)) {
             return user;
@@ -79,7 +79,7 @@ export async function register(email: string, password: string): Promise<User> {
         throw new Error("Email en wachtwoord zijn verplicht");
     }
 
-    const existingUser = await gameEntry.findOne({ email });
+    const existingUser = await userCollection.findOne({ email });
     if (existingUser) {
         throw new Error("Gebruiker bestaat al");
     }
@@ -92,7 +92,7 @@ export async function register(email: string, password: string): Promise<User> {
         progression: {level: 1, experience: 0}
     };
 
-    await gameEntry.insertOne(newUser);
+    await userCollection.insertOne(newUser);
 
     return newUser;
 }
