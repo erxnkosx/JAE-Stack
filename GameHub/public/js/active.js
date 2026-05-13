@@ -37,16 +37,36 @@ async function renderCurrentGameBanner() {
           Verwijderen
         </button>
       </section>
+      <section id="verwijderModal" style="display:none;" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/70">
+          <div class="bg-zinc-900 border border-white/10 rounded-2xl p-6 max-w-md mx-4">
+              <p class="text-white mb-5">Weet je zeker dat je deze game wilt verwijderen?</p>
+              <div class="flex gap-2 justify-center">
+                  <button onclick="closeVerwijder()" class="px-4 py-2 rounded-xl text-sm bg-white/5 text-slate-300">Annuleren</button>
+                  <button onclick="confirmDelete()" class="px-4 py-2 rounded-xl text-sm bg-red-600/20 text-red-400">Verwijderen</button>
+              </div>
+          </div>
+      </section>
     `;
 
-    document.getElementById("clearCurrentGameBtn").onclick = async () => {
-        await fetch(`/collection/api/${currentGame.rawg_id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ status: "backlog" })
-        });
-        await renderCurrentGameBanner();
-    };
+  document.getElementById("clearCurrentGameBtn").onclick = () => {
+    document.getElementById('verwijderModal').style.display = 'flex';
+  };
+
+  window.confirmDelete = async function () {
+    document.getElementById('verwijderModal').style.display = 'none';
+
+    await fetch(`/collection/api/${currentGame.rawg_id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: "backlog" })
+    });
+
+    await renderCurrentGameBanner();
+  }
+
+  window.closeVerwijder = function () {
+  document.getElementById('verwijderModal').style.display = 'none';
+}
 }
 
 document.addEventListener("DOMContentLoaded", () => {
