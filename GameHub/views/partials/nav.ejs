@@ -25,7 +25,10 @@
           <span class="text-cyan-400 text-sm">✦</span>
           <span>Raad de game</span>
         </a>
-
+        
+        <% if (user && user.avatar) { %>
+            <img src="<%= user.avatar %>" alt="Avatar" class="hidden md:block w-10 h-10 rounded-full object-cover border-2 border-white/10">
+        <% } %>
         <form action="/logout" method="POST" class="hidden md:block">
           <button type="submit" class="text-gray-400 hover:text-white">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

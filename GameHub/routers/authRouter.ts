@@ -2,6 +2,9 @@ import express from "express";
 import {User} from "../types"
 import { login, register } from "../database";
 import { redirectIfLoggedIn, secureMiddleware } from "../middleware/secureMiddleware";
+import multer from "multer";
+
+const upload = multer({ dest: "public/images/uploads/" });
 
 export default function authRouter() {
     const router = express.Router();
@@ -29,13 +32,13 @@ export default function authRouter() {
         res.render("signup");
     });
     
-    router.post("/signup", async (req, res) => {
+    router.post("/signup", upload.single("avatar"), async (req, res) => {
         const email: string = req.body.email;
         const password: string = req.body.password;
+        const avatar: string = req.file ? "/images/uploads/" + req.file.filename : "";
 
         try {
-
-            let user: User = await register(email, password);
+            let user: User = await register(email, password, avatar);
 
             delete user.password;
             req.session.user = user;
@@ -45,7 +48,7 @@ export default function authRouter() {
             req.session.message = { type: "error", message: e.message };
             res.redirect("/signup");
         }
-        });
+    });
 
     router.post("/logout",secureMiddleware, (req, res) => {
         req.session.destroy(() => {

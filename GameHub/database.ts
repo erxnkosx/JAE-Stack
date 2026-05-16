@@ -74,7 +74,7 @@ export async function login(email: string, password: string) {
     }
 }
 
-export async function register(email: string, password: string): Promise<User> {
+export async function register(email: string, password: string, avatar: string): Promise<User> {
     if (email === "" || password === "") {
         throw new Error("Email en wachtwoord zijn verplicht");
     }
@@ -89,6 +89,7 @@ export async function register(email: string, password: string): Promise<User> {
     const newUser: User = {
         email,
         password: hashedPassword,
+        avatar,
         progression: {level: 1, experience: 0}
     };
 

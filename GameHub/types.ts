@@ -39,6 +39,7 @@ export interface Progression {
 export interface User {
     _id?: string;
     progression: Progression;
+    avatar: string;
     email: string;
     password?: string;
 }
