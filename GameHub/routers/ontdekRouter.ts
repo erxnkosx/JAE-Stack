@@ -63,7 +63,6 @@ export default function ontdekRouter() {
     });
 
 
-
     router.get("/suggest", async (req, res) => {
         const q = String(req.query.q);
         const response = await fetch(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&search=${q}&page_size=5`);
