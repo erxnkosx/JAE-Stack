@@ -20,6 +20,7 @@ async function renderCurrentGameBanner() {
       <section class="w-full rounded-2xl border border-cyan-500/30 bg-white/5 backdrop-blur-md px-5 py-4 flex items-center justify-between gap-4">
         <section class="flex items-center gap-4 min-w-0">
           <img
+            loading="lazy"
             src="${currentGame.background_image}"
             alt="${currentGame.title}"
             class="w-16 h-16 rounded-xl object-cover shrink-0"
