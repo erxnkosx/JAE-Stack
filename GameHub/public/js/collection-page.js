@@ -84,6 +84,7 @@ function createGameCard(game) {
         >
             <section class="relative">
                 <img 
+                    loading="lazy"
                     src="${game.background_image}" 
                     alt="${game.title}" 
                     class="w-full h-[420px] object-cover"
