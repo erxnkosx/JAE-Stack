@@ -13,7 +13,7 @@ export const client: MongoClient = new MongoClient(MONGO_URI);
     
 export const gamesCollection: Collection<Game> = client.db("gamehub").collection("games");
 export const userCollection: Collection<User> = client.db("gamehub").collection("users");
-export const gameEntryCollection: Collection<GameEntry> = client.db("gamehub").collection<GameEntry>("gameEntries");
+export const userGamesCollection: Collection<GameEntry> = client.db("gamehub").collection<GameEntry>("userGames");
 
 const SALT_ROUNDS : number = 10;
 
@@ -103,28 +103,28 @@ export async function seedDatabase() {
 }
 
 export async function getCollection(userId: string): Promise<GameEntry[]> {
-    return await gameEntryCollection.find({ user_id: userId }).toArray();
+    return await userGamesCollection.find({ user_id: userId }).toArray();
 }
 
 export async function addToCollection(entry: GameEntry): Promise<void> {
-    const existing = await gameEntryCollection.findOne({ user_id: entry.user_id, rawg_id: entry.rawg_id });
+    const existing = await userGamesCollection.findOne({ user_id: entry.user_id, rawg_id: entry.rawg_id });
     if (existing) throw new Error("Game zit al in je collectie");
-    await gameEntryCollection.insertOne(entry);
+    await userGamesCollection.insertOne(entry);
 }
 
 export async function updateStatus(userId: string, rawgId: number, status: "backlog" | "playing" | "finished"): Promise<void> {
     if (status === "playing") {
-        await gameEntryCollection.updateMany(
+        await userGamesCollection.updateMany(
             { user_id: userId, status: "playing" },
             { $set: { status: "backlog" } }
         );
     }
-    await gameEntryCollection.updateOne(
+    await userGamesCollection.updateOne(
         { user_id: userId, rawg_id: rawgId },
         { $set: { status: status } }
     );
 }
 
 export async function removeFromCollection(userId: string, rawgId: number): Promise<void> {
-    await gameEntryCollection.deleteOne({ user_id: userId, rawg_id: rawgId });
+    await userGamesCollection.deleteOne({ user_id: userId, rawg_id: rawgId });
 }
