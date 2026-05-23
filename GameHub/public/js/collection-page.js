@@ -102,16 +102,15 @@ function createGameCard(game) {
                 <span class="absolute top-4 left-4 flex items-center gap-2 bg-zinc-900/80 text-yellow-400 px-4 py-2 rounded-2xl text-lg font-bold">
                     ⭐ ${game.rating}
                 </span>
+
+                <span class="absolute top-4 right-4 text-xs px-3 py-2 rounded-2xl whitespace-nowrap ${statusClasses[game.status]} backdrop-blur-md">
+                    ${statusText[game.status]}
+                </span>
             </section>
 
             <section class="p-6">
-                <div class="flex items-center justify-between gap-4 mb-2">
-                    <h3 class="text-2xl font-bold text-white">${game.title.split(" ").length > 3 ? game.title.split(" ").slice(0, 3).join(" ") + " ..." : game.title}</h3>
+                <h3 class="text-2xl font-bold text-white mb-2">${game.title.split(" ").length > 3 ? game.title.split(" ").slice(0, 3).join(" ") + " ..." : game.title}</h3>
 
-                    <span class="text-xs px-2 py-1 rounded-full whitespace-nowrap ${statusClasses[game.status]}">
-                        ${statusText[game.status]}
-                    </span>
-                </div>
 
                 <p class="text-slate-300 text-sm leading-relaxed mb-3">
                     ${game.description ? game.description.substring(0, 30) + "..." : "Geen beschrijving beschikbaar."}
