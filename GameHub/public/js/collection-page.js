@@ -72,9 +72,9 @@ function sortCollection(collection) {
 
 function setCollectionLayout(container) {
   if (currentView === "grid") {
-    container.className = "mt-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8";
+    container.className = "max-w-7xl mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8";
   } else {
-    container.className = "mt-6 flex flex-col gap-8 items-center w-full";
+    container.className = "max-w-7xl mx-auto mt-6 flex flex-col gap-8 items-center w-full";
   }
 }
 
@@ -106,7 +106,7 @@ function createGameCard(game) {
 
             <section class="p-6">
                 <div class="flex items-center justify-between gap-4 mb-2">
-                    <h3 class="text-2xl font-bold text-white">${game.title}</h3>
+                    <h3 class="text-2xl font-bold text-white">${game.title.split(" ").length > 3 ? game.title.split(" ").slice(0, 3).join(" ") + " ..." : game.title}</h3>
 
                     <span class="text-xs px-2 py-1 rounded-full whitespace-nowrap ${statusClasses[game.status]}">
                         ${statusText[game.status]}
@@ -114,7 +114,7 @@ function createGameCard(game) {
                 </div>
 
                 <p class="text-slate-300 text-sm leading-relaxed mb-3">
-                    ${game.description}
+                    ${game.description ? game.description.substring(0, 30) + "..." : "Geen beschrijving beschikbaar."}
                 </p>
 
                 <p class="text-slate-400">
