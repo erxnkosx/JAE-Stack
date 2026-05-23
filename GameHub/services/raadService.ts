@@ -1,5 +1,13 @@
-import {Game, GuessGame, User} from "../types";
-import {getGames} from "../database";
+import { Game, GuessGame, User } from "../types";
+import { getGames, userCollection } from "../database";
+
+async function saveUserProgression(user: User) {
+    if (!user._id) return;
+    await userCollection.updateOne(
+        { _id: user._id as any },
+        { $set: { progression: user.progression } }
+    );
+}
 
 function checkGuess(guess: string, answer: string) {
     return guess.trim().toLowerCase() === answer.trim().toLowerCase()
@@ -32,13 +40,15 @@ async function newGame(guessGame: GuessGame) {
 export async function restartGame(guessGame: GuessGame, user: User) {
     guessGame.isGuessable = true;
     progressionNegativeHandler(user)
+    await saveUserProgression(user);
     await newGame(guessGame);
 }
 
 async function wrongHandler(guessGame: GuessGame, user: User) {
-    if (guessGame.tries === 0) {
+    if (guessGame.tries <= 0) {
         progressionNegativeHandler(user);
-        guessGame.isGuessable = false;
+        await saveUserProgression(user);
+        await newGame(guessGame);
     }
 
 }
@@ -53,6 +63,7 @@ function progressionPositiveHandler(user: User) {
 
 async function correctHandler(game: GuessGame, user: User) {
     progressionPositiveHandler(user);
+    await saveUserProgression(user);
     await newGame(game);
 }
 
