@@ -19,7 +19,7 @@ export default function raadRouter() {
             req.session.guessGame = guessGame;
         }
 
-        res.render("raad-page", { info, guessGame: req.session.guessGame, user: req.session.user });
+        res.render("raad-page", { info, guessGame: req.session.guessGame, user: req.session.user, feedback: null });
     });
 
     router.post("/guess", secureMiddleware, async (req, res) => {
@@ -31,9 +31,16 @@ export default function raadRouter() {
         guessGame.guess = req.body.guess as string ?? "";
         const info: PageInfo = { currentPage: "raad" }
 
+        const previousGameName = guessGame.game.name;
+        const wasCorrect = guessGame.guess.trim().toLowerCase() === previousGameName.trim().toLowerCase();
+
         await evaluateGame(guessGame, req.session.user!);
 
-        res.render("raad-page", { info, guessGame, user });
+        const feedback = wasCorrect
+            ? { type: "success", message: `Goed geraden! Het was "${previousGameName}"` }
+            : { type: "error", message: `Fout! Probeer opnieuw.` };
+
+        res.render("raad-page", { info, guessGame, user, feedback });
     });
 
     router.get("/restart", secureMiddleware, async (req, res) => {
