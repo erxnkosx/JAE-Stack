@@ -2,6 +2,7 @@ let currentRawgId = null;
 let currentView = "grid";
 let currentSort = "rating";
 let currentFilter = "all";
+let onlyFiveStars = false;
 
 const statusText = {
   backlog: "Nog te spelen",
@@ -40,11 +41,17 @@ function updateCounters(collection) {
 }
 
 function filterCollection(collection) {
-  if (currentFilter === "all") {
-    return collection;
+  let filtered = collection;
+
+  if (currentFilter !== "all") {
+    filtered = filtered.filter(game => game.status === currentFilter);
   }
 
-  return collection.filter(game => game.status === currentFilter);
+  if (onlyFiveStars) {
+    filtered = filtered.filter(game => game.rating >= 4.80);
+  }
+
+  return filtered;
 }
 
 function sortCollection(collection) {
@@ -305,6 +312,11 @@ function setupEventListeners() {
 
   document.getElementById("sortGames")?.addEventListener("change", event => {
     currentSort = event.target.value;
+    renderGames();
+  });
+  
+  document.getElementById("showAllGames")?.addEventListener("change", event => {
+    onlyFiveStars = event.target.checked;
     renderGames();
   });
 
