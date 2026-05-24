@@ -2,9 +2,9 @@ import { Game, GuessGame, User } from "../types";
 import { getGames, userCollection } from "../database";
 
 async function saveUserProgression(user: User) {
-    if (!user._id) return;
+    if (!user.email) return;
     await userCollection.updateOne(
-        { _id: user._id as any },
+        { email: user.email },
         { $set: { progression: user.progression } }
     );
 }
