@@ -30,26 +30,37 @@ export default function ontdekRouter() {
         });
     });
 
-    router.get("/suggestions", async (req, res) => {
+    router.get("/suggestions", secureMiddleware, async (req, res) => {
         const q = req.query.q as string;
+        const id = req.query.id as string;
         const info: PageInfo = { currentPage: "ontdek" };
         const isSearching: boolean = true;
         const page: number = 0;
         let games: Game[] = [];
-        console.log(q);
 
-        if (cachedGames.size !== 0) {
-            games = findQueryInCache(q, cachedGames);
+        if (id) {
+            const response = await fetch(`https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY}`);
+            if (response.ok) {
+                const game = await response.json();
+                games = [game];
+            }
+        } else {
+            if (cachedGames.size !== 0) {
+                games = findQueryInCache(q, cachedGames);
+            }
+
+            if (games.length === 0) {
+                games = await fetchAllGamesWithQuery(q);
+                cacheGames(q, cachedGames, games);
+            }
+
+            games = games.filter(g => g.name.toLowerCase().includes(q.toLowerCase()));
+
+            console.log("Fetched: ", games.length);
+            console.log("Cache", cachedGames.size);
+
+            games = await getGamesDetail(games);
         }
-
-        if (games.length === 0) {
-            games = await fetchAllGamesWithQuery(q);
-            cacheGames(q, cachedGames, games);
-        }
-        console.log("Fetched: ", games.length);
-        console.log("Cache", cachedGames.size);
-
-        games = await getGamesDetail(games);
 
 
         res.render("ontdek", {

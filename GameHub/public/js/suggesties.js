@@ -1,4 +1,3 @@
-
 const gameSearch = document.getElementById("gameSearch");
 const box = document.getElementById("suggestions");
 const gameStorage = document.getElementById("gamesStorage");
@@ -29,13 +28,15 @@ async function fetchGames(q) {
     if(results.length === 0) return hide();
 
 
-        box.innerHTML = results.map(r => `<div class="hover:bg-white/10 text-white px-4 py-3 cursor-pointer ">${r.name}</div>`).join("");
-        box.addEventListener("click", (e) => {
-            gameSearch.value = e.target.textContent;
-            hide();
-        });
+        box.innerHTML = results.map(r => `<div data-id="${r.id}" class="hover:bg-white/10 text-white px-4 py-3 cursor-pointer ">${r.name}</div>`).join("");
         show()
 }
+
+box?.addEventListener("click", (e) => {
+    const item = e.target.closest("[data-id]");
+    if (!item) return;
+    window.location.href = `/ontdek/suggestions?id=${item.dataset.id}`;
+});
 
 document.addEventListener("click", (e) => {
     if (!box || !gameSearch) return;
