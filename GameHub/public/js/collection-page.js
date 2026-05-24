@@ -185,10 +185,10 @@ async function updateCollectionUI() {
 
   if (!game) {
     collectionStatus.textContent = "Niet in collectie";
-    collectionStatus.className = "rounded-full px-4 py-2 text-sm font-semibold bg-red-600 text-white";
+    collectionBtn.className = "w-full rounded-lg px-4 py-2.5 text-sm font-semibold text-white transition bg-green-600 hover:bg-green-700";
 
     collectionBtn.textContent = "Voeg toe aan collectie";
-    collectionBtn.className = "w-fit min-w-[320px] rounded-xl px-8 py-4 text-xl font-semibold text-white transition bg-green-600 hover:bg-green-700";
+    collectionBtn.className = "w-full rounded-lg px-4 py-2.5 text-sm font-semibold text-white transition bg-red-600 hover:bg-red-700";
 
     return;
   }
