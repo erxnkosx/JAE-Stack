@@ -90,7 +90,7 @@
       </div>
 
       <section
-        class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between mb-8"
+        class="flex flex-wrap items-center justify-between gap-4 mb-8"
       >
         <div class="flex flex-wrap items-center gap-3 sm:gap-4">
           <label for="sortGames" class="text-sm text-slate-400 font-medium"
@@ -208,111 +208,100 @@
 
     <section
       id="gameDetails"
-      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm px-4 sm:px-6"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-sm p-4"
     >
       <section
-        class="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-2xl sm:rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] lg:grid lg:grid-cols-2"
+        class="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl border border-cyan-500/30 bg-[#0b1120] shadow-[0_0_30px_rgba(34,211,238,0.2)] sm:grid sm:grid-cols-2"
       >
         <button
           id="closeGameDetails"
-          class="absolute right-4 top-4 sm:right-5 sm:top-5 z-10 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white/10 text-2xl sm:text-3xl text-slate-300 hover:text-white"
+          class="absolute right-5 top-5 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-black/50 text-2xl text-slate-300 hover:text-white hover:bg-black/70 transition"
         >
           <span class="-translate-y-0.5 inline-block">×</span>
         </button>
 
-        <section class="relative h-[260px] sm:h-[340px] lg:h-full">
+        <section class="relative h-64 sm:h-auto sm:min-h-full">
           <img
-                  loading="lazy"
+            loading="lazy"
             id="gameCover"
             src=""
             alt=""
-            class="h-full w-full object-cover"
+            class="absolute inset-0 h-full w-full object-cover"
           />
         </section>
 
-        <section class="flex flex-col gap-5 sm:gap-7 p-5 sm:p-8 lg:p-12">
-          <section class="flex flex-col items-start gap-5 sm:gap-8">
-            <h2
-              id="gameTitle"
-              class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight"
-            ></h2>
+        <section class="flex flex-col gap-5 p-8 sm:p-10">
+          <h2
+            id="gameTitle"
+            class="text-3xl sm:text-4xl font-bold tracking-tight text-white leading-tight pr-12"
+          ></h2>
 
+          <div>
             <span
               id="collectionStatus"
-              class="rounded-full px-4 py-2 text-sm font-semibold bg-red-600 text-white"
+              class="inline-block rounded-full px-4 py-2 text-sm font-semibold bg-red-600 text-white"
             >
               Niet in collectie
             </span>
-          </section>
+          </div>
 
           <p
             id="gameDescription"
-            class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl"
+            class="text-slate-400 text-base leading-relaxed line-clamp-5"
           ></p>
 
-          <p
-            class="flex items-center gap-2 text-base sm:text-lg text-yellow-400 font-semibold"
-          >
+          <p class="flex items-center gap-2 text-base text-yellow-400 font-semibold">
             <span>⭐</span><span id="gameRating"></span>
           </p>
 
-          <p class="text-slate-400 text-base sm:text-lg">
+          <p class="text-slate-400 text-base">
             Releasedatum: <span id="gameDate"></span>
           </p>
 
-          <section>
+          <section class="pt-2">
             <h3
-              class="mb-4 text-cyan-400 text-sm font-semibold tracking-widest uppercase"
+              class="mb-3 text-cyan-400 text-xs font-semibold tracking-widest uppercase"
             >
               Platformen
             </h3>
-            <section id="gamePlatforms" class="flex flex-wrap gap-2 sm:gap-3">
-              <span
-                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
-                >PC</span
-              >
-              <span
-                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
-                >PlayStation 5</span
-              >
-              <span
-                class="rounded-full bg-white/10 px-4 py-2 sm:px-5 sm:py-3 text-sm sm:text-lg text-slate-200"
-                >Xbox One</span
-              >
+            <section id="gamePlatforms" class="flex flex-wrap gap-2 pt-2">
+              <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-slate-200">PC</span>
+              <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-slate-200">PlayStation 5</span>
+              <span class="rounded-full bg-white/10 px-4 py-2 text-sm text-slate-200">Xbox One</span>
             </section>
           </section>
 
           <section class="mt-auto pt-4 flex flex-col gap-4">
             <button
               id="collectionBtn"
-              class="w-full sm:w-fit sm:min-w-[260px] rounded-xl px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl font-semibold text-white transition bg-red-600 hover:bg-red-700"
+              class="w-full rounded-xl px-6 py-3.5 text-base font-semibold text-white transition bg-red-600 hover:bg-red-700"
             >
               Verwijder uit collectie
             </button>
 
-            <section class="flex flex-col gap-3">
-              <p class="text-sm text-slate-400 font-semibold pt-3 sm:pt-5">
-                Verander status
+            <section class="flex flex-col gap-3 pt-2">
+              <p class="text-sm text-slate-400 font-semibold">
+                Kies status
               </p>
 
-              <section class="flex flex-wrap gap-3 pt-2">
+              <section class="flex flex-wrap gap-2 pt-2">
                 <button
                   id="setBacklog"
-                  class="px-4 py-2 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
+                  class="px-4 py-2 rounded-full bg-transparent border border-gray-700 text-sm font-medium text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
                 >
                   Nog te spelen
                 </button>
 
                 <button
                   id="setPlaying"
-                  class="px-4 py-2 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
+                  class="px-4 py-2 rounded-full bg-transparent border border-gray-700 text-sm font-medium text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
                 >
                   Aan het spelen
                 </button>
 
                 <button
                   id="setFinished"
-                  class="px-4 py-2 rounded-xl bg-gray-900/50 border border-gray-800 text-sm font-semibold text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
+                  class="px-4 py-2 rounded-full bg-transparent border border-gray-700 text-sm font-medium text-slate-300 hover:border-cyan-400 hover:text-cyan-400 transition"
                 >
                   Uitgespeeld
                 </button>
