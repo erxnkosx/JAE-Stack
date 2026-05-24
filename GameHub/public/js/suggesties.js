@@ -1,6 +1,5 @@
 const gameSearch = document.getElementById("gameSearch");
 const box = document.getElementById("suggestions");
-const gameStorage = document.getElementById("gamesStorage");
 
 let t = null;
 
@@ -18,7 +17,6 @@ function show() {
 async function fetchGames(q) {
     if (!box) return;
 
-    console.log(q);
     q = q.trim();
     if(q.length < 2) return hide();
 

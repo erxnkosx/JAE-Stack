@@ -3,8 +3,6 @@ let currentRawgId = null;
 const detail = document.querySelector("#gameDetails");
 const cards = document.querySelectorAll(".game-card");
 
-console.log("Aantal cards:", cards.length);
-
 const statusLabels = {
     backlog: "Nog te spelen",
     playing: "Aan het spelen",

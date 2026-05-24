@@ -1,7 +1,6 @@
 import express from "express";
 import {PageInfo, Cache, Game} from "../types";
 import { secureMiddleware } from "../middleware/secureMiddleware";
-import { getGames } from "../database";
 import {cacheGames, fetchAllGamesWithQuery, findQueryInCache, getGamesDetail} from "../services/gamesService";
 
 export default function ontdekRouter() {
@@ -56,9 +55,6 @@ export default function ontdekRouter() {
 
             games = games.filter(g => g.name.toLowerCase().includes(q.toLowerCase()));
 
-            console.log("Fetched: ", games.length);
-            console.log("Cache", cachedGames.size);
-
             games = await getGamesDetail(games);
         }
 
@@ -74,20 +70,12 @@ export default function ontdekRouter() {
     });
 
 
-    router.get("/suggest", async (req, res) => {
-        const q = String(req.query.q);
-        const response = await fetch(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&search=${q}&page_size=5`);
-        const data = await response.json();
-        res.json(data.results);
-
-    });
     router.get("/game/:rawgId", async (req, res) => {
     const id = req.params.rawgId;
     try {
         const response = await fetch(
             `https://api.rawg.io/api/games/${id}?key=${process.env.API_KEY}`
         );
-        console.log("raw");
         if (!response.ok) {
             return res.status(404).json({ error: "Game niet gevonden" });
         }
@@ -100,19 +88,6 @@ export default function ontdekRouter() {
         res.status(500).json({ error: "Server fout" });
     }
 });
-
-    router.get("/api", secureMiddleware, async (req, res) => {
-        const games = await getGames();
-        res.json(games);
-    });
-
-    router.get("/:id", secureMiddleware, async (req, res) => {
-        const response = await fetch(`https://api.rawg.io/api/games/${req.params.id}?key=${process.env.API_KEY}`);
-        const data = await response.json();
-        const description = data.description_raw || "Geen beschrijving beschikbaar.";
-        console.log("substring");
-        res.json({ description: description.length > 200 ? description.substring(0, 200) + "..." : description });
-    });
 
     return router;
 }

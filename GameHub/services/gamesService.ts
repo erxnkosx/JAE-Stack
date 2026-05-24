@@ -4,13 +4,6 @@ import {Game} from "../types";
 
 const TTL: number = 60 * 5 * 1000;
 
-export async function fetchAllGames() {
-    const response = await fetch(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&page=1`);
-    const data = await response.json();
-    console.log("fetch length: ", data);
-    return data.results;
-}
-
 export async function fetchAllGamesWithQuery(q: string) {
     const response = await fetch(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&search=${q}&ordering=-rating&page=1`);
     const data = await response.json();
