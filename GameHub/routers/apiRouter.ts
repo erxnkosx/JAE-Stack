@@ -8,7 +8,8 @@ export default function apiRouter() {
         const q: string = req.query.q as string;
         const result = await fetch(`https://api.rawg.io/api/games?key=${process.env.API_KEY}&search=${encodeURIComponent(q)}&page_size=6`);
         const response = await result.json();
-        return res.json(response.results);
+        const filtered = (response.results as Game[]).filter(g => g.name.toLowerCase().includes(q.toLowerCase()));
+        return res.json(filtered);
     });
 
     router.get("/api/allGames", async (req, res) => {

@@ -23,7 +23,14 @@ export function cacheGames(query: string, cachedGames: Map<string, Cache>, newGa
 
 export function findQueryInCache(query: string, cache: Map<string, Cache>) {
     if (cache.size === 0) return [];
-    return cache.get(query)?.games ?? [];
+    const key = query.trim().toLowerCase();
+    const entry = cache.get(key);
+    if (!entry) return [];
+    if (Number(entry.expiresAt) < Date.now()) {
+        cache.delete(key);
+        return [];
+    }
+    return entry.games;
 
 }
 
