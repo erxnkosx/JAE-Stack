@@ -41,6 +41,14 @@ function setLoadingState() {
     document.querySelector("#gameRating").textContent = "";
     document.querySelector("#gameDate").textContent = "";
 
+    const cover = document.querySelector("#gameCover");
+
+    if (cover) {
+        cover.src = "";
+        cover.alt = "";
+        cover.style.opacity = "0";
+    }
+
     const platforms = document.querySelector("#gamePlatforms");
 
     if (platforms) {
@@ -55,6 +63,11 @@ function fillGameDetails(game) {
     document.querySelector("#gameDate").textContent = game.released || "Onbekend";
 
     const cover = document.querySelector("#gameCover");
+
+    cover.onload = () => {
+        cover.style.opacity = "1";
+    };
+
     cover.src = game.background_image || "/images/placeholder.jpg";
     cover.alt = game.name;
 
@@ -96,7 +109,7 @@ function fillGameDetails(game) {
             <span class="rounded-full bg-white/10 px-5 py-3 text-lg text-slate-200 flex justify-center items-center">
                 ${item.icon}
             </span>
-        `)
+    `)
         .join("");
 }
 

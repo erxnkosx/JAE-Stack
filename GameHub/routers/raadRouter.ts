@@ -25,7 +25,7 @@ export default function raadRouter() {
     router.post("/guess", secureMiddleware, async (req, res) => {
         const guessGame: GuessGame | undefined = req.session.guessGame;
         const user: User | undefined = req.session.user;
-        if (!guessGame) throw new Error("No game object 1")
+        if (!guessGame) return res.redirect("/raad-page");
         if (!user) throw new Error("No user");
 
         guessGame.guess = req.body.guess as string ?? "";
@@ -46,12 +46,17 @@ export default function raadRouter() {
     router.get("/restart", secureMiddleware, async (req, res) => {
         const guessGame: GuessGame | undefined = req.session.guessGame;
         const user: User | undefined = req.session.user;
-        if (!guessGame) throw new Error("No game object 1")
+        if (!guessGame) return res.redirect("/raad-page");
         if (!user) throw new Error("No user");
 
         await restartGame(guessGame, user);
-        res.redirect("/raad-page");
-    })
+
+        req.session.guessGame = guessGame;
+
+        req.session.save(() => {
+            res.redirect("/raad-page");
+        });
+    });
 
     return router;
 }
