@@ -33,6 +33,13 @@ async function fetchGames(q) {
 box?.addEventListener("click", (e) => {
     const item = e.target.closest("[data-id]");
     if (!item) return;
+
+    if (gameSearch?.dataset.suggestMode === "select") {
+        gameSearch.value = item.textContent;
+        hide();
+        return;
+    }
+
     window.location.href = `/ontdek/suggestions?id=${item.dataset.id}`;
 });
 
