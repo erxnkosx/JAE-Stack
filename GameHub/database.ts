@@ -1,4 +1,4 @@
-import {Collection, MongoClient} from "mongodb";
+import {Collection, MongoClient, ObjectId} from "mongodb";
 import "dotenv/config";
 import {Game, GameEntry, User} from "./types";
 import bcrypt from 'bcrypt';
@@ -127,4 +127,27 @@ export async function updateStatus(userId: string, rawgId: number, status: "back
 
 export async function removeFromCollection(userId: string, rawgId: number): Promise<void> {
     await userGamesCollection.deleteOne({ user_id: userId, rawg_id: rawgId });
+}
+
+export async function changePassword(userId: string, currentPassword: string, newPassword: string): Promise<void> {
+    if (newPassword.length < 6) throw new Error("Nieuw wachtwoord moet minstens 6 tekens lang zijn");
+
+    const user = await userCollection.findOne({ _id: new ObjectId(userId) } as any);
+    if (!user) throw new Error("Gebruiker niet gevonden");
+
+    if (!(await bcrypt.compare(currentPassword, user.password!))) {
+        throw new Error("Huidig wachtwoord is incorrect");
+    }
+
+    const hashed = await bcrypt.hash(newPassword, SALT_ROUNDS);
+    await userCollection.updateOne({ _id: new ObjectId(userId) } as any, { $set: { password: hashed } });
+}
+
+export async function deleteUser(userId: string): Promise<void> {
+    await userGamesCollection.deleteMany({ user_id: userId });
+    await userCollection.deleteOne({ _id: new ObjectId(userId) } as any);
+}
+
+export async function updateAvatar(userId: string, avatar: string): Promise<void> {
+    await userCollection.updateOne({ _id: new ObjectId(userId) } as any, { $set: { avatar } });
 }
