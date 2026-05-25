@@ -328,6 +328,36 @@ function closeGameDetails() {
   document.querySelector("#gameDetails").classList.remove("flex");
 }
 
+function updateFilterButtons() {
+  const filterIds = { all: "filterAll", backlog: "filterBacklog", playing: "filterPlaying", finished: "filterFinished" };
+  Object.values(filterIds).forEach(id => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.classList.remove("text-cyan-400", "border-cyan-400");
+    btn.classList.add("text-slate-400", "border-gray-800");
+  });
+  const activeBtn = document.getElementById(filterIds[currentFilter]);
+  if (activeBtn) {
+    activeBtn.classList.remove("text-slate-400", "border-gray-800");
+    activeBtn.classList.add("text-cyan-400", "border-cyan-400");
+  }
+}
+
+function updateViewButtons() {
+  const ids = { grid: "gridView", list: "listView" };
+  Object.values(ids).forEach(id => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.classList.remove("bg-cyan-500/20", "text-cyan-400");
+    btn.classList.add("text-slate-500", "hover:text-gray-300");
+  });
+  const activeBtn = document.getElementById(ids[currentView]);
+  if (activeBtn) {
+    activeBtn.classList.remove("text-slate-500", "hover:text-gray-300");
+    activeBtn.classList.add("bg-cyan-500/20", "text-cyan-400");
+  }
+}
+
 function setupEventListeners() {
   document.getElementById("collectionBtn")?.addEventListener("click", toggleCollection);
 
@@ -337,31 +367,37 @@ function setupEventListeners() {
 
   document.getElementById("gridView")?.addEventListener("click", () => {
     currentView = "grid";
+    updateViewButtons();
     renderGames();
   });
 
   document.getElementById("listView")?.addEventListener("click", () => {
     currentView = "list";
+    updateViewButtons();
     renderGames();
   });
 
   document.getElementById("filterAll")?.addEventListener("click", () => {
     currentFilter = "all";
+    updateFilterButtons();
     renderGames();
   });
 
   document.getElementById("filterBacklog")?.addEventListener("click", () => {
     currentFilter = "backlog";
+    updateFilterButtons();
     renderGames();
   });
 
   document.getElementById("filterPlaying")?.addEventListener("click", () => {
     currentFilter = "playing";
+    updateFilterButtons();
     renderGames();
   });
 
   document.getElementById("filterFinished")?.addEventListener("click", () => {
     currentFilter = "finished";
+    updateFilterButtons();
     renderGames();
   });
 
@@ -385,4 +421,6 @@ function setupEventListeners() {
 }
 
 setupEventListeners();
+updateFilterButtons();
+updateViewButtons();
 await renderGames();
