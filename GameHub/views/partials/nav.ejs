@@ -105,11 +105,6 @@
       <section
         class="h-[calc(100vh-89px)] flex flex-col items-center justify-center gap-15 text-slate-500 font-black text-5xl tracking-tight -mt-20"
       >
-        <% if (user && user.avatar) { %>
-            <a href="/account" class="block">
-                <img src="<%= user.avatar %>" alt="Avatar" class="w-20 h-20 rounded-full object-cover border-2 border-white/10 hover:border-cyan-400 transition">
-            </a>
-        <% } %>
         <a href="/ontdek" class="hover:text-white transition">Ontdek</a>
         <a href="/collection" class="hover:text-white transition"
           >Collectie</a
@@ -117,9 +112,10 @@
         <a href="/compare" class="hover:text-white transition"
           >Vergelijk</a
         >
+        <a href="/account" class="hover:text-white transition">Accountbeheer</a>
       </section>
 
-      <form action="/logout" method="POST" class="absolute bottom-8 right-0">
+      <form action="/logout" method="POST" class="absolute bottom-8 right-6">
         <button type="submit" class="flex items-center gap-2 text-red-500 hover:text-red-400 hover:drop-shadow-[0_0_8px_rgba(239,68,68,0.8)] text-base font-semibold transition-all duration-300">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
